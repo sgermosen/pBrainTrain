@@ -14,5 +14,14 @@ namespace pBrainTrain.Domain
         {
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();    
         }
+
+        public System.Data.Entity.DbSet<pBrainTrain.Domain.Status> Status { get; set; }
+
+        public System.Data.Entity.DbSet<pBrainTrain.Domain.Rol> Rols { get; set; }
+
+        public System.Data.Entity.DbSet<pBrainTrain.Domain.UserType> UserTypes { get; set; }
+
+        public System.Data.Entity.DbSet<pBrainTrain.Domain.User> Users { get; set; }
+
     }
 }

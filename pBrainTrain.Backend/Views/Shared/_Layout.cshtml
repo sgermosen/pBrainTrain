@@ -17,13 +17,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("My Brain Train App", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Status", "Index", "Status")</li>
+                    <li>@Html.ActionLink("User Type", "Index", "UserTypes")</li>
+                    <li>@Html.ActionLink("Rols", "Index", "Rols")</li>
+                    <li>@Html.ActionLink("Users", "Index", "Users")</li>
+
+                    @*LAbel or tag, then the action to be called, and finnaly the Controller name without the "Controller" part*@
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -33,7 +39,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - PraySoft, Starling Germosen</p>
         </footer>
     </div>
 
