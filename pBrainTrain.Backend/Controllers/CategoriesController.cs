@@ -9,111 +9,125 @@ using System.Web;
 using System.Web.Mvc;
 using pBrainTrain.Backend.Models;
 using pBrainTrain.Domain;
+using pBrainTrain.Backend.Helpers;
 
 namespace pBrainTrain.Backend.Controllers
-{ 
-      [Authorize(Roles = "Admin")]
-public class CountriesController : Controller
+{
+    [Authorize(Roles = "Admin")]
+    public class CategoriesController : Controller
     {
         private LocalDataContext db = new LocalDataContext();
 
-        // GET: Countries
+        // GET: Categories
         public async Task<ActionResult> Index()
         {
-            return View(await db.Countries.ToListAsync());
+            return View(await db.Categories.ToListAsync());
         }
 
-        // GET: Countries/Details/5
+        // GET: Categories/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Country country = await db.Countries.FindAsync(id);
-            if (country == null)
+            Category category = await db.Categories.FindAsync(id);
+            if (category == null)
             {
                 return HttpNotFound();
             }
-            return View(country);
+            return View(category);
         }
 
-        // GET: Countries/Create
+        // GET: Categories/Create
         public ActionResult Create()
         {
-            return View();
+            var cView = new CategoryView();
+            return View(cView);
         }
 
-        // POST: Countries/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "CountryId,Name,Demonym")] Country country)
+        public async Task<ActionResult> Create(CategoryView view)
         {
             if (ModelState.IsValid)
             {
-                db.Countries.Add(country);
+                var category = new Category
+                {
+                    Name = view.Name
+                };
+
+                var pic = string.Empty;
+                const string folder = "~/Content/GamePics";
+
+                if (view.ImageFile != null)
+                {
+                    pic = Files.UploadPhoto(view.ImageFile, folder, "");
+                    pic = string.Format("{0}/{1}", folder, pic);
+                }
+                category.Picture = pic;
+
+                db.Categories.Add(category);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            return View(country);
+            return View(view);
         }
 
-        // GET: Countries/Edit/5
+        // GET: Categories/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Country country = await db.Countries.FindAsync(id);
-            if (country == null)
+            Category category = await db.Categories.FindAsync(id);
+            if (category == null)
             {
                 return HttpNotFound();
             }
-            return View(country);
+            return View(category);
         }
 
-        // POST: Countries/Edit/5
+        // POST: Categories/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "CountryId,Name,Demonym")] Country country)
+        public async Task<ActionResult> Edit([Bind(Include = "CategoryId,Name,Picture")] Category category)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(country).State = EntityState.Modified;
+                db.Entry(category).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(country);
+            return View(category);
         }
 
-        // GET: Countries/Delete/5
+        // GET: Categories/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Country country = await db.Countries.FindAsync(id);
-            if (country == null)
+            Category category = await db.Categories.FindAsync(id);
+            if (category == null)
             {
                 return HttpNotFound();
             }
-            return View(country);
+            return View(category);
         }
 
-        // POST: Countries/Delete/5
+        // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Country country = await db.Countries.FindAsync(id);
-            db.Countries.Remove(country);
+            Category category = await db.Categories.FindAsync(id);
+            db.Categories.Remove(category);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

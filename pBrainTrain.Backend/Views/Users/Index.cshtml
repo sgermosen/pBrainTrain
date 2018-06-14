@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null,new { @class="btn btn-primary"})
 </p>
 <table class="table">
     <tr>
@@ -50,9 +50,9 @@
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.UserId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.UserId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.UserId })
+            @Html.ActionLink("Edit", "Edit", new { id=item.UserId }, new { @class = "btn btn-warning" })  
+            @Html.ActionLink("Details", "Details", new { id=item.UserId }, new { @class = "btn btn-info" })  
+            @Html.ActionLink("Delete", "Delete", new { id=item.UserId }, new { @class = "btn btn-danger" })
         </td>
     </tr>
 }

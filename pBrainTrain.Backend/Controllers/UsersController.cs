@@ -33,8 +33,10 @@
 
             ViewBag.RolId = new SelectList(db.Rols, "RolId", "Name");
 
-            var uRol = new UserRol();
-            uRol.UserId = user.UserId;
+            var uRol = new UserRol
+            {
+                UserId = user.UserId
+            };
             return View(uRol);
         }
 
@@ -74,11 +76,7 @@
 
                 }
 
-                catch (System.Exception e)
-                {
-
-                    throw;
-                }
+               
                 //Do you remember? never use it again please return RedirectToAction("Details/" + uRol.UserId);
                 return RedirectToAction(string.Format("Details/{0}", uRol.UserId));
             }

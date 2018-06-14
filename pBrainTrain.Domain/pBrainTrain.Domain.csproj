@@ -50,9 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Answer.cs" />
+    <Compile Include="Category.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Question.cs" />
     <Compile Include="Rol.cs" />
     <Compile Include="Status.cs" />
     <Compile Include="User.cs" />

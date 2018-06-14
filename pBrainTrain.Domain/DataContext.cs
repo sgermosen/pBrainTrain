@@ -15,6 +15,12 @@ namespace pBrainTrain.Domain
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();    
         }
 
+        public System.Data.Entity.DbSet<pBrainTrain.Domain.Category> Categories { get; set; }
+
+        public System.Data.Entity.DbSet<pBrainTrain.Domain.Question> Questions { get; set; }
+
+        public System.Data.Entity.DbSet<pBrainTrain.Domain.Answer> Answers { get; set; }
+        
         public System.Data.Entity.DbSet<pBrainTrain.Domain.Country> Countries { get; set; }
 
         public System.Data.Entity.DbSet<pBrainTrain.Domain.Status> Status { get; set; }

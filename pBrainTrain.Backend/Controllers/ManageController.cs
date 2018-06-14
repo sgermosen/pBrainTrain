@@ -10,7 +10,7 @@ using pBrainTrain.Backend.Models;
 
 namespace pBrainTrain.Backend.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;
