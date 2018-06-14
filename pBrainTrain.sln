@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pBrainTrain.Backend", "pBra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pBrainTrain.Domain", "pBrainTrain.Domain\pBrainTrain.Domain.csproj", "{4EE05D78-372C-4504-A894-1EE1B6645C37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pBrainTrain.API", "pBrainTrain.API\pBrainTrain.API.csproj", "{C820FB55-0D28-44EC-9EE3-6BA50CAAECBF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pBrainTrain.APIS", "pBrainTrain.APIS\pBrainTrain.APIS.csproj", "{5958404C-794C-4973-B70C-A52CE7303258}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{4EE05D78-372C-4504-A894-1EE1B6645C37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EE05D78-372C-4504-A894-1EE1B6645C37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EE05D78-372C-4504-A894-1EE1B6645C37}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C820FB55-0D28-44EC-9EE3-6BA50CAAECBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C820FB55-0D28-44EC-9EE3-6BA50CAAECBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C820FB55-0D28-44EC-9EE3-6BA50CAAECBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C820FB55-0D28-44EC-9EE3-6BA50CAAECBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5958404C-794C-4973-B70C-A52CE7303258}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5958404C-794C-4973-B70C-A52CE7303258}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5958404C-794C-4973-B70C-A52CE7303258}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5958404C-794C-4973-B70C-A52CE7303258}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
