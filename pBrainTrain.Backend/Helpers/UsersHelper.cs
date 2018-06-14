@@ -26,7 +26,7 @@
                 UserName = email,
             };
 
-            var result = userManager.Create(userAsp, password);
+            var result =   userManager.Create(userAsp, password);
             if (result.Succeeded)
             {
                 userManager.AddToRole(userAsp.Id, roleName);

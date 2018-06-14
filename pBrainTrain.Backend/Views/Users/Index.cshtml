@@ -18,10 +18,10 @@
             @Html.DisplayNameFor(model => model.FirstName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastFirstName)
+            @Html.DisplayNameFor(model => model.LastName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Picture)
+           Pic
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Email)
@@ -38,10 +38,13 @@
             @Html.DisplayFor(modelItem => item.FirstName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.LastFirstName)
+            @Html.DisplayFor(modelItem => item.LastName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Picture)
+            @if (!string.IsNullOrEmpty(item.Picture))
+            {
+                <img src="@Url.Content(item.Picture)" alt="Image" style="max-height:80px;max-width:70px"  />
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Email)

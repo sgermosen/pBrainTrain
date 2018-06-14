@@ -7,7 +7,10 @@
 <h2>Details</h2>
 
 <div>
-    <h4>User</h4>
+    @if (!string.IsNullOrEmpty(Model.Picture))
+    {
+        <img src="@Url.Content(Model.Picture)" alt="Image" class="LogoMedio" style="max-height:200px;max-width:150px" />
+    }
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -27,11 +30,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LastFirstName)
+            @Html.DisplayNameFor(model => model.LastName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.LastFirstName)
+            @Html.DisplayFor(model => model.LastName)
         </dd>
 
         <dt>
@@ -56,3 +59,41 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+<div>
+    Rols for the user
+</div>
+<p>@Html.ActionLink("Give it New Rol", "AssignRol", new { id = Model.UserId })  </p>
+
+@if (Model.UserRols.Count == 0)
+{
+    <h4> Theres no Rols Asigned to this user jet</h4>
+}
+else
+{
+    <table class="table">
+        <tr>
+
+            <th>
+                Rol Name
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.UserRols)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rol.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.UserRolId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.UserRolId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.UserRolId })
+                </td>
+            </tr>
+        }
+
+    </table>
+}
