@@ -5,7 +5,7 @@
              x:Class="pBrainTrain.App.MainPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to pBrainTrain!"
+            <Label Text="Welcome to Brain Train App!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
         </StackLayout>
