@@ -1,25 +1,70 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Web.Http;
-using System.Web.Http.Description;
-using pBrainTrain.APIS.Helpers;
-using pBrainTrain.APIS.Models;
-using pBrainTrain.Domain;
-
-namespace pBrainTrain.APIS.Controllers
+﻿namespace pBrainTrain.APIS.Controllers
 {
+    using System;
+    using System.Data;
+    using System.Data.Entity;
+    using System.IO;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using System.Web.Http;
+    using System.Web.Http.Description;
+    using Newtonsoft.Json.Linq;
+    using Helpers;
+    using Models;
+    using Domain;
+
     [RoutePrefix("api/Users")]
     public class UsersController : ApiController
     {
         private DataContext db = new DataContext();
+
+        [HttpPost]
+        [Route("GetUserByEmail")]
+        public async Task<IHttpActionResult> GetUserByEmail(JObject form)
+        {
+             
+            string email;
+            dynamic jsonObject = form;
+
+            try
+            {
+                email = jsonObject.Email.Value;
+            }
+            catch
+            {
+                return BadRequest("Incorrect call");
+            }
+
+            var user = await db.Users
+                .Where(u => u.Email.ToLower() == email.ToLower())
+                .FirstOrDefaultAsync();
+            if (user == null)
+            {
+                return NotFound();
+            }
+            
+            var userResponse = ToUserResponse(user);
+            return Ok(userResponse);
+        }
+
+        private UserResponse ToUserResponse(User user)
+        {
+            return new UserResponse
+            {
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Picture = user.Picture,
+                UserId = user.UserId,
+                UserType = user.UserType,
+                Country = user.Country,
+                CountryId = user.CountryId,
+                Status = user.Status,
+                StatusId = user.StatusId,
+                UserTypeId = user.UserTypeId
+            };
+        }
+
 
         // GET: api/Users
         public IQueryable<User> GetUsers()

@@ -1,4 +1,6 @@
-﻿[assembly: Xamarin.Forms.Dependency(typeof(pBrainTrain.App.Droid.Implementations.Localize))]
+﻿using Xamarin.Forms;
+
+[assembly: Dependency(typeof(pBrainTrain.App.Droid.Implementations.Localize))]
 
 namespace pBrainTrain.App.Droid.Implementations
 {

@@ -40,6 +40,8 @@
         public static string Forgot => Resource.Forgot;
 
         public static string Register => Resource.Register;
+        public static string Yes => Resource.Yes;
+        public static string No => Resource.No;
 
         //public static string EmailValidation
         //{

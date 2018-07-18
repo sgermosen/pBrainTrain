@@ -138,6 +138,9 @@
   <data name="Login" xml:space="preserve">
     <value>Ingresar</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>Nop</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Contraseña</value>
   </data>
@@ -161,5 +164,8 @@
   </data>
   <data name="Spanish" xml:space="preserve">
     <value>Español:</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Sip</value>
   </data>
 </root>
