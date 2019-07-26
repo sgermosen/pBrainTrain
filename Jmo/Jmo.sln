@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jmo.Backend", "Jmo.Backend\Jmo.Backend.csproj", "{AE51C7C8-CECD-44F7-B181-30F97E547457}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AE51C7C8-CECD-44F7-B181-30F97E547457}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE51C7C8-CECD-44F7-B181-30F97E547457}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE51C7C8-CECD-44F7-B181-30F97E547457}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE51C7C8-CECD-44F7-B181-30F97E547457}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {11BAFDDE-677D-4F8E-8CE9-8F2CB813D439}
+	EndGlobalSection
+EndGlobal
