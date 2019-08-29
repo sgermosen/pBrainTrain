@@ -5,14 +5,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Jmo.Backend.Models;
+using Jmo.Backend.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Jmo.Backend.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly DataContext _context;
+
+        public HomeController(DataContext context)
         {
-            return View();
+            _context = context;
+        }
+        public async Task<IActionResult> Index()
+        {
+            var preguntas = await _context.Preguntas
+                                          .Include(p=>p.Categoria)
+                                          .Include(p => p.Respuestas)
+                                          .ToListAsync();            
+
+            return View(preguntas);
         }
 
         public IActionResult Privacy()

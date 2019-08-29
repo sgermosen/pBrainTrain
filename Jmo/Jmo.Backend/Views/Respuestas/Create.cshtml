@@ -1,0 +1,27 @@
+﻿@model  Respuesta
+@{
+    ViewData["Title"] = "Crear Respuesta";
+}
+
+    <form asp-action="Create"  >
+               
+        <input type="hidden"  asp-for="PreguntaId"/>
+        <div class="form-group">
+            <label asp-for="Opcion" class="control-label"></label>
+            <input asp-for="Opcion" placeholder="ej: 5" autofocus="autofocus" class="form-control" />
+            <span asp-validation-for="Opcion"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="EsCorrecta" class="control-label"></label>
+            <input asp-for="EsCorrecta" type="checkbox" class="form-control" />
+            <span asp-validation-for="EsCorrecta"></span>
+        </div>
+
+        <div class="form-control">
+            <button class="btn btn-primary"> Guardar</button>
+            <a asp-action="Index" class="btn btn-default"> Cancelar</a>
+        </div>
+
+    </form>
+

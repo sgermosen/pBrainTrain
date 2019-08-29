@@ -1,0 +1,34 @@
+﻿@model  PreguntaViewModel
+@{
+    ViewData["Title"] = Model.Titulo;
+}
+
+<h1> @Model.Titulo </h1>
+
+<form asp-action="Create" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label asp-for="CategoriaId" class="control-label"></label>
+        <select asp-for="CategoriaId" class="form-control"  asp-items="@ViewBag.Categorias"></select>
+        <span asp-validation-for="CategoriaId"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Cuestionante" class="control-label"></label>
+        <input asp-for="Cuestionante" placeholder="ej: cuanto es 2 + 2" autofocus="autofocus" class="form-control" />
+        <span asp-validation-for="Cuestionante"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Imagen" class="control-label"></label>
+        <input asp-for="Imagen" type="file" class="form-control" />
+        <span asp-validation-for="Imagen"></span>
+    </div>
+
+    <div class="form-control">
+        <button class="btn btn-primary"> Guardar</button>
+        <a asp-action="Index" class="btn btn-default"> Cancelar</a>
+    </div>
+
+</form>
+

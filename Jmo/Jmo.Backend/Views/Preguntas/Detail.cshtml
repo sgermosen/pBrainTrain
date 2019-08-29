@@ -1,0 +1,30 @@
+﻿@model  Pregunta
+@{
+    ViewData["Title"] = "Detalle Pregunta";
+}
+
+<h1>Detalle Pregunta</h1>
+
+<div class="form-group">
+    <h3> @Model.Cuestionante</h3>
+    @if (!string.IsNullOrEmpty(Model.ImagenUrl))
+    {
+        <img src="@Url.Content(Model.ImagenUrl)" class="Imagenes300400" />
+    }
+    <br />  <br />
+    <a class="btn btn-primary" asp-controller="Respuestas" asp-action="Create" asp-route-id="@Model.Id"> Crear Respuesta</a>
+    <br />  <br />
+    @if (Model.Respuestas.Count > 0)
+    {
+
+        foreach (var resp in Model.Respuestas)
+        {
+            <h4>
+                @resp.Opcion , Es la Respusta?: @resp.EsCorrecta
+            </h4>
+
+        }
+    }
+
+</div>
+

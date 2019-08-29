@@ -44,13 +44,21 @@ namespace Jmo.Backend.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "El campo {0} Debe tener almenos {2} y maximo {1} caracteres de longitud", MinimumLength = 6)]
+            public string Nombre { get; set; }
+
+            [Required]
+            [StringLength(10, ErrorMessage = "El campo {0} Debe tener almenos {2} y maximo {1} caracteres de longitud", MinimumLength = 4)]
+            public string Apodo { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "El campo {0} Debe tener almenos {2} y maximo {1} caracteres de longitud", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Clave")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
+            [Display(Name = "Confirmar Clave")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
         }
@@ -65,11 +73,17 @@ namespace Jmo.Backend.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    Apodo = Input.Apodo,
+                    Nombre = Input.Nombre
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("Usuario creado");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.Page(
