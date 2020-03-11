@@ -1,0 +1,109 @@
+﻿ 
+@model Domain.TournamentGroup
+
+@{
+    ViewBag.Title = "Grupo";
+}
+
+<h2>Torneo: @Model.Tournament.Name</h2>
+<h3>Grupo: @Model.Name</h3>
+
+<p>
+    <a class="btn btn-success" href="/Tournaments/Details/@Model.TournamentId"> <span class="glyphicon glyphicon-circle-arrow-left"></span> Retornar a los grupos </a>
+    <a class="btn btn-primary" href="/Tournaments/CreateTeam/@Model.TournamentGroupId"> <span class="glyphicon glyphicon-plus"></span> Integrar Equipo </a>
+</p>
+
+@if (Model.TournamentTeams.Count == 0)
+{
+    <h3>No hay equipos añadidos aun</h3>
+
+}
+else
+{
+  
+    <table class="table">
+        <tr>
+            <th>
+               Logo
+            </th>
+            <th>
+               Equipo
+            </th>
+
+
+            <th>
+               Partidos Jugados
+            </th>
+            <th>
+               Ganados
+            </th>
+            <th>
+               Perdidos
+            </th>
+            <th>
+               Empatados
+            </th>
+            <th>
+               En Favor
+            </th>
+            <th>
+               En Contra
+            </th>
+            <th>
+              Puntos
+            </th>
+            <th>
+               Posicion
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.TournamentTeams.OrderBy(t => t.Position)) {
+            <tr>
+                <td>
+                    
+                    @if (!string.IsNullOrEmpty(item.Team.Logo))
+                    {
+                        <img src="@Url.Content(item.Team.Logo)" class="LogoChico" />
+                    }
+                         
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Team.Name)
+                </td>
+               
+                <td>
+                    @Html.DisplayFor(modelItem => item.MatchesPlayed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MatchesWon)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MatchesLost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MatchesTied)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FavorGoals)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AgainstGoals)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Points)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Position)
+                </td>
+                <td>
+                    <a class="btn btn-warning" href="/Tournaments/EditTeam/@item.TournamentTeamId"> <span class="glyphicon glyphicon-edit"></span> Editar  </a>
+                    @*<a class="btn btn-info" href="/Tournaments/DetailsGroup/@item.TournamentGroupId"> <span class="glyphicon glyphicon-exclamation-sign"></span> Detalle </a>*@
+                    <a class="btn btn-danger" href="/Tournaments/DeleteTeam/@item.TournamentTeamId" onclick = "return confirm('Esta seguro que desea eliminar este registro?')"> <span class="glyphicon glyphicon-trash"></span> Eliminar  </a>
+
+                </td>
+            </tr>
+        }
+
+    </table>
+}

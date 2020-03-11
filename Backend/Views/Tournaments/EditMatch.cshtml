@@ -1,0 +1,115 @@
+﻿@model Backend.Models.MatchView
+
+@{
+    ViewBag.Title = "Editando";
+}
+
+<h2>Editar Partido</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+       
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.MatchId)
+        @Html.HiddenFor(model => model.DateId)
+        @Html.HiddenFor(model => model.DateTime)
+
+       
+        <div class="form-group">
+            <div class="control-label col-md-2"> Fecha</div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DateString, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DateString, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="control-label col-md-2"> Hora</div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TimeString, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TimeString, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LocalLeagueId, "Liga Local", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("LocalLeagueId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.LocalLeagueId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LocalId, "Equipo Local", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("LocalId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.LocalId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.VisitorLeagueId, "Liga Visitante", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("VisitorLeagueId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.VisitorLeagueId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.VisitorId, "Equipo Visitante", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("VisitorId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.VisitorId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TournamentGroupId, "Grupo", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("TournamentGroupId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TournamentGroupId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.StatusId, "StatusId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("StatusId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.StatusId, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <a class="btn btn-success" href="/Tournaments/DetailsDate/@Model.DateId">
+                    <span class="glyphicon glyphicon-circle-arrow-left"></span> Retornar al grupo
+                </a>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="glyphicon glyphicon-floppy-disk"></i> Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+}
+
+ 
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        var Url = '@Url.Action("GetTeams","Generic")';
+        $(function () {
+            $('#DateString').datetimepicker({ format: 'YYYY/MM/DD' });
+            $('#TimeString').datetimepicker({ format: 'hh:mm A' });
+        });
+    </script>
+}

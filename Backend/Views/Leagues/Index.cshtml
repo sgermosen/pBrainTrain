@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Domain.League>
+
+@{
+    ViewBag.Title = "Ligas";
+}
+
+<h2>Ligas/Confederaciones</h2>
+
+<p>
+    <a class="btn btn-primary" href="/Leagues/Create"> <span class="glyphicon glyphicon-plus"></span> Nuev&#64;  </a>
+               
+    
+
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Liga
+            @*@Html.DisplayNameFor(model => model.Name)*@
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Logo)
+        </th>
+        <th>
+          # Equipos
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @if (!string.IsNullOrEmpty(item.Logo))
+            {
+                <img src="@Url.Content(item.Logo)" class="LogoMedio" />
+            }
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Teams.Count)
+        </td>
+        <td>
+            <a class="btn btn-warning" href="/Leagues/Edit/@item.LeagueId"> <span class="glyphicon glyphicon-edit"></span> Editar  </a>
+            <a class="btn btn-info" href="/Leagues/Details/@item.LeagueId"> <span class="glyphicon glyphicon-exclamation-sign"></span> Detalle </a>
+            <a class="btn btn-danger" href="/Leagues/Delete/@item.LeagueId"> <span class="glyphicon glyphicon-trash"></span> Eliminar  </a>
+  
+            
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Domain.Tournament>
+
+@{
+    ViewBag.Title = "Torneos";
+}
+
+<h2>Torneos/Competencias</h2>
+
+<p>
+    <a class="btn btn-primary" href="/Tournaments/Create"> <span class="glyphicon glyphicon-plus"></span> Nuev&#64;  </a>
+    
+</p>
+<table class="table">
+    <tr>
+        <th>
+           Torneo
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Logo)
+        </th>
+        <th>
+           Activo?
+        </th>
+        <th>
+       Orden
+        </th>
+        <th>
+            # Grupos
+        </th>
+        <th>
+            # Fechas
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @if (!string.IsNullOrEmpty(item.Logo))
+            {
+                <img src="@Url.Content(item.Logo)"  class="LogoMedio" />
+            }
+        </td>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Order)
+        </td>
+         
+        <td>
+            @Html.DisplayFor(modelItem => item.Groups.Count)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dates.Count)
+        </td>
+        <td>
+            <a class="btn btn-warning" href="/Tournaments/Edit/@item.TournamentId"> <span class="glyphicon glyphicon-edit"></span> Editar  </a>
+            <a class="btn btn-info" href="/Tournaments/Details/@item.TournamentId"> <span class="glyphicon glyphicon-exclamation-sign"></span> Detalle </a>
+            <a class="btn btn-danger" href="/Tournaments/Delete/@item.TournamentId"> <span class="glyphicon glyphicon-trash"></span> Eliminar  </a>
+  
+        </td>
+    </tr>
+}
+
+</table>

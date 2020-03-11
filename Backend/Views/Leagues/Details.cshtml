@@ -1,0 +1,90 @@
+﻿@model Domain.League
+
+@{
+    ViewBag.Title = "Liga";
+}
+
+<div>
+    <h4>Liga/Federacion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <div class="control-label col-md-2"> Liga</div>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <br />
+        <dt>
+            <div class="control-label col-md-2"> Logo</div>
+        </dt>
+
+        <dd>
+             
+            @if (!string.IsNullOrEmpty(Model.Logo))
+            {
+                <img src="@Url.Content(Model.Logo)" alt="Image" class="LogoMedio" />
+            }
+             
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a class="btn btn-success" href="/Leagues/Index"> <span class="glyphicon glyphicon-circle-arrow-left"></span> Retornar a las Ligas    </a>
+   
+    <a class="btn btn-primary" href="/Leagues/CreateTeam/@Model.LeagueId"> <span class="glyphicon glyphicon-plus"></span> Crear Equipo   </a>
+
+</p><center><h4>Equipos/Clubes</h4></center>
+
+
+@if (Model.Teams.Count == 0)
+{
+    <h5>No hay equipos o clubes registrados aun!!!!! :'(</h5>
+}
+else
+{
+  <table class="table">
+    <tr>
+         
+        <th>
+          Equipo/Club
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Teams.FirstOrDefault().Logo)
+        </th>
+        <th>
+           Iniciales
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Teams.OrderBy(t=>t.Name)) {
+    <tr>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @if (!string.IsNullOrEmpty(item.Logo))
+            {
+                <img src="@Url.Content(item.Logo)"  class="LogoMedioBajo" />
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Initials)
+        </td>
+        <td>
+            <a class="btn btn-warning" href="/Leagues/EditTeam/@item.TeamId"> <span class="glyphicon glyphicon-edit"></span> Editar  </a>
+            @*<a class="btn btn-info" href="/Leagues/DetailsTeam/@item.TeamId"> <span class="glyphicon glyphicon-exclamation-sign"></span> Detalle </a>*@
+            <a class="btn btn-danger" href="/Leagues/DeleteTeam/@item.TeamId" onclick = "return confirm('Esta seguro que desea eliminar este registro?')"> <span class="glyphicon glyphicon-trash"></span> Eliminar  </a>
+  
+       
+        </td>
+    </tr>
+}
+
+</table>
+}
+

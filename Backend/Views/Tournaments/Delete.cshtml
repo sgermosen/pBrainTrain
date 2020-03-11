@@ -1,0 +1,46 @@
+﻿@model Domain.Tournament
+
+@{
+    ViewBag.Title = "Eliminacion";
+}
+
+<h2>Eliminar Torneo/Competencia</h2>
+
+<h3>Esta seguro que desea eliminar este registro?</h3>
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <div class="control-label col-md-2"> Torneo</div>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            <div class="control-label col-md-2"> Logo</div>
+        </dt>
+
+        <dd>
+            @if (!string.IsNullOrEmpty(Model.Logo))
+            {
+                <img src="@Url.Content(Model.Logo)" alt="Image" class="LogoNormal" />
+            }
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <a class="btn btn-success" href="/Tournaments/Index"> <span class="glyphicon glyphicon-circle-arrow-left"></span> Retornar a las Ligas    </a>
+            <button type="submit" class="btn btn-danger">
+                <i class="glyphicon glyphicon-trash"></i> Eliminar
+            </button>
+           
+        </div>
+    }
+</div>
