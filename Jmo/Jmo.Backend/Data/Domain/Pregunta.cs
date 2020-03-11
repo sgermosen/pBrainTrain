@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Jmo.Backend.Data.Domain
 {
-    public class Pregunta
+    public class Pregunta : IEntity
     {
         public int Id { get; set; }
 

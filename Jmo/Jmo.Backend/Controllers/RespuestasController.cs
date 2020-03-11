@@ -1,24 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Jmo.Backend.Data;
-using Jmo.Backend.Data.Domain;
+﻿using Jmo.Backend.Data.Domain;
+using Jmo.Backend.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Jmo.Backend.Controllers
 {
     public class RespuestasController : Controller
     {
-        private readonly DataContext _context;
+        private readonly IPreguntaRepository _preguntaRepository;
+        private readonly IRespuestaRepository _repository;
 
-        public RespuestasController(DataContext context)
+        public RespuestasController(IRespuestaRepository repository, IPreguntaRepository reguntaRepository)
         {
-            _context = context;
+            _repository = repository;
+            _preguntaRepository = reguntaRepository;
         }
+
         public async Task<IActionResult> Create(int id)
         {
-            var preg = await _context.Preguntas.FindAsync(id);
+            var preg = _preguntaRepository.GetPregunta(id);
 
             var resp = new Respuesta { PreguntaId = preg.Id };
 
@@ -32,9 +32,8 @@ namespace Jmo.Backend.Controllers
                 return View();
             rpt.Id = 0;
 
-            _context.Add(rpt);
-            await _context.SaveChangesAsync();
-
+          await  _repository.CreateAsync(rpt);
+            
             return RedirectToAction("Detail", "Preguntas", new { id = rpt.PreguntaId });
         }
     }

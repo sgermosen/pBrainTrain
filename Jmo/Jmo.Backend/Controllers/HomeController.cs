@@ -7,23 +7,21 @@ using Microsoft.AspNetCore.Mvc;
 using Jmo.Backend.Models;
 using Jmo.Backend.Data;
 using Microsoft.EntityFrameworkCore;
+using Jmo.Backend.Repositories;
 
 namespace Jmo.Backend.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly DataContext _context;
+        private readonly IPreguntaRepository _repository;
 
-        public HomeController(DataContext context)
+        public HomeController(IPreguntaRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
         public async Task<IActionResult> Index()
         {
-            var preguntas = await _context.Preguntas
-                                          .Include(p=>p.Categoria)
-                                          .Include(p => p.Respuestas)
-                                          .ToListAsync();            
+            var preguntas =  _repository.GetPreguntas();            
 
             return View(preguntas);
         }
