@@ -1,21 +1,20 @@
-﻿using Jmo.Web.Helpers;
-using Jmo.Web.Repositories;
+﻿using Jmo.Web.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Jmo.Web.Controllers.API
 {
     [Route("api/[controller]")]
-     [ApiController]
+    [ApiController]
     public class PreguntasController : ControllerBase
     {
         private readonly IPreguntaRepository _repository;
         private readonly ICategoriaRepository _categoriaRepository;
-        private readonly IUserHelper userHelper;
+        //private readonly IUserHelper userHelper;
 
-        public PreguntasController(IPreguntaRepository repository, IUserHelper userHelper, ICategoriaRepository categoriaRepository)
+        public PreguntasController(IPreguntaRepository repository, ICategoriaRepository categoriaRepository)// IUserHelper userHelper,)
         {
             _repository = repository;
-            this.userHelper = userHelper;
+            //   this.userHelper = userHelper;
             _categoriaRepository = categoriaRepository;
         }
 

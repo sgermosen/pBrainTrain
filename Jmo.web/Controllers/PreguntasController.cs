@@ -7,7 +7,6 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Jmo.Web.Helpers;
 
 namespace Jmo.Web.Controllers
 {
@@ -15,14 +14,15 @@ namespace Jmo.Web.Controllers
     {
         private readonly IPreguntaRepository _repository;
         private readonly ICategoriaRepository _categoriaRepository;
-        private readonly IUserHelper userHelper;
+     //   private readonly IUserHelper userHelper;
 
-        public PreguntasController(IPreguntaRepository repository, IUserHelper userHelper, ICategoriaRepository categoriaRepository)
+        public PreguntasController(IPreguntaRepository repository,  ICategoriaRepository categoriaRepository)//IUserHelper userHelper,
         {
             _repository = repository;
-            this.userHelper = userHelper;
+          //  this.userHelper = userHelper;
             _categoriaRepository = categoriaRepository;
         }
+
         public IActionResult Detail(int id)
         {
             var pregunta = _repository.GetPregunta(id);
@@ -73,7 +73,7 @@ namespace Jmo.Web.Controllers
                 ImagenUrl = pathUrl
             };
 
-          await  _repository.CreateAsync(pregunta); 
+            await _repository.CreateAsync(pregunta);
             return RedirectToAction("Index", "Home");
         }
     }

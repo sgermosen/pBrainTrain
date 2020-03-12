@@ -1,6 +1,6 @@
-﻿using Jmo.Web.Data;
+﻿using Jmo.Infraestructure;
+using Jmo.Web.Data;
 using Jmo.Web.Data.Domain;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,9 +8,9 @@ namespace Jmo.Web.Repositories
 {
     public class CategoriaRepository : GenericRepository<Categoria>, ICategoriaRepository
     {
-        private readonly DataContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public CategoriaRepository(DataContext context) : base(context)
+        public CategoriaRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }
@@ -18,7 +18,5 @@ namespace Jmo.Web.Repositories
         {
             return _context.Categorias.OrderBy(p => p.Nombre);
         }
-
-
     }
 }

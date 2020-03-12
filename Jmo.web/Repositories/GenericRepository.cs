@@ -1,4 +1,5 @@
-﻿using Jmo.Web.Data;
+﻿using Jmo.Infraestructure;
+using Jmo.Web.Data;
 using Jmo.Web.Data.Domain;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -9,9 +10,9 @@ namespace Jmo.Web.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class, IEntity
     {
-        private readonly DataContext context;
+        private readonly ApplicationDbContext context;
 
-        public GenericRepository(DataContext context)
+        public GenericRepository(ApplicationDbContext context)
         {
             this.context = context;
         }

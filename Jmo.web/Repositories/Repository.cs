@@ -1,24 +1,18 @@
-﻿using Jmo.Web.Data;
-using Jmo.Web.Data.Domain;
-using System.Collections.Generic;
+﻿using Jmo.Infraestructure;
+using Jmo.Web.Data;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace Jmo.Web.Repositories
 {
     public class Repository : IRepository
     {
-        private readonly DataContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public Repository(DataContext context)
+        public Repository(ApplicationDbContext context)
         {
             _context = context;
         }
-       
-       
-
-      
 
         public async Task<bool> SaveAllAsync()
         {

@@ -1,4 +1,5 @@
-﻿using Jmo.Web.Data;
+﻿using Jmo.Infraestructure;
+using Jmo.Web.Data;
 using Jmo.Web.Data.Domain;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -8,9 +9,9 @@ namespace Jmo.Web.Repositories
 {
     public class PreguntaRepository : GenericRepository<Pregunta>, IPreguntaRepository
     {
-        private readonly DataContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public PreguntaRepository(DataContext context) : base(context)
+        public PreguntaRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }

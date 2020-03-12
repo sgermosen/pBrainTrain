@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Jmo.Web.Helpers;
+using Jmo.Infraestructure;
 using Jmo.Web.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -37,15 +33,15 @@ namespace Jmo.Web
             //    })
             //    .AddEntityFrameworkStores<DataContext>();
 
-            //services.AddDbContext<DataContext>(cfg =>
-            //{
-            //    cfg.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
-            //});
+            services.AddDbContext<ApplicationDbContext>(cfg =>
+            {
+                cfg.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
+            });
 
             //   services.AddTransient<SeedDb>();
 
             // services.AddScoped<IRepository, Repository>();
-            services.AddScoped<IUserHelper, UserHelper>();
+           // services.AddScoped<IUserHelper, UserHelper>();
             services.AddScoped<IPreguntaRepository, PreguntaRepository>();
             services.AddScoped<ICategoriaRepository, CategoriaRepository>();
             services.AddScoped<IRespuestaRepository, RespuestaRepository>();
@@ -73,13 +69,13 @@ namespace Jmo.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-          
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthorization();
-   app.UseAuthentication();
-   app.UseCookiePolicy();
+            app.UseAuthentication();
+            app.UseCookiePolicy();
 
             app.UseEndpoints(endpoints =>
             {
