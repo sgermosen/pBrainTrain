@@ -1,9 +1,11 @@
 ﻿using Prism;
 using Prism.Ioc;
 using Jmo.XfApp.ViewModels;
-using Jmo.XfApp.Views;
+//using Jmo.XfApp.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Jmo.Common.Services;
+using Jmo.XfApp.Views;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Jmo.XfApp
@@ -23,13 +25,15 @@ namespace Jmo.XfApp
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await NavigationService.NavigateAsync("NavigationPage/CategoriesPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.Register<IApiService, ApiService>();
             containerRegistry.RegisterForNavigation<NavigationPage>();
-            containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+            containerRegistry.RegisterForNavigation<ChallengesPage, ChallengesPageViewModel>();
+            containerRegistry.RegisterForNavigation<CategoriesPage, CategoriesPageViewModel>();
         }
     }
 }

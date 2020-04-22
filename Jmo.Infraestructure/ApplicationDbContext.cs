@@ -2,9 +2,6 @@
 using Jmo.Web.Data.Domain;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Jmo.Infraestructure
 {
@@ -15,18 +12,22 @@ namespace Jmo.Infraestructure
         {
         }
 
-        #region Tablas
-        public DbSet<Categoria> Categorias { get; set; }
-        public DbSet<Pregunta> Preguntas { get; set; }
-        public DbSet<Respuesta> Respuestas { get; set; }
+        #region Tables
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Answer> Answers { get; set; }
         #endregion
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<Pregunta>()
-                .HasIndex(t => t.Cuestionante).IsUnique();
+            builder.Entity<Category>()
+              .HasIndex(t => t.Name).IsUnique();
+
+            builder.Entity<Question>()
+                .HasIndex(t => t.Questionant).IsUnique();
+
         }
     }
 }

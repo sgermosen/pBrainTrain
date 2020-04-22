@@ -5,7 +5,8 @@ namespace Jmo.Web.Data
     // Add profile data for application users by adding properties to the ApplicationUser class
     public class ApplicationUser : IdentityUser
     {
-        public string Apodo { get; set; }
-        public string Nombre { get; set; }
+        public string Nickname { get; set; }
+        public string Firtsname { get; set; }
+        public string Lastname { get; set; }
     }
 }

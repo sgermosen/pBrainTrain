@@ -1,0 +1,30 @@
+﻿@model  Jmo.Web.Data.Domain.Question
+@{
+    ViewData["Title"] = "Detalle Pregunta";
+}
+
+<h1>Detalle Pregunta</h1>
+
+<div class="form-group">
+    <h3> @Model.Questionant</h3>
+    @if (!string.IsNullOrEmpty(Model.ImagenUrl))
+    {
+        <img src="@Url.Content(Model.ImagenUrl)" class="Imagenes300400" />
+    }
+    <br />  <br />
+    <a class="btn btn-primary" asp-controller="Answers" asp-action="Create" asp-route-id="@Model.Id"> Crear Respuesta</a>
+    <br />  <br />
+    @if (Model.Answers.Count > 0)
+    {
+
+        foreach (var resp in Model.Answers)
+        {
+            <h4>
+                @resp.Option, Es la Respusta?: @resp.IsCorrect
+            </h4>
+
+        }
+    }
+
+</div>
+

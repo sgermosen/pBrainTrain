@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 
 namespace Jmo.Web
 {
@@ -42,9 +43,9 @@ namespace Jmo.Web
 
             // services.AddScoped<IRepository, Repository>();
            // services.AddScoped<IUserHelper, UserHelper>();
-            services.AddScoped<IPreguntaRepository, PreguntaRepository>();
-            services.AddScoped<ICategoriaRepository, CategoriaRepository>();
-            services.AddScoped<IRespuestaRepository, RespuestaRepository>();
+            services.AddScoped<IQuestionRepository, QuestionRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IAnswerRepository, AnswerRepository>();
 
 
             services.Configure<CookiePolicyOptions>(options =>
@@ -53,7 +54,10 @@ namespace Jmo.Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+    .AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,9 +69,10 @@ namespace Jmo.Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                app.UseDeveloperExceptionPage();
+                //app.UseExceptionHandler("/Home/Error");
+                //// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                //app.UseHsts();
             }
 
             app.UseHttpsRedirection();

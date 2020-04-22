@@ -1,0 +1,78 @@
+﻿@model  Jmo.Web.ViewModels.QuestionViewModel
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<h1> @Model.Title </h1>
+
+<form asp-action="Create" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label asp-for="CategoryId" class="control-label"></label>
+        <select asp-for="CategoryId" class="form-control" asp-items="@ViewBag.Categories"></select>
+        <span asp-validation-for="CategoryId"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Questionant" class="control-label"></label>
+        <input asp-for="Questionant" placeholder="ej: cuanto es 2 + 2" autofocus="autofocus" class="form-control" />
+        <span asp-validation-for="Questionant"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Answer1" class="control-label"></label>
+        <input asp-for="Answer1" placeholder="ej: 5" autofocus="autofocus" class="form-control" />
+        <span asp-validation-for="Answer1"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Answer1IsCorrect" class="control-label"></label>
+        <input asp-for="Answer1IsCorrect" type="checkbox" class="form-control" />
+        <span asp-validation-for="Answer1IsCorrect"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Answer2" class="control-label"></label>
+        <input asp-for="Answer2" placeholder="ej: 5" autofocus="autofocus" class="form-control" />
+        <span asp-validation-for="Answer2"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Answer2IsCorrect" class="control-label"></label>
+        <input asp-for="Answer2IsCorrect" type="checkbox" class="form-control" />
+        <span asp-validation-for="Answer2IsCorrect"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Answer3" class="control-label"></label>
+        <input asp-for="Answer3" placeholder="ej: 5" autofocus="autofocus" class="form-control" />
+        <span asp-validation-for="Answer3"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Answer3IsCorrect" class="control-label"></label>
+        <input asp-for="Answer3IsCorrect" type="checkbox" class="form-control" />
+        <span asp-validation-for="Answer3IsCorrect"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Answer4" class="control-label"></label>
+        <input asp-for="Answer4" placeholder="ej: 5" autofocus="autofocus" class="form-control" />
+        <span asp-validation-for="Answer4"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Answer4IsCorrect" class="control-label"></label>
+        <input asp-for="Answer4IsCorrect" type="checkbox" class="form-control" />
+        <span asp-validation-for="Answer4IsCorrect"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Image" class="control-label"></label>
+        <input asp-for="Image" type="file" class="form-control" />
+        <span asp-validation-for="Image"></span>
+    </div>
+
+    <div class="form-control">
+        <button class="btn btn-primary"> Guardar</button>
+        <a asp-action="Index" class="btn btn-default"> Cancelar</a>
+    </div>
+
+</form>
+

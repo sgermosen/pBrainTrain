@@ -1,5 +1,5 @@
 ﻿
-@model IEnumerable<Jmo.Web.Data.Domain.Pregunta>
+@model IEnumerable<Jmo.Web.Data.Domain.Question>
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -11,16 +11,16 @@
         {
 
             <div class="form-group">
-                <h3>@preg.Cuestionante</h3>
+                <h3>@preg.Questionant</h3>
             </div>
             <div class="form-group">
-                <a asp-route-id="@preg.Id" class="btn btn-info" asp-action="Detail" asp-controller="Preguntas">
+                <a asp-route-id="@preg.Id" class="btn btn-info" asp-action="Detail" asp-controller="Questions">
                     Detalle y Respuestas
                 </a>
-                <a asp-route-id="@preg.Id" class="btn btn-warning" asp-action="Create" asp-controller="Preguntas">
+                <a asp-route-id="@preg.Id" class="btn btn-warning" asp-action="Create" asp-controller="Questions">
                     Editar
                 </a>
-                <a asp-route-id="@preg.Id" class="btn btn-danger" asp-action="Create" asp-controller="Preguntas">
+                <a asp-route-id="@preg.Id" class="btn btn-danger" asp-action="Create" asp-controller="Questions">
                     Eliminar
                 </a>
             </div>

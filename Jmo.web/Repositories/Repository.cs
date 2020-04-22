@@ -1,5 +1,4 @@
 ﻿using Jmo.Infraestructure;
-using Jmo.Web.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,9 +18,9 @@ namespace Jmo.Web.Repositories
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public bool PreguntaExists(int id)
+        public bool QuestionExists(int id)
         {
-            return _context.Preguntas.Any(p => p.Id == id);
+            return _context.Questions.Any(p => p.Id == id);
         }
 
     }

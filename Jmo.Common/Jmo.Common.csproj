@@ -4,4 +4,17 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Models\GroupDetailResponse.cs" />
+    <Compile Remove="Models\GroupResponse.cs" />
+    <Compile Remove="Models\MatchResponse.cs" />
+    <Compile Remove="Models\PredictionResponse.cs" />
+    <Compile Remove="Models\TeamResponse.cs" />
+    <Compile Remove="Models\TournamentResponse.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
 </Project>

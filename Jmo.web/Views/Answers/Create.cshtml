@@ -1,0 +1,27 @@
+﻿@model  Jmo.Web.Data.Domain.Answer
+@{
+    ViewData["Title"] = "Crear Respuesta";
+}
+
+    <form asp-action="Create"  >
+               
+        <input type="hidden"  asp-for="QuestionId"/>
+        <div class="form-group">
+            <label asp-for="Option" class="control-label"></label>
+            <input asp-for="Option" placeholder="ej: 5" autofocus="autofocus" class="form-control" />
+            <span asp-validation-for="Option"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="IsCorrect" class="control-label"></label>
+            <input asp-for="IsCorrect" type="checkbox" class="form-control" />
+            <span asp-validation-for="IsCorrect"></span>
+        </div>
+
+        <div class="form-control">
+            <button class="btn btn-primary"> Guardar</button>
+            <a asp-action="Index" class="btn btn-default"> Cancelar</a>
+        </div>
+
+    </form>
+

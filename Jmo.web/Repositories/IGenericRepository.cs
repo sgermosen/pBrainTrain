@@ -17,6 +17,7 @@ namespace Jmo.Web.Repositories
         Task DeleteAsync(T entity);
 
         Task<bool> ExistAsync(int id);
+        Task<bool> SaveAllAsync();
 
     }
 }

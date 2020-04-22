@@ -1,39 +1,31 @@
 ﻿using Jmo.Web.Models;
 using Jmo.Web.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Jmo.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IQuestionRepository _repository;
 
-        //public HomeController(ILogger<HomeController> logger)
-        //{
-        //    _logger = logger;
-        //}
-
-
-        private readonly IPreguntaRepository _repository;
-
-        public HomeController(IPreguntaRepository repository)
+        public HomeController(IQuestionRepository repository)
         {
             _repository = repository;
         }
         public IActionResult Index()
         {
-            var preguntas = _repository.GetPreguntas();
+            var questions = _repository.GetQuestions();
 
-            return View(preguntas);
+            return View(questions.OrderByDescending(p => p.Id));
         }
 
         public IActionResult Privacy()
         {
             return View();
         }
-        
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

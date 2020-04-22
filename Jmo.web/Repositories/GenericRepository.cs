@@ -1,5 +1,4 @@
 ﻿using Jmo.Infraestructure;
-using Jmo.Web.Data;
 using Jmo.Web.Data.Domain;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
