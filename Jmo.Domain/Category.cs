@@ -6,7 +6,7 @@ namespace Jmo.Web.Data.Domain
     {
         public int Id { get; set; }
 
-        [StringLength(50)]
+        [StringLength(100)]
         public string Name { get; set; }
 
         [StringLength(250)]

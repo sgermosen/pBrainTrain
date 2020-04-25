@@ -12,7 +12,7 @@ namespace Jmo.Web.Repositories
         Question GetQuestion(int id);
 
         void AddQuestion(Question question);
-        void AddQuestion(Question question, List<Answer> answers);
+        void AddQuestion(Question question, List<Choise> Choises);
         void UpdateQuestion(Question question);
 
         void RemoveQuestion(Question question);

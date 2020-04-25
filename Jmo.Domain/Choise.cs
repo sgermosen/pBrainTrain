@@ -2,11 +2,11 @@
 
 namespace Jmo.Web.Data.Domain
 {
-    public class Answer : IEntity
+    public class Choise : IEntity
     {
         public int Id { get; set; }
 
-        [StringLength(100)]
+        [StringLength(1500)]
         public string Option { get; set; }
 
         public bool IsCorrect { get; set; }

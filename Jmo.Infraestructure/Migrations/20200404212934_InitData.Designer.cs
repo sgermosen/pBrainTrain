@@ -95,7 +95,7 @@ namespace Jmo.Infraestructure.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Jmo.Web.Data.Domain.Answer", b =>
+            modelBuilder.Entity("Jmo.Web.Data.Domain.Choise", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -116,7 +116,7 @@ namespace Jmo.Infraestructure.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("Answers");
+                    b.ToTable("Choises");
                 });
 
             modelBuilder.Entity("Jmo.Web.Data.Domain.Category", b =>
@@ -303,10 +303,10 @@ namespace Jmo.Infraestructure.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Jmo.Web.Data.Domain.Answer", b =>
+            modelBuilder.Entity("Jmo.Web.Data.Domain.Choise", b =>
                 {
                     b.HasOne("Jmo.Web.Data.Domain.Question", "Question")
-                        .WithMany("Answers")
+                        .WithMany("Choises")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

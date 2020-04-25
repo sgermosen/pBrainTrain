@@ -1,6 +1,6 @@
 ﻿namespace Jmo.Common.Models
 {
-    public class AnswerResponse
+    public class ChoiseResponse
     {
         public int Id { get; set; }
 

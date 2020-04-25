@@ -2,8 +2,8 @@
 
 namespace Jmo.Web.Repositories
 {
-    public interface IAnswerRepository : IGenericRepository<Answer>
+    public interface IChoiseRepository : IGenericRepository<Choise>
     {
-        void AddAnswer(Answer answer);
+        void AddChoise(Choise Choise);
     }
 }

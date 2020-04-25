@@ -13,6 +13,6 @@ namespace Jmo.Common.Models
         public int CategoryId { get; set; }
         public CategoryResponse Category { get; set; }
 
-        public ICollection<AnswerResponse> Answers { get; set; }
+        public ICollection<ChoiseResponse> Choises { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace Jmo.Web.Repositories
         {
             return _context.Questions
                 .Include(p => p.Category)
-                .Include(p => p.Answers)
+                .Include(p => p.Choises)
                 .OrderBy(p => p.Questionant);
         }
 
@@ -28,7 +28,7 @@ namespace Jmo.Web.Repositories
         {
             var results = _context.Questions.Where(p => p.CategoryId == id)
                 .Include(p => p.Category)
-                .Include(p => p.Answers);
+                .Include(p => p.Choises);
             //.OrderBy(p => p.Questionant);
             return results.OrderBy(x => Guid.NewGuid()).ToList();
         }
@@ -37,17 +37,17 @@ namespace Jmo.Web.Repositories
         {
             return _context.Questions.Where(p => p.Id == id)
                 .Include(p => p.Category)
-                .Include(p => p.Answers).FirstOrDefault(p => p.Id == id);
+                .Include(p => p.Choises).FirstOrDefault(p => p.Id == id);
         }
 
-        public void AddQuestion(Question question, List<Answer> answers)
+        public void AddQuestion(Question question, List<Choise> Choises)
         {
             _context.Questions.Add(question);
 
-            foreach (var item in answers)
+            foreach (var item in Choises)
             {
                 item.Question = question;
-                _context.Answers.Add(item);
+                _context.Choises.Add(item);
             }
         }
 

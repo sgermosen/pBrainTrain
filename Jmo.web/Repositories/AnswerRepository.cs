@@ -3,17 +3,17 @@ using Jmo.Web.Data.Domain;
 
 namespace Jmo.Web.Repositories
 {
-    public class AnswerRepository : GenericRepository<Answer>, IAnswerRepository
+    public class ChoiseRepository : GenericRepository<Choise>, IChoiseRepository
     {
         private readonly ApplicationDbContext _context;
-        public AnswerRepository(ApplicationDbContext context) : base(context)
+        public ChoiseRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }
 
-        public void AddAnswer(Answer answer)
+        public void AddChoise(Choise Choise)
         {
-            _context.Answers.Add(answer);
+            _context.Choises.Add(Choise);
         }
     }
 }

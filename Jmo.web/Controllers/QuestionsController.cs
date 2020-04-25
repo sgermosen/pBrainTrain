@@ -14,14 +14,14 @@ namespace Jmo.Web.Controllers
     public class QuestionsController : Controller
     {
         private readonly IQuestionRepository _repository;
-        private readonly IAnswerRepository _answerRepository;
+        private readonly IChoiseRepository _ChoiseRepository;
         private readonly ICategoryRepository _categoryRepository;
 
-        public QuestionsController(IQuestionRepository repository, IAnswerRepository answerRepository,
+        public QuestionsController(IQuestionRepository repository, IChoiseRepository ChoiseRepository,
             ICategoryRepository categoryRepository)
         {
             _repository = repository;
-            _answerRepository = answerRepository;
+            _ChoiseRepository = ChoiseRepository;
             _categoryRepository = categoryRepository;
         }
 
@@ -70,36 +70,36 @@ namespace Jmo.Web.Controllers
 
             var question = new Question
             {
+                AnswerRestrospective = vm.AnswerRestrospective,
                 CategoryId = vm.CategoryId,
                 Questionant = vm.Questionant,
                 ImagenUrl = pathUrl
             };
 
+           // var Choises = new List<Choise>();
 
-            var answers = new List<Answer>();
-
-            answers.Add(new Answer
+            question.Choises.Add(new Choise
             {
-                IsCorrect = vm.Answer1IsCorrect,
-                Option = vm.Answer1,
+                IsCorrect = vm.Choise1IsCorrect,
+                Option = vm.Choise1,
             });
-            answers.Add(new Answer
+            question.Choises.Add(new Choise
             {
-                IsCorrect = vm.Answer2IsCorrect,
-                Option = vm.Answer2,
+                IsCorrect = vm.Choise2IsCorrect,
+                Option = vm.Choise2,
             });
-            answers.Add(new Answer
+            question.Choises.Add(new Choise
             {
-                IsCorrect = vm.Answer3IsCorrect,
-                Option = vm.Answer3,
+                IsCorrect = vm.Choise3IsCorrect,
+                Option = vm.Choise3,
             });
-            answers.Add(new Answer
+            question.Choises.Add(new Choise
             {
-                IsCorrect = vm.Answer4IsCorrect,
-                Option = vm.Answer4,
+                IsCorrect = vm.Choise4IsCorrect,
+                Option = vm.Choise4,
             });
 
-            _repository.AddQuestion(question, answers);
+            _repository.AddQuestion(question);
 
             await _repository.SaveAllAsync();
 

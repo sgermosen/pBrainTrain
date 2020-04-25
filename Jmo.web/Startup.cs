@@ -45,7 +45,7 @@ namespace Jmo.Web
            // services.AddScoped<IUserHelper, UserHelper>();
             services.AddScoped<IQuestionRepository, QuestionRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
-            services.AddScoped<IAnswerRepository, AnswerRepository>();
+            services.AddScoped<IChoiseRepository, ChoiseRepository>();
 
 
             services.Configure<CookiePolicyOptions>(options =>

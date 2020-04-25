@@ -61,7 +61,7 @@ namespace Jmo.XfApp.ViewModels
                     ImageFullPath = t.ImageFullPath,
                     Questionant = t.Questionant,
                     CategoryId= t.CategoryId,
-                    Answers = t.Answers
+                    Choises = t.Choises
                 })
                 .ToList();
 

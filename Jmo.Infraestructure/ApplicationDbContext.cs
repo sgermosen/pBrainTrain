@@ -15,7 +15,7 @@ namespace Jmo.Infraestructure
         #region Tables
         public DbSet<Category> Categories { get; set; }
         public DbSet<Question> Questions { get; set; }
-        public DbSet<Answer> Answers { get; set; }
+        public DbSet<Choise> Choises { get; set; }
         #endregion
 
         protected override void OnModelCreating(ModelBuilder builder)

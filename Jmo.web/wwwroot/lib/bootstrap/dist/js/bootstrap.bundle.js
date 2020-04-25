@@ -1581,7 +1581,7 @@
    * @method
    * @memberof Popper.Utils
    * @argument {Any} functionToCheck - variable to check
-   * @returns {Boolean} answer to: is a function?
+   * @returns {Boolean} Choise to: is a function?
    */
   function isFunction(functionToCheck) {
     var getType = {};
@@ -2061,7 +2061,7 @@
    * @memberof Popper.Utils
    * @argument {Element} element
    * @argument {Element} customContainer
-   * @returns {Boolean} answer to "isFixed?"
+   * @returns {Boolean} Choise to "isFixed?"
    */
   function isFixed(element) {
     var nodeName = element.nodeName;

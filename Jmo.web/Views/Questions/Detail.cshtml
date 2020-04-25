@@ -12,12 +12,12 @@
         <img src="@Url.Content(Model.ImagenUrl)" class="Imagenes300400" />
     }
     <br />  <br />
-    <a class="btn btn-primary" asp-controller="Answers" asp-action="Create" asp-route-id="@Model.Id"> Crear Respuesta</a>
+    <a class="btn btn-primary" asp-controller="Choises" asp-action="Create" asp-route-id="@Model.Id"> Crear Respuesta</a>
     <br />  <br />
-    @if (Model.Answers.Count > 0)
+    @if (Model.Choises.Count > 0)
     {
 
-        foreach (var resp in Model.Answers)
+        foreach (var resp in Model.Choises)
         {
             <h4>
                 @resp.Option, Es la Respusta?: @resp.IsCorrect

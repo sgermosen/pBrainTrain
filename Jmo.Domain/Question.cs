@@ -8,16 +8,18 @@ namespace Jmo.Web.Data.Domain
     {
         public int Id { get; set; }
 
-        [StringLength(150)]
+        [StringLength(2500)]
         public string Questionant { get; set; }
 
         [StringLength(250)]
         public string ImagenUrl { get; set; }
 
+        public string AnswerRestrospective { get; set; }
+
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
-        public ICollection<Answer> Answers { get; set; }
+        public ICollection<Choise> Choises { get; set; }
 
         public string ImageFullPath => string.IsNullOrEmpty(ImagenUrl)
            ? "https://braingameschallenges.azurewebsites.net//images/noimage.png"
@@ -25,7 +27,7 @@ namespace Jmo.Web.Data.Domain
 
         public Question()
         {
-            Answers = new Collection<Answer>();
+            Choises = new Collection<Choise>();
         }
     }
 }
