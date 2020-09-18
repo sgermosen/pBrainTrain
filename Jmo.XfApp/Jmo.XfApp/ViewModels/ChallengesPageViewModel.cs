@@ -1,5 +1,7 @@
-﻿using Jmo.Common.Models;
+﻿using Jmo.Common.Helpers;
+using Jmo.Common.Models;
 using Jmo.Common.Services;
+using Newtonsoft.Json;
 using Prism.Navigation;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,23 +39,29 @@ namespace Jmo.XfApp.ViewModels
 
         private async void LoadQuestionsAsync()
         {
-            string url = App.Current.Resources["UrlAPI"].ToString();
-            Response response = await _apiService.GetListAsync<QuestionResponse>(
-                url,
-                "/api",
-                "/Questions", _category.Id);
 
-            if (!response.IsSuccess)
-            {
-                await App.Current.MainPage.DisplayAlert(
-                    "Error",
-                    response.Message,
-                    "Accept");
-                return;
-            }
+            //string url = App.Current.Resources["UrlAPI"].ToString();
+            //Response response = await _apiService.GetListAsync<QuestionResponse>(
+            //    url,
+            //    "/api",
+            //    "/Questions", _category.Id);
 
-            var questions = (List<QuestionResponse>)response.Result;
-
+            //if (!response.IsSuccess)
+            //{
+            //    await App.Current.MainPage.DisplayAlert(
+            //        "Error",
+            //        response.Message,
+            //        "Accept");
+            //    return;
+            //}
+            _category = JsonConvert.DeserializeObject<CategoryResponse>(Settings.Question);
+            //  var questions = (List<QuestionResponse>)response.Result;
+            var questions = new List<QuestionResponse>();
+            questions.AddRange(_category.Questions);
+            //foreach (var item in _category.Questions)
+            //{
+            //    questions.Add(item);
+            //}
             Questions = questions
                 .Select(t => new ChallengesItemViewModel(_navigationService)
                 {

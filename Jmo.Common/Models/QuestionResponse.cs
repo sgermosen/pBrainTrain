@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Jmo.Common.Models
 {
@@ -14,5 +15,10 @@ namespace Jmo.Common.Models
         public CategoryResponse Category { get; set; }
 
         public ICollection<ChoiseResponse> Choises { get; set; }
+
+        public QuestionResponse()
+        {
+            Choises = new Collection<ChoiseResponse>();
+        }
     }
 }

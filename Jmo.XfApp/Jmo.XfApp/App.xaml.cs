@@ -34,6 +34,12 @@ namespace Jmo.XfApp
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<ChallengesPage, ChallengesPageViewModel>();
             containerRegistry.RegisterForNavigation<CategoriesPage, CategoriesPageViewModel>();
+            containerRegistry.RegisterForNavigation<AboutPage, AboutPageViewModel>();
+            containerRegistry.RegisterForNavigation<BlogPage, BlogPageViewModel>();
+            containerRegistry.RegisterForNavigation<DailyChallengesPage, DailyChallengesPageViewModel>();
+            containerRegistry.RegisterForNavigation<HistoryModePage, HistoryModePageViewModel>();
+            containerRegistry.RegisterForNavigation<ChallengesTabbedPage, ChallengesTabbedPageViewModel>();
+            containerRegistry.RegisterForNavigation<ChallengesMasterDetailPage, ChallengesMasterDetailPageViewModel>();
         }
     }
 }
