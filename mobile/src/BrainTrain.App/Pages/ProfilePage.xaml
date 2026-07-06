@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BrainTrain.App.Core.ViewModels;assembly=BrainTrain.App.Core"
+             x:Class="BrainTrain.App.Pages.ProfilePage"
+             x:DataType="vm:ProfileViewModel"
+             Style="{StaticResource PageStyle}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,36,20,24" Spacing="16">
+            <Label x:Name="AvatarLabel" Text="🦊" FontSize="64" HorizontalOptions="Center" />
+            <Label Text="{Binding Profile.DisplayName}" Style="{StaticResource TitleText}" HorizontalOptions="Center" />
+            <Label Text="{Binding Profile.Level, StringFormat='Nivel {0}'}" Style="{StaticResource SubtitleText}" HorizontalOptions="Center" />
+            <ProgressBar Progress="{Binding LevelProgress}" ProgressColor="{StaticResource Primary}" />
+
+            <!-- Estadísticas -->
+            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="12" RowSpacing="12">
+                <Border Style="{StaticResource Card}">
+                    <VerticalStackLayout Spacing="2">
+                        <Label Text="🔥 Racha" Style="{StaticResource SubtitleText}" FontSize="13" />
+                        <Label Text="{Binding Profile.Streak.Current, StringFormat='{0} días'}" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" FontSize="20" />
+                        <Label Text="{Binding Profile.Streak.Best, StringFormat='Mejor: {0}'}" Style="{StaticResource SubtitleText}" FontSize="12" />
+                    </VerticalStackLayout>
+                </Border>
+                <Border Grid.Column="1" Style="{StaticResource Card}">
+                    <VerticalStackLayout Spacing="2">
+                        <Label Text="🎯 Precisión" Style="{StaticResource SubtitleText}" FontSize="13" />
+                        <Label Text="{Binding Accuracy}" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" FontSize="20" />
+                        <Label Text="{Binding Profile.Totals.Correct, StringFormat='{0} correctas'}" Style="{StaticResource SubtitleText}" FontSize="12" />
+                    </VerticalStackLayout>
+                </Border>
+                <Border Grid.Row="1" Style="{StaticResource Card}">
+                    <VerticalStackLayout Spacing="2">
+                        <Label Text="🎮 Partidas" Style="{StaticResource SubtitleText}" FontSize="13" />
+                        <Label Text="{Binding Profile.Totals.Sessions}" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" FontSize="20" />
+                        <Label Text="{Binding Profile.Totals.Perfect, StringFormat='{0} perfectas'}" Style="{StaticResource SubtitleText}" FontSize="12" />
+                    </VerticalStackLayout>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource Card}">
+                    <VerticalStackLayout Spacing="2">
+                        <Label Text="⚡ Retos diarios" Style="{StaticResource SubtitleText}" FontSize="13" />
+                        <Label Text="{Binding Profile.Totals.DailyChallenges}" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" FontSize="20" />
+                        <Label Text="{Binding Profile.WeeklyXp, StringFormat='{0} XP esta semana'}" Style="{StaticResource SubtitleText}" FontSize="12" />
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <!-- Cambiar avatar -->
+            <Label Text="Tu avatar" Style="{StaticResource TitleText}" FontSize="18" />
+            <FlexLayout x:Name="AvatarRow" Wrap="Wrap" JustifyContent="Center" />
+
+            <Label Text="{Binding Error}" TextColor="{StaticResource Danger}"
+                   IsVisible="{Binding Error, Converter={StaticResource NotNull}}" HorizontalTextAlignment="Center" />
+
+            <Button Text="Ajustes" Style="{StaticResource SecondaryButton}" Command="{Binding GoSettingsCommand}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

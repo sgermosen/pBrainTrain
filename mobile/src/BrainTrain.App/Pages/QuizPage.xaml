@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BrainTrain.App.Core.ViewModels;assembly=BrainTrain.App.Core"
+             x:Class="BrainTrain.App.Pages.QuizPage"
+             x:DataType="vm:QuizViewModel"
+             Style="{StaticResource PageStyle}"
+             Shell.PresentationMode="Animated">
+
+    <Grid RowDefinitions="Auto,Auto,Auto,*,Auto" Padding="20,24" RowSpacing="14">
+
+        <!-- Cabecera: progreso y salir -->
+        <Grid ColumnDefinitions="Auto,*,Auto">
+            <Button Text="✕" FontSize="18" BackgroundColor="Transparent"
+                    TextColor="{AppThemeBinding Light={StaticResource MutedLight}, Dark={StaticResource MutedDark}}"
+                    Command="{Binding AbandonCommand}" />
+            <Label Grid.Column="1" Text="{Binding ProgressLabel}" HorizontalOptions="Center" VerticalOptions="Center"
+                   Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" />
+            <Label Grid.Column="2" Text="{Binding SecondsDisplay, StringFormat='⏱ {0}'}" VerticalOptions="Center"
+                   Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" />
+        </Grid>
+
+        <!-- Barras: avance de la partida y tiempo restante -->
+        <ProgressBar Grid.Row="1" Progress="{Binding Progress}" ProgressColor="{StaticResource Primary}" />
+        <ProgressBar Grid.Row="2" Progress="{Binding TimeFraction}" ProgressColor="{StaticResource Amber}" />
+
+        <!-- Pregunta + opciones -->
+        <ScrollView Grid.Row="3">
+            <VerticalStackLayout Spacing="14">
+                <Border Style="{StaticResource Card}" MinimumHeightRequest="140">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="{Binding CategoryBadge}" TextColor="{StaticResource Amber}" FontSize="13" />
+                        <Label Text="{Binding QuestionText}" Style="{StaticResource BodyText}" FontSize="19"
+                               FontFamily="OpenSansSemibold" LineBreakMode="WordWrap" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <VerticalStackLayout BindableLayout.ItemsSource="{Binding Choices}" Spacing="10">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="vm:ChoiceItem">
+                            <Border StrokeShape="RoundRectangle 16" StrokeThickness="2"
+                                    Stroke="{Binding IsSelected, Converter={StaticResource SelectedStroke}}"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                                    Padding="16,14">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:QuizViewModel}}, Path=SelectChoiceCommand}"
+                                        CommandParameter="{Binding .}" />
+                                </Border.GestureRecognizers>
+                                <Label Text="{Binding Text}" Style="{StaticResource BodyText}" LineBreakMode="WordWrap" />
+                            </Border>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+
+                <Label Text="{Binding Error}" TextColor="{StaticResource Danger}"
+                       IsVisible="{Binding Error, Converter={StaticResource NotNull}}" HorizontalTextAlignment="Center" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Confirmar -->
+        <VerticalStackLayout Grid.Row="4" Spacing="8">
+            <ActivityIndicator IsRunning="{Binding IsSubmitting}" IsVisible="{Binding IsSubmitting}" />
+            <Button Text="Confirmar respuesta" Style="{StaticResource PrimaryButton}"
+                    Command="{Binding ConfirmCommand}" IsEnabled="{Binding CanConfirm}" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

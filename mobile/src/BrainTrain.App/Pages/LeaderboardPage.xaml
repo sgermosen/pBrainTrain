@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BrainTrain.App.Core.ViewModels;assembly=BrainTrain.App.Core"
+             xmlns:core="clr-namespace:BrainTrain.App.Core;assembly=BrainTrain.App.Core"
+             x:Class="BrainTrain.App.Pages.LeaderboardPage"
+             x:DataType="vm:LeaderboardViewModel"
+             Style="{StaticResource PageStyle}">
+
+    <Grid RowDefinitions="Auto,Auto,*" Padding="20,36,20,0" RowSpacing="10">
+        <Label Text="🏆 Liga semanal" Style="{StaticResource TitleText}" />
+        <Border Grid.Row="1" Style="{StaticResource Card}" BackgroundColor="{StaticResource Primary}"
+                IsVisible="{Binding MyRank, Converter={StaticResource NotNull}}">
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="{Binding MyRank, StringFormat='Tu posición: #{0}'}" TextColor="White" FontFamily="OpenSansSemibold" />
+                <Label Grid.Column="1" Text="{Binding MyWeeklyXp, StringFormat='{0} XP'}" TextColor="#E4DEFF" />
+            </Grid>
+        </Border>
+
+        <CollectionView Grid.Row="2" ItemsSource="{Binding Top}" Margin="0,6,0,0">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="core:LeaderboardEntryDto">
+                    <Border Style="{StaticResource Card}" Margin="0,0,0,8" Padding="14,10">
+                        <Grid ColumnDefinitions="34,Auto,*,Auto" ColumnSpacing="10">
+                            <Label Text="{Binding Rank}" FontFamily="OpenSansSemibold" FontSize="16"
+                                   Style="{StaticResource BodyText}" VerticalOptions="Center" />
+                            <Label Grid.Column="1" x:Name="AvatarCell" Text="{Binding AvatarCode, Converter={StaticResource AvatarEmoji}}"
+                                   FontSize="22" VerticalOptions="Center" />
+                            <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" Spacing="0">
+                                <Label Text="{Binding DisplayName}" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" FontSize="15" />
+                                <Label Text="{Binding Level, StringFormat='Nivel {0}'}" Style="{StaticResource SubtitleText}" FontSize="12" />
+                            </VerticalStackLayout>
+                            <Label Grid.Column="3" Text="{Binding WeeklyXp, StringFormat='{0} XP'}"
+                                   TextColor="{StaticResource Primary}" FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <Label Text="Aún no hay jugadores esta semana. ¡Sé la primera persona del podio!"
+                       Style="{StaticResource SubtitleText}" HorizontalTextAlignment="Center" Margin="20" />
+            </CollectionView.EmptyView>
+        </CollectionView>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BrainTrain.App.Core.ViewModels;assembly=BrainTrain.App.Core"
+             x:Class="BrainTrain.App.Pages.AuthPage"
+             x:DataType="vm:AuthViewModel"
+             Style="{StaticResource PageStyle}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="28,48,28,28" Spacing="16">
+            <Label Text="{Binding Title}" Style="{StaticResource TitleText}" HorizontalOptions="Center" />
+            <Label Text="Tu progreso se guarda en la nube y podrás entrar desde cualquier dispositivo."
+                   Style="{StaticResource SubtitleText}" HorizontalTextAlignment="Center"
+                   IsVisible="{Binding IsUpgrade}" />
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="12">
+                    <Entry Text="{Binding DisplayName}" Placeholder="Nombre" MaxLength="40" IsVisible="{Binding IsRegister}" />
+                    <Entry Text="{Binding Email}" Placeholder="Correo electrónico" Keyboard="Email" />
+                    <Entry Text="{Binding Password}" Placeholder="Contraseña (mínimo 8 caracteres)" IsPassword="True" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="{Binding Error}" TextColor="{StaticResource Danger}"
+                   IsVisible="{Binding Error, Converter={StaticResource NotNull}}" HorizontalTextAlignment="Center" />
+
+            <Button Text="Continuar" Style="{StaticResource PrimaryButton}" Command="{Binding SubmitCommand}"
+                    IsEnabled="{Binding IsBusy, Converter={StaticResource Invert}}" />
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+
+            <Button Text="Crear cuenta nueva" Style="{StaticResource SecondaryButton}"
+                    Command="{Binding SwitchModeCommand}" CommandParameter="register" IsVisible="{Binding IsLogin}" />
+            <Button Text="Ya tengo cuenta" Style="{StaticResource SecondaryButton}"
+                    Command="{Binding SwitchModeCommand}" CommandParameter="login" IsVisible="{Binding IsRegister}" />
+            <Button Text="Volver" BackgroundColor="Transparent"
+                    TextColor="{AppThemeBinding Light={StaticResource MutedLight}, Dark={StaticResource MutedDark}}"
+                    Command="{Binding BackCommand}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

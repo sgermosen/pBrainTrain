@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BrainTrain.App.Core.ViewModels;assembly=BrainTrain.App.Core"
+             xmlns:core="clr-namespace:BrainTrain.App.Core;assembly=BrainTrain.App.Core"
+             x:Class="BrainTrain.App.Pages.AchievementsPage"
+             x:DataType="vm:AchievementsViewModel"
+             Style="{StaticResource PageStyle}">
+
+    <Grid RowDefinitions="Auto,Auto,*" Padding="20,36,20,0" RowSpacing="10">
+        <Label Text="🎖️ Logros" Style="{StaticResource TitleText}" />
+        <Label Grid.Row="1" Style="{StaticResource SubtitleText}">
+            <Label.Text>
+                <MultiBinding StringFormat="{}{0} de {1} desbloqueados">
+                    <Binding Path="UnlockedCount" />
+                    <Binding Path="TotalCount" />
+                </MultiBinding>
+            </Label.Text>
+        </Label>
+
+        <CollectionView Grid.Row="2" ItemsSource="{Binding Achievements}" Margin="0,6,0,0">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="core:AchievementDto">
+                    <Border Style="{StaticResource Card}" Margin="0,0,0,10">
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                            <Label Text="{Binding Emoji}" FontSize="30" VerticalOptions="Center"
+                                   Opacity="{Binding Unlocked, Converter={StaticResource UnlockedOpacity}}" />
+                            <VerticalStackLayout Grid.Column="1" Spacing="3">
+                                <Label Text="{Binding Name}" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" />
+                                <Label Text="{Binding Description}" Style="{StaticResource SubtitleText}" FontSize="13" LineBreakMode="WordWrap" />
+                                <ProgressBar Progress="{Binding ., Converter={StaticResource AchievementProgress}}"
+                                             ProgressColor="{StaticResource Amber}" />
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" Spacing="2">
+                                <Label Text="{Binding XpReward, StringFormat='+{0} XP'}" FontSize="12"
+                                       TextColor="{StaticResource Primary}" FontFamily="OpenSansSemibold" HorizontalOptions="End" />
+                                <Label Text="{Binding CoinReward, StringFormat='+{0} 🪙'}" FontSize="12"
+                                       TextColor="{StaticResource Amber}" HorizontalOptions="End" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

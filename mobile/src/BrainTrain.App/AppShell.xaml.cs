@@ -1,0 +1,29 @@
+using BrainTrain.App.Core;
+using BrainTrain.App.Pages;
+
+namespace BrainTrain.App;
+
+public partial class AppShell : Shell
+{
+    public AppShell(ApiClient api)
+    {
+        InitializeComponent();
+
+        Routing.RegisterRoute("auth", typeof(AuthPage));
+        Routing.RegisterRoute("quiz", typeof(QuizPage));
+        Routing.RegisterRoute("results", typeof(ResultsPage));
+        Routing.RegisterRoute("profile", typeof(ProfilePage));
+        Routing.RegisterRoute("achievements", typeof(AchievementsPage));
+        Routing.RegisterRoute("leaderboard", typeof(LeaderboardPage));
+        Routing.RegisterRoute("store", typeof(StorePage));
+        Routing.RegisterRoute("settings", typeof(SettingsPage));
+
+        // Si hay sesión guardada, entra directo al juego.
+        Dispatcher.Dispatch(async () =>
+        {
+            await api.InitializeAsync();
+            if (api.HasSession)
+                await GoToAsync("//home");
+        });
+    }
+}

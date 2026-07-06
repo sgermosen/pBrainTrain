@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/BrainTrain.App.Core/BrainTrain.App.Core.csproj" />
+    <Project Path="src/BrainTrain.App/BrainTrain.App.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/BrainTrain.App.Core.Tests/BrainTrain.App.Core.Tests.csproj" />
+  </Folder>
+  <Project Path="../backend/src/BrainTrain.Api/BrainTrain.Api.csproj" />
+  <Project Path="../backend/src/BrainTrain.Domain/BrainTrain.Domain.csproj" />
+  <Project Path="../backend/src/BrainTrain.Infrastructure/BrainTrain.Infrastructure.csproj" />
+</Solution>

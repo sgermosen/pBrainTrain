@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BrainTrain.App.Core.ViewModels;assembly=BrainTrain.App.Core"
+             x:Class="BrainTrain.App.Pages.OnboardingPage"
+             x:DataType="vm:OnboardingViewModel"
+             Style="{StaticResource PageStyle}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="28,48,28,28" Spacing="20">
+
+            <Label Text="🧠" FontSize="72" HorizontalOptions="Center" />
+            <Label Text="BrainTrain" Style="{StaticResource TitleText}" FontSize="34" HorizontalOptions="Center" />
+            <Label Text="Acertijos, lógica y preguntas capciosas.&#10;Entrena tu ingenio jugando."
+                   Style="{StaticResource SubtitleText}" HorizontalTextAlignment="Center" />
+
+            <Border Style="{StaticResource Card}" Margin="0,16,0,0">
+                <VerticalStackLayout Spacing="14">
+                    <Label Text="¿Cómo te llamamos?" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" />
+                    <Entry Text="{Binding DisplayName}" Placeholder="Tu nombre o apodo (opcional)" MaxLength="40" />
+
+                    <Label Text="Elige tu avatar" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" />
+                    <FlexLayout x:Name="AvatarRow" Wrap="Wrap" JustifyContent="Center" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="{Binding Error}" TextColor="{StaticResource Danger}" IsVisible="{Binding Error, Converter={StaticResource NotNull}}" HorizontalTextAlignment="Center" />
+
+            <Button Text="¡Jugar ya!" Style="{StaticResource PrimaryButton}"
+                    Command="{Binding PlayAsGuestCommand}" IsEnabled="{Binding IsBusy, Converter={StaticResource Invert}}" />
+            <Button Text="Ya tengo cuenta" Style="{StaticResource SecondaryButton}"
+                    Command="{Binding GoToLoginCommand}" />
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

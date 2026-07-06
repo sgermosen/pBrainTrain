@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BrainTrain.App.Core.ViewModels;assembly=BrainTrain.App.Core"
+             xmlns:core="clr-namespace:BrainTrain.App.Core;assembly=BrainTrain.App.Core"
+             x:Class="BrainTrain.App.Pages.StorePage"
+             x:DataType="vm:StoreViewModel"
+             Style="{StaticResource PageStyle}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,36,20,24" Spacing="14">
+            <Label Text="🛒 Tienda" Style="{StaticResource TitleText}" />
+
+            <!-- Estado actual -->
+            <Border Style="{StaticResource Card}">
+                <Grid ColumnDefinitions="*,*">
+                    <HorizontalStackLayout Spacing="6">
+                        <Label Text="❤️" FontSize="18" VerticalOptions="Center" />
+                        <Label Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" VerticalOptions="Center">
+                            <Label.Text>
+                                <MultiBinding StringFormat="{}{0}/{1}">
+                                    <Binding Path="Profile.Lives.Current" />
+                                    <Binding Path="Profile.Lives.Max" />
+                                </MultiBinding>
+                            </Label.Text>
+                        </Label>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Grid.Column="1" Spacing="6" HorizontalOptions="End">
+                        <Label Text="🪙" FontSize="18" VerticalOptions="Center" />
+                        <Label Text="{Binding Profile.Coins}" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </Grid>
+            </Border>
+
+            <!-- Recarga con monedas ganadas jugando -->
+            <Border Style="{StaticResource Card}" BackgroundColor="{StaticResource Secondary}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Recarga con monedas" TextColor="{StaticResource Tertiary}" FontFamily="OpenSansSemibold" FontSize="16" />
+                    <Label Text="{Binding RefillCoinCost, StringFormat='Cambia {0} 🪙 ganadas jugando por vidas completas.'}"
+                           TextColor="{StaticResource Tertiary}" FontSize="13" />
+                    <Button Text="Recargar vidas" Style="{StaticResource PrimaryButton}" Command="{Binding RefillWithCoinsCommand}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="{Binding Message}" TextColor="{StaticResource Success}" FontFamily="OpenSansSemibold"
+                   IsVisible="{Binding Message, Converter={StaticResource NotNull}}" HorizontalTextAlignment="Center" />
+            <Label Text="{Binding Error}" TextColor="{StaticResource Danger}"
+                   IsVisible="{Binding Error, Converter={StaticResource NotNull}}" HorizontalTextAlignment="Center" />
+
+            <!-- Paquetes -->
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Products}" Spacing="10">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="core:StoreProductDto">
+                        <Border Style="{StaticResource Card}">
+                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                                <VerticalStackLayout Spacing="3">
+                                    <Label Text="{Binding Name}" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" />
+                                    <Label Text="{Binding Description}" Style="{StaticResource SubtitleText}" FontSize="13" LineBreakMode="WordWrap" />
+                                </VerticalStackLayout>
+                                <Button Grid.Column="1" Text="{Binding PriceHint}" Style="{StaticResource AmberButton}"
+                                        HeightRequest="44" WidthRequest="92"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:StoreViewModel}}, Path=BuyCommand}"
+                                        CommandParameter="{Binding .}" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+
+            <Label Text="Las compras se procesan por la tienda de tu plataforma. Las vidas también se regeneran gratis con el tiempo: 1 cada 30 minutos."
+                   Style="{StaticResource SubtitleText}" FontSize="12" HorizontalTextAlignment="Center" />
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

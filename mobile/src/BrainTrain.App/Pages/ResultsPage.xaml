@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BrainTrain.App.Core.ViewModels;assembly=BrainTrain.App.Core"
+             xmlns:core="clr-namespace:BrainTrain.App.Core;assembly=BrainTrain.App.Core"
+             x:Class="BrainTrain.App.Pages.ResultsPage"
+             x:DataType="vm:ResultsViewModel"
+             Style="{StaticResource PageStyle}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,36,20,24" Spacing="16">
+
+            <!-- Celebración -->
+            <Label Text="{Binding Headline}" Style="{StaticResource TitleText}" FontSize="30" HorizontalOptions="Center" />
+            <Label Text="{Binding ScoreLabel}" FontSize="52" FontFamily="OpenSansSemibold"
+                   TextColor="{StaticResource Primary}" HorizontalOptions="Center" />
+
+            <HorizontalStackLayout Spacing="12" HorizontalOptions="Center">
+                <Border Style="{StaticResource Card}" Padding="14,8">
+                    <Label Text="{Binding XpLabel}" FontFamily="OpenSansSemibold" TextColor="{StaticResource Primary}" />
+                </Border>
+                <Border Style="{StaticResource Card}" Padding="14,8">
+                    <HorizontalStackLayout Spacing="4">
+                        <Label Text="🪙" />
+                        <Label Text="{Binding CoinsLabel}" FontFamily="OpenSansSemibold" TextColor="{StaticResource Amber}" />
+                    </HorizontalStackLayout>
+                </Border>
+            </HorizontalStackLayout>
+
+            <Label Text="{Binding StreakLabel}" Style="{StaticResource BodyText}" HorizontalOptions="Center"
+                   IsVisible="{Binding StreakLabel, Converter={StaticResource NotNull}}" />
+
+            <!-- Subida de nivel -->
+            <Border Style="{StaticResource Card}" BackgroundColor="{StaticResource Amber}" IsVisible="{Binding LeveledUp}">
+                <Label Text="{Binding NewLevel, StringFormat='🚀 ¡Subiste al nivel {0}!'}"
+                       TextColor="#3A2B00" FontFamily="OpenSansSemibold" FontSize="18" HorizontalOptions="Center" />
+            </Border>
+
+            <!-- Logros desbloqueados -->
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Unlocked}" Spacing="8">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="core:UnlockedAchievementDto">
+                        <Border Style="{StaticResource Card}" BackgroundColor="{StaticResource Secondary}">
+                            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                                <Label Text="{Binding Emoji}" FontSize="30" VerticalOptions="Center" />
+                                <VerticalStackLayout Grid.Column="1" Spacing="2">
+                                    <Label Text="{Binding Name, StringFormat='¡Logro: {0}!'}" FontFamily="OpenSansSemibold"
+                                           TextColor="{StaticResource Tertiary}" />
+                                    <Label Text="{Binding Description}" FontSize="13" TextColor="{StaticResource Tertiary}" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+
+            <!-- Repaso didáctico: la lógica detrás de cada respuesta -->
+            <Label Text="Aprende de cada pregunta" Style="{StaticResource TitleText}" FontSize="20" Margin="0,10,0,0" />
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Review}" Spacing="10">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="vm:ReviewItem">
+                        <Border Style="{StaticResource Card}">
+                            <VerticalStackLayout Spacing="6">
+                                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
+                                    <Label Text="{Binding Icon}" FontSize="18" />
+                                    <Label Grid.Column="1" Text="{Binding Question}" Style="{StaticResource BodyText}"
+                                           FontFamily="OpenSansSemibold" LineBreakMode="WordWrap" />
+                                </Grid>
+                                <Label Text="{Binding CorrectAnswer, StringFormat='Respuesta: {0}'}"
+                                       TextColor="{StaticResource Success}" FontSize="14" FontFamily="OpenSansSemibold" />
+                                <Label Text="{Binding Explanation}" Style="{StaticResource SubtitleText}" FontSize="14" LineBreakMode="WordWrap" />
+                                <Label Text="{Binding FunFact, StringFormat='💡 {0}'}" FontSize="13"
+                                       TextColor="{StaticResource Amber}" LineBreakMode="WordWrap"
+                                       IsVisible="{Binding FunFact, Converter={StaticResource NotNull}}" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+
+            <Button Text="Seguir jugando" Style="{StaticResource PrimaryButton}" Command="{Binding PlayAgainCommand}" Margin="0,10,0,0" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
