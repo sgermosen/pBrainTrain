@@ -1,0 +1,4120 @@
+{
+  "categories": [
+    {
+      "slug": "logica",
+      "name": "Lógica",
+      "emoji": "🧩",
+      "color": "#7C4DFF",
+      "description": "Acertijos y deducciones para pensar paso a paso. Aquí gana quien razona, no quien responde más rápido."
+    },
+    {
+      "slug": "matematica",
+      "name": "Matemática Mental",
+      "emoji": "🔢",
+      "color": "#00BCD4",
+      "description": "Cálculos ingeniosos, secuencias y trucos numéricos para hacer del cálculo mental tu superpoder."
+    },
+    {
+      "slug": "capciosas",
+      "name": "Preguntas Capciosas",
+      "emoji": "🤯",
+      "color": "#FF7043",
+      "description": "Preguntas con trampa que ponen a prueba tu atención. Lee dos veces antes de caer en el anzuelo."
+    },
+    {
+      "slug": "curiosidades",
+      "name": "Curiosidades",
+      "emoji": "🌍",
+      "color": "#66BB6A",
+      "description": "Datos reales y sorprendentes de ciencia, geografía, historia, animales y el cuerpo humano."
+    },
+    {
+      "slug": "percepcion",
+      "name": "Percepción y Memoria",
+      "emoji": "👁️",
+      "color": "#EC407A",
+      "description": "Desafíos de atención, conteo y patrones. Entrena el ojo y la memoria: cada detalle cuenta."
+    },
+    {
+      "slug": "palabras",
+      "name": "Palabras y Lenguaje",
+      "emoji": "📚",
+      "color": "#FFCA28",
+      "description": "Refranes, significados, ortografía y secretos del español para jugar con el idioma."
+    }
+  ],
+  "questions": [
+    {
+      "category": "logica",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "text": "Todos los gatos tienen bigotes. Michi es un gato. ¿Qué podemos concluir con seguridad?",
+      "choices": [
+        {
+          "text": "Michi es blanco",
+          "isCorrect": false
+        },
+        {
+          "text": "Michi tiene bigotes",
+          "isCorrect": true
+        },
+        {
+          "text": "Michi duerme mucho",
+          "isCorrect": false
+        },
+        {
+          "text": "No podemos concluir nada",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Es un silogismo: si TODOS los gatos tienen bigotes y Michi pertenece al grupo de los gatos, entonces Michi necesariamente tiene bigotes. Las otras opciones pueden ser ciertas, pero no se deducen del enunciado.",
+      "funFact": "Este tipo de razonamiento se llama deducción y lo estudió Aristóteles hace más de 2300 años."
+    },
+    {
+      "category": "logica",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "text": "María es más alta que Ana, y Ana es más alta que Luisa. ¿Quién es la más baja?",
+      "choices": [
+        {
+          "text": "María",
+          "isCorrect": false
+        },
+        {
+          "text": "Ana",
+          "isCorrect": false
+        },
+        {
+          "text": "Luisa",
+          "isCorrect": true
+        },
+        {
+          "text": "No se puede saber",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Si ordenamos las alturas: María > Ana > Luisa. Luisa queda al final de la cadena, así que es la más baja. Esto se llama razonamiento transitivo.",
+      "funFact": null
+    },
+    {
+      "category": "logica",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "text": "En una carrera adelantas al corredor que va en segundo lugar. ¿En qué posición quedas?",
+      "choices": [
+        {
+          "text": "En segundo lugar",
+          "isCorrect": true
+        },
+        {
+          "text": "En primer lugar",
+          "isCorrect": false
+        },
+        {
+          "text": "En tercer lugar",
+          "isCorrect": false
+        },
+        {
+          "text": "Depende de la carrera",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Al adelantar al segundo, ocupas SU lugar: el segundo. Para ir primero tendrías que adelantar al que va primero. Nuestro cerebro tiende a responder 'primero' automáticamente, ¡por eso hay que pensar despacio!",
+      "funFact": "El psicólogo Daniel Kahneman llamó 'Sistema 1' a ese impulso de responder rápido sin analizar."
+    },
+    {
+      "category": "logica",
+      "type": "true_false",
+      "difficulty": 1,
+      "text": "Si hoy es lunes, dentro de exactamente siete días también será lunes.",
+      "choices": [
+        {
+          "text": "Verdadero",
+          "isCorrect": true
+        },
+        {
+          "text": "Falso",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "La semana tiene 7 días y es un ciclo: al avanzar 7 días completos, vuelves exactamente al mismo día de la semana.",
+      "funFact": "Este tipo de razonamiento cíclico se usa en matemática y se llama aritmética modular."
+    },
+    {
+      "category": "logica",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "text": "En una caja hay únicamente calcetines rojos. Si sacas uno sin mirar, ¿de qué color será?",
+      "choices": [
+        {
+          "text": "No se puede saber",
+          "isCorrect": false
+        },
+        {
+          "text": "Depende de la suerte",
+          "isCorrect": false
+        },
+        {
+          "text": "Azul",
+          "isCorrect": false
+        },
+        {
+          "text": "Rojo",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "Si TODOS los calcetines de la caja son rojos, cualquier calcetín que saques será rojo, sí o sí. Cuando todas las opciones son iguales, el azar no cambia el resultado.",
+      "funFact": null
+    },
+    {
+      "category": "logica",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "Si 5 máquinas hacen 5 piezas en 5 minutos, ¿cuánto tardarán 100 máquinas en hacer 100 piezas?",
+      "choices": [
+        {
+          "text": "100 minutos",
+          "isCorrect": false
+        },
+        {
+          "text": "50 minutos",
+          "isCorrect": false
+        },
+        {
+          "text": "10 minutos",
+          "isCorrect": false
+        },
+        {
+          "text": "5 minutos",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "Cada máquina tarda 5 minutos en hacer UNA pieza. Si pones 100 máquinas a trabajar a la vez, cada una hace su pieza en esos mismos 5 minutos: 100 piezas en 5 minutos.",
+      "funFact": "Esta pregunta forma parte de un famoso test de reflexión cognitiva usado en universidades de todo el mundo."
+    },
+    {
+      "category": "logica",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "¿Cuántas veces puedes restar 5 del número 25?",
+      "choices": [
+        {
+          "text": "Cinco veces",
+          "isCorrect": false
+        },
+        {
+          "text": "Una sola vez",
+          "isCorrect": true
+        },
+        {
+          "text": "Infinitas veces",
+          "isCorrect": false
+        },
+        {
+          "text": "Cuatro veces",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Solo puedes restarle 5 a 25 una vez, porque después de esa resta el número ya no es 25, ¡es 20! La clave está en leer con cuidado qué pide exactamente el enunciado.",
+      "funFact": null
+    },
+    {
+      "category": "logica",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "Un pastor tiene 17 ovejas. Todas menos 9 se escapan. ¿Cuántas ovejas le quedan?",
+      "choices": [
+        {
+          "text": "9 ovejas",
+          "isCorrect": true
+        },
+        {
+          "text": "8 ovejas",
+          "isCorrect": false
+        },
+        {
+          "text": "17 ovejas",
+          "isCorrect": false
+        },
+        {
+          "text": "Ninguna",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "La frase 'todas menos 9 se escapan' significa que 9 NO se escaparon. Esas 9 son las que le quedan. El cerebro quiere restar 17 - 9 = 8, pero el enunciado ya te dio la respuesta directa.",
+      "funFact": null
+    },
+    {
+      "category": "logica",
+      "type": "true_false",
+      "difficulty": 2,
+      "text": "Todos los perros son animales. Algunos animales son gatos. Por lo tanto, algunos perros son gatos.",
+      "choices": [
+        {
+          "text": "Verdadero",
+          "isCorrect": false
+        },
+        {
+          "text": "Falso",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "El razonamiento es inválido: que perros y gatos compartan el grupo 'animales' no significa que se mezclen entre sí. Es como decir que, como las manzanas y las peras son frutas, algunas manzanas son peras.",
+      "funFact": "Este error de razonamiento se llama falacia del término medio no distribuido."
+    },
+    {
+      "category": "logica",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "Dos padres y dos hijos van a pescar. Cada uno pesca un pez y en total llevan a casa exactamente 3 peces, sin perder ninguno. ¿Cómo es posible?",
+      "choices": [
+        {
+          "text": "Uno pescó dos peces",
+          "isCorrect": false
+        },
+        {
+          "text": "Se comieron un pez",
+          "isCorrect": false
+        },
+        {
+          "text": "Son solo 3 personas: abuelo, padre e hijo",
+          "isCorrect": true
+        },
+        {
+          "text": "Es imposible",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "El abuelo es padre (del papá), el papá es padre e hijo a la vez, y el niño es hijo. Así hay 'dos padres y dos hijos' con solo 3 personas, y 3 peces alcanzan perfectamente.",
+      "funFact": null
+    },
+    {
+      "category": "logica",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "¿Qué parentesco tiene contigo el hijo del hermano de tu padre?",
+      "choices": [
+        {
+          "text": "Tu sobrino",
+          "isCorrect": false
+        },
+        {
+          "text": "Tu primo",
+          "isCorrect": true
+        },
+        {
+          "text": "Tu tío",
+          "isCorrect": false
+        },
+        {
+          "text": "Tu hermano",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "El hermano de tu padre es tu tío, y el hijo de tu tío es tu primo. Resolver parentescos paso a paso, de adentro hacia afuera, evita confusiones.",
+      "funFact": null
+    },
+    {
+      "category": "logica",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "Dos trenes salen a la vez de la misma estación, van por vías paralelas a la misma velocidad y al mismo destino. Uno tarda 1 hora y el otro tarda 60 minutos. ¿Cuál llega primero?",
+      "choices": [
+        {
+          "text": "El que tarda 1 hora",
+          "isCorrect": false
+        },
+        {
+          "text": "El que tarda 60 minutos",
+          "isCorrect": false
+        },
+        {
+          "text": "Llegan al mismo tiempo",
+          "isCorrect": true
+        },
+        {
+          "text": "Faltan datos para saberlo",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "1 hora y 60 minutos son exactamente lo mismo, solo cambia la unidad. El enunciado disfraza una igualdad como si fuera una diferencia.",
+      "funFact": null
+    },
+    {
+      "category": "logica",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "Un caracol quiere salir de un pozo de 10 metros. Cada día sube 3 metros y cada noche resbala 2. ¿Cuántos días tarda en salir?",
+      "choices": [
+        {
+          "text": "10 días",
+          "isCorrect": false
+        },
+        {
+          "text": "7 días",
+          "isCorrect": false
+        },
+        {
+          "text": "9 días",
+          "isCorrect": false
+        },
+        {
+          "text": "8 días",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "Cada día completo avanza 1 metro neto (sube 3, baja 2). Tras 7 días está a 7 metros. El día 8 sube 3 metros, llega a 10 y sale del pozo ANTES de que llegue la noche, así que ya no resbala.",
+      "funFact": "Este acertijo aparece en libros de matemática recreativa desde hace más de un siglo."
+    },
+    {
+      "category": "logica",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "Si anteayer fue miércoles, ¿qué día será mañana?",
+      "choices": [
+        {
+          "text": "Sábado",
+          "isCorrect": true
+        },
+        {
+          "text": "Viernes",
+          "isCorrect": false
+        },
+        {
+          "text": "Jueves",
+          "isCorrect": false
+        },
+        {
+          "text": "Domingo",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Si anteayer fue miércoles, ayer fue jueves y hoy es viernes. Por lo tanto, mañana será sábado. Conviene avanzar día por día en lugar de saltar de golpe.",
+      "funFact": null
+    },
+    {
+      "category": "logica",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "¿Qué día sigue en la secuencia: lunes, martes, jueves, domingo…?",
+      "choices": [
+        {
+          "text": "Lunes",
+          "isCorrect": false
+        },
+        {
+          "text": "Miércoles",
+          "isCorrect": false
+        },
+        {
+          "text": "Jueves",
+          "isCorrect": true
+        },
+        {
+          "text": "Viernes",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Los saltos crecen de uno en uno: +1 día (lunes→martes), +2 (martes→jueves), +3 (jueves→domingo). El siguiente salto es +4: domingo + 4 días = jueves.",
+      "funFact": null
+    },
+    {
+      "category": "logica",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "En un cajón hay calcetines negros y blancos mezclados. Está oscuro y no ves nada. ¿Cuántos calcetines debes sacar como mínimo para asegurarte un par del mismo color?",
+      "choices": [
+        {
+          "text": "2 calcetines",
+          "isCorrect": false
+        },
+        {
+          "text": "3 calcetines",
+          "isCorrect": true
+        },
+        {
+          "text": "4 calcetines",
+          "isCorrect": false
+        },
+        {
+          "text": "La mitad del cajón",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Con 2 podrías tener uno de cada color. Pero con 3, como solo hay 2 colores, al menos dos calcetines repetirán color obligatoriamente. Es el famoso principio del palomar.",
+      "funFact": "El principio del palomar dice que si hay más palomas que nidos, algún nido tendrá dos palomas."
+    },
+    {
+      "category": "logica",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "¿Qué letra sigue en la serie: A, C, F, J…?",
+      "choices": [
+        {
+          "text": "M",
+          "isCorrect": false
+        },
+        {
+          "text": "N",
+          "isCorrect": false
+        },
+        {
+          "text": "L",
+          "isCorrect": false
+        },
+        {
+          "text": "O",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "Los saltos en el abecedario crecen: A(+2)C, C(+3)F, F(+4)J. El siguiente salto es +5: J, K, L, M, N… ¡O!",
+      "funFact": null
+    },
+    {
+      "category": "logica",
+      "type": "true_false",
+      "difficulty": 3,
+      "text": "Si algunos estudiantes son deportistas y todos los deportistas madrugan, entonces algunos estudiantes madrugan.",
+      "choices": [
+        {
+          "text": "Verdadero",
+          "isCorrect": true
+        },
+        {
+          "text": "Falso",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Esos estudiantes que son deportistas, por ser deportistas, madrugan. Por lo tanto, existe al menos un grupo de estudiantes madrugadores. Este silogismo sí es válido.",
+      "funFact": null
+    },
+    {
+      "category": "logica",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "Un ladrillo pesa 1 kilo más medio ladrillo. ¿Cuánto pesa un ladrillo entero?",
+      "choices": [
+        {
+          "text": "2 kilos",
+          "isCorrect": true
+        },
+        {
+          "text": "1,5 kilos",
+          "isCorrect": false
+        },
+        {
+          "text": "1 kilo",
+          "isCorrect": false
+        },
+        {
+          "text": "3 kilos",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Si un ladrillo = 1 kilo + medio ladrillo, entonces la otra mitad del ladrillo pesa 1 kilo. Dos mitades iguales: el ladrillo completo pesa 2 kilos.",
+      "funFact": null
+    },
+    {
+      "category": "logica",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "Ana, Beto y Carla tienen un perro, un gato y un loro (no en ese orden). Ana no tiene aves, y Beto tiene el gato. ¿Qué mascota tiene Ana?",
+      "choices": [
+        {
+          "text": "El loro",
+          "isCorrect": false
+        },
+        {
+          "text": "El gato",
+          "isCorrect": false
+        },
+        {
+          "text": "El perro",
+          "isCorrect": true
+        },
+        {
+          "text": "No se puede saber",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Beto tiene el gato, así que Ana solo podría tener el perro o el loro. Como Ana no tiene aves, le queda el perro. Y Carla, por descarte, tiene el loro.",
+      "funFact": "A este método se le llama tabla de deducción y es la base de muchos pasatiempos de lógica."
+    },
+    {
+      "category": "logica",
+      "type": "multiple_choice",
+      "difficulty": 4,
+      "text": "Debes cruzar un río con un lobo, una cabra y un repollo. En la barca solo cabes tú y una cosa más. Si los dejas solos, el lobo se come a la cabra y la cabra al repollo. ¿Qué llevas primero?",
+      "choices": [
+        {
+          "text": "El repollo",
+          "isCorrect": false
+        },
+        {
+          "text": "La cabra",
+          "isCorrect": true
+        },
+        {
+          "text": "El lobo",
+          "isCorrect": false
+        },
+        {
+          "text": "El lobo y el repollo juntos",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Solo la cabra causa problemas por partida doble: come repollo y es comida por el lobo. Al llevarla primero, el lobo y el repollo quedan juntos sin peligro. La clave es identificar el elemento conflictivo.",
+      "funFact": "Este acertijo aparece escrito por primera vez hace más de 1200 años, atribuido al sabio medieval Alcuino de York."
+    },
+    {
+      "category": "logica",
+      "type": "multiple_choice",
+      "difficulty": 4,
+      "text": "Si 3 gatos cazan 3 ratones en 3 minutos, ¿cuántos gatos se necesitan para cazar 100 ratones en 100 minutos?",
+      "choices": [
+        {
+          "text": "3 gatos",
+          "isCorrect": true
+        },
+        {
+          "text": "100 gatos",
+          "isCorrect": false
+        },
+        {
+          "text": "33 gatos",
+          "isCorrect": false
+        },
+        {
+          "text": "9 gatos",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Cada gato caza 1 ratón cada 3 minutos. En 100 minutos, un gato caza unos 33 ratones, así que 3 gatos cazan alrededor de 100. Los mismos 3 gatos bastan: solo necesitan más tiempo.",
+      "funFact": null
+    },
+    {
+      "category": "logica",
+      "type": "multiple_choice",
+      "difficulty": 4,
+      "text": "En una reunión hay 4 personas y todas se saludan entre sí con un apretón de manos, una sola vez. ¿Cuántos apretones hay en total?",
+      "choices": [
+        {
+          "text": "4",
+          "isCorrect": false
+        },
+        {
+          "text": "8",
+          "isCorrect": false
+        },
+        {
+          "text": "6",
+          "isCorrect": true
+        },
+        {
+          "text": "12",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Cada persona saluda a otras 3, lo que daría 4 × 3 = 12, pero así contamos cada apretón dos veces (una por cada participante). Dividimos entre 2: 6 apretones.",
+      "funFact": "La fórmula general es n×(n−1)÷2, la misma que se usa para contar partidos en un torneo de todos contra todos."
+    },
+    {
+      "category": "logica",
+      "type": "true_false",
+      "difficulty": 4,
+      "text": "En una isla, los caballeros siempre dicen la verdad y los mentirosos siempre mienten. Es posible que un habitante de la isla diga: 'Yo soy mentiroso'.",
+      "choices": [
+        {
+          "text": "Verdadero",
+          "isCorrect": false
+        },
+        {
+          "text": "Falso",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "Un caballero no puede decirlo porque estaría mintiendo, y un mentiroso tampoco porque estaría diciendo la verdad. Nadie de la isla puede pronunciar esa frase: es una paradoja.",
+      "funFact": "Es una variante de la paradoja del mentiroso, planteada en la antigua Grecia por Epiménides de Creta."
+    },
+    {
+      "category": "logica",
+      "type": "multiple_choice",
+      "difficulty": 4,
+      "text": "Estás fuera de una habitación con 3 interruptores; solo uno enciende la lámpara de adentro. Puedes entrar una única vez. ¿Cómo descubres cuál es?",
+      "choices": [
+        {
+          "text": "Es imposible con una sola entrada",
+          "isCorrect": false
+        },
+        {
+          "text": "Pruebas los tres a la vez",
+          "isCorrect": false
+        },
+        {
+          "text": "Miras por debajo de la puerta",
+          "isCorrect": false
+        },
+        {
+          "text": "Enciendes uno un rato, lo apagas, enciendes otro y al entrar tocas la bombilla",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "Si la lámpara está encendida, es el segundo interruptor. Si está apagada pero caliente, era el primero (estuvo prendida un rato). Si está apagada y fría, es el tercero. El truco es usar una pista extra: el calor.",
+      "funFact": null
+    },
+    {
+      "category": "logica",
+      "type": "multiple_choice",
+      "difficulty": 5,
+      "text": "Tienes 9 bolas idénticas, pero una pesa un poco más. Con una balanza de dos platos, ¿cuántas pesadas necesitas como mínimo para encontrarla siempre?",
+      "choices": [
+        {
+          "text": "4 pesadas",
+          "isCorrect": false
+        },
+        {
+          "text": "2 pesadas",
+          "isCorrect": true
+        },
+        {
+          "text": "3 pesadas",
+          "isCorrect": false
+        },
+        {
+          "text": "8 pesadas",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Divide en 3 grupos de 3 y pesa dos grupos: si se equilibran, la pesada está en el tercero; si no, en el que baja. Luego, del grupo culpable, pesas 2 bolas y aplicas la misma lógica. Cada pesada descarta dos tercios de las opciones.",
+      "funFact": "Una balanza da 3 resultados posibles (izquierda, derecha, equilibrio), por eso conviene dividir en 3 grupos y no en 2."
+    },
+    {
+      "category": "logica",
+      "type": "multiple_choice",
+      "difficulty": 5,
+      "text": "Dentro de 2 años tendré el doble de la edad que tenía hace 5 años. ¿Cuántos años tengo hoy?",
+      "choices": [
+        {
+          "text": "10 años",
+          "isCorrect": false
+        },
+        {
+          "text": "14 años",
+          "isCorrect": false
+        },
+        {
+          "text": "12 años",
+          "isCorrect": true
+        },
+        {
+          "text": "7 años",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Si hoy tengo x años: x + 2 = 2 × (x − 5). Entonces x + 2 = 2x − 10, y despejando, x = 12. Comprobación: dentro de 2 años tendré 14, que es el doble de los 7 que tenía hace 5 años.",
+      "funFact": null
+    },
+    {
+      "category": "logica",
+      "type": "multiple_choice",
+      "difficulty": 5,
+      "text": "Ana mira una foto y dice: 'No tengo hermanos ni hermanas, pero el padre de esta persona es el hijo de mi padre'. ¿Quién aparece en la foto?",
+      "choices": [
+        {
+          "text": "Su hijo",
+          "isCorrect": true
+        },
+        {
+          "text": "Su padre",
+          "isCorrect": false
+        },
+        {
+          "text": "Ella misma",
+          "isCorrect": false
+        },
+        {
+          "text": "Su sobrino",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Como Ana no tiene hermanos, 'el hijo de mi padre'... ¡es ella misma! Entonces la frase queda: 'el padre de esta persona soy yo'. La persona de la foto es su hijo (o hija).",
+      "funFact": "Los acertijos de parentesco se resuelven reemplazando cada expresión por la persona concreta, de adentro hacia afuera."
+    },
+    {
+      "category": "matematica",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "text": "¿Cuánto es 25 + 17?",
+      "choices": [
+        {
+          "text": "41",
+          "isCorrect": false
+        },
+        {
+          "text": "42",
+          "isCorrect": true
+        },
+        {
+          "text": "43",
+          "isCorrect": false
+        },
+        {
+          "text": "32",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Un truco de cálculo mental: 25 + 17 = 25 + 15 + 2 = 40 + 2 = 42. Descomponer los números en partes cómodas hace la suma más rápida.",
+      "funFact": null
+    },
+    {
+      "category": "matematica",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "text": "¿Cuánto es el doble de la mitad de 8?",
+      "choices": [
+        {
+          "text": "16",
+          "isCorrect": false
+        },
+        {
+          "text": "4",
+          "isCorrect": false
+        },
+        {
+          "text": "8",
+          "isCorrect": true
+        },
+        {
+          "text": "2",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "La mitad de 8 es 4, y el doble de 4 es 8. Duplicar y dividir a la mitad son operaciones opuestas: se cancelan entre sí y vuelves al número original.",
+      "funFact": null
+    },
+    {
+      "category": "matematica",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "text": "¿Cuántos ceros tiene un millón escrito en cifras?",
+      "choices": [
+        {
+          "text": "5",
+          "isCorrect": false
+        },
+        {
+          "text": "7",
+          "isCorrect": false
+        },
+        {
+          "text": "8",
+          "isCorrect": false
+        },
+        {
+          "text": "6",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "Un millón se escribe 1.000.000: un uno seguido de seis ceros. Cada grupo de tres ceros multiplica por mil: mil (3 ceros) por mil (3 ceros) da un millón (6 ceros).",
+      "funFact": "Un billón en español tiene 12 ceros, ¡pero el 'billion' en inglés solo tiene 9! Por eso hay tantas confusiones al traducir."
+    },
+    {
+      "category": "matematica",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "text": "¿Cuántas unidades hay en una docena y media?",
+      "choices": [
+        {
+          "text": "18",
+          "isCorrect": true
+        },
+        {
+          "text": "15",
+          "isCorrect": false
+        },
+        {
+          "text": "12",
+          "isCorrect": false
+        },
+        {
+          "text": "24",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Una docena son 12 y media docena son 6. Entonces 12 + 6 = 18. Conocer equivalencias comunes (docena, centena, cuarto de hora) acelera muchísimo el cálculo mental.",
+      "funFact": null
+    },
+    {
+      "category": "matematica",
+      "type": "true_false",
+      "difficulty": 1,
+      "text": "Todo triángulo tiene exactamente tres lados.",
+      "choices": [
+        {
+          "text": "Verdadero",
+          "isCorrect": true
+        },
+        {
+          "text": "Falso",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "El nombre lo dice: 'tri' significa tres. Un triángulo es, por definición, un polígono de tres lados y tres ángulos. Si tuviera cuatro lados sería un cuadrilátero.",
+      "funFact": "La suma de los ángulos internos de cualquier triángulo plano siempre da 180 grados."
+    },
+    {
+      "category": "matematica",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "¿Qué número sigue en la secuencia: 2, 4, 8, 16…?",
+      "choices": [
+        {
+          "text": "24",
+          "isCorrect": false
+        },
+        {
+          "text": "32",
+          "isCorrect": true
+        },
+        {
+          "text": "20",
+          "isCorrect": false
+        },
+        {
+          "text": "18",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Cada número es el doble del anterior: 16 × 2 = 32. Es una progresión geométrica, el mismo patrón del crecimiento explosivo que vemos en virus o intereses compuestos.",
+      "funFact": "Si duplicaras un grano de arroz por cada casilla de un tablero de ajedrez, al final tendrías más granos que arena hay en la Tierra."
+    },
+    {
+      "category": "matematica",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "¿Cuánto es la mitad de la mitad de 100?",
+      "choices": [
+        {
+          "text": "50",
+          "isCorrect": false
+        },
+        {
+          "text": "20",
+          "isCorrect": false
+        },
+        {
+          "text": "25",
+          "isCorrect": true
+        },
+        {
+          "text": "75",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "La mitad de 100 es 50, y la mitad de 50 es 25. Sacar la mitad dos veces equivale a dividir entre 4.",
+      "funFact": null
+    },
+    {
+      "category": "matematica",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "¿Cuánto es el 10% de 250?",
+      "choices": [
+        {
+          "text": "25",
+          "isCorrect": true
+        },
+        {
+          "text": "2,5",
+          "isCorrect": false
+        },
+        {
+          "text": "50",
+          "isCorrect": false
+        },
+        {
+          "text": "10",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Para calcular el 10% de cualquier número, solo corre la coma un lugar a la izquierda: 250 → 25. Es el porcentaje más fácil y sirve de base para calcular otros (el 20% es el doble, el 5% la mitad).",
+      "funFact": null
+    },
+    {
+      "category": "matematica",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "¿Cuánto es 25 × 4?",
+      "choices": [
+        {
+          "text": "125",
+          "isCorrect": false
+        },
+        {
+          "text": "75",
+          "isCorrect": false
+        },
+        {
+          "text": "90",
+          "isCorrect": false
+        },
+        {
+          "text": "100",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "Piensa en dinero: 4 monedas de 25 centavos forman 1 peso, o sea 100 centavos. Asociar números con cosas conocidas (monedas, cuartos de hora) es un gran truco de cálculo mental.",
+      "funFact": null
+    },
+    {
+      "category": "matematica",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "¿Cuánto es 99 + 99?",
+      "choices": [
+        {
+          "text": "199",
+          "isCorrect": false
+        },
+        {
+          "text": "198",
+          "isCorrect": true
+        },
+        {
+          "text": "188",
+          "isCorrect": false
+        },
+        {
+          "text": "200",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Truco: 99 + 99 = 100 + 100 − 2 = 198. Redondear a números 'bonitos' y luego corregir la diferencia es una de las técnicas más útiles del cálculo mental.",
+      "funFact": null
+    },
+    {
+      "category": "matematica",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "¿Cuántos minutos hay en una hora y media?",
+      "choices": [
+        {
+          "text": "80 minutos",
+          "isCorrect": false
+        },
+        {
+          "text": "100 minutos",
+          "isCorrect": false
+        },
+        {
+          "text": "90 minutos",
+          "isCorrect": true
+        },
+        {
+          "text": "120 minutos",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Una hora tiene 60 minutos y media hora tiene 30: 60 + 30 = 90 minutos. Ojo con el tiempo: funciona en base 60, no en base 10, por eso 'una hora y media' no es 150.",
+      "funFact": "El sistema de base 60 para medir el tiempo lo inventaron los babilonios hace unos 4000 años."
+    },
+    {
+      "category": "matematica",
+      "type": "true_false",
+      "difficulty": 2,
+      "text": "Cualquier número multiplicado por cero da como resultado cero.",
+      "choices": [
+        {
+          "text": "Verdadero",
+          "isCorrect": true
+        },
+        {
+          "text": "Falso",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Multiplicar por cero significa tomar el número 'cero veces', es decir, no tomar nada. Por eso el resultado siempre es 0, sin importar cuán grande sea el número.",
+      "funFact": "El cero como número fue una invención revolucionaria: llegó a Europa desde la India a través de los matemáticos árabes."
+    },
+    {
+      "category": "matematica",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "¿Qué número sigue en la secuencia: 1, 1, 2, 3, 5, 8…?",
+      "choices": [
+        {
+          "text": "11",
+          "isCorrect": false
+        },
+        {
+          "text": "13",
+          "isCorrect": true
+        },
+        {
+          "text": "12",
+          "isCorrect": false
+        },
+        {
+          "text": "10",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Es la sucesión de Fibonacci: cada número es la suma de los dos anteriores. 5 + 8 = 13.",
+      "funFact": "Los números de Fibonacci aparecen en la naturaleza: en las espirales de los girasoles, las piñas y los caracoles."
+    },
+    {
+      "category": "matematica",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "Una camiseta cuesta 200 y tiene 15% de descuento. ¿Cuánto pagas?",
+      "choices": [
+        {
+          "text": "185",
+          "isCorrect": false
+        },
+        {
+          "text": "170",
+          "isCorrect": true
+        },
+        {
+          "text": "175",
+          "isCorrect": false
+        },
+        {
+          "text": "160",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "El 10% de 200 es 20 y el 5% es 10, así que el 15% es 30. Entonces pagas 200 − 30 = 170. Descomponer porcentajes en 10% + 5% simplifica el cálculo.",
+      "funFact": null
+    },
+    {
+      "category": "matematica",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "¿Cuánto suman todos los números del 1 al 10?",
+      "choices": [
+        {
+          "text": "50",
+          "isCorrect": false
+        },
+        {
+          "text": "45",
+          "isCorrect": false
+        },
+        {
+          "text": "55",
+          "isCorrect": true
+        },
+        {
+          "text": "60",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Truco de Gauss: empareja extremos que suman 11 (1+10, 2+9, 3+8, 4+7, 5+6). Son 5 parejas de 11: 5 × 11 = 55.",
+      "funFact": "Cuenta la leyenda que Carl F. Gauss descubrió este truco a los 8 años, cuando su maestro quiso mantener ocupada a la clase sumando del 1 al 100."
+    },
+    {
+      "category": "matematica",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "¿Qué número sigue en la secuencia: 2, 3, 5, 7, 11…?",
+      "choices": [
+        {
+          "text": "13",
+          "isCorrect": true
+        },
+        {
+          "text": "12",
+          "isCorrect": false
+        },
+        {
+          "text": "15",
+          "isCorrect": false
+        },
+        {
+          "text": "14",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Son los números primos: los que solo se pueden dividir por 1 y por sí mismos. Después del 11 viene el 13 (el 12 se divide por 2, 3, 4 y 6, así que no es primo).",
+      "funFact": "Los números primos son la base del cifrado que protege tus contraseñas y compras por internet."
+    },
+    {
+      "category": "matematica",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "¿Qué número sigue en la secuencia: 1, 4, 9, 16, 25…?",
+      "choices": [
+        {
+          "text": "30",
+          "isCorrect": false
+        },
+        {
+          "text": "36",
+          "isCorrect": true
+        },
+        {
+          "text": "35",
+          "isCorrect": false
+        },
+        {
+          "text": "49",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Son los cuadrados perfectos: 1², 2², 3², 4², 5²… El siguiente es 6² = 36.",
+      "funFact": "Se llaman 'cuadrados' porque con esa cantidad de piedritas puedes formar un cuadrado perfecto: 36 piedritas forman un cuadrado de 6 por 6."
+    },
+    {
+      "category": "matematica",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "¿Cuánto es 18 × 5 usando cálculo mental?",
+      "choices": [
+        {
+          "text": "95",
+          "isCorrect": false
+        },
+        {
+          "text": "85",
+          "isCorrect": false
+        },
+        {
+          "text": "80",
+          "isCorrect": false
+        },
+        {
+          "text": "90",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "Truco: multiplicar por 5 es lo mismo que multiplicar por 10 y dividir entre 2. 18 × 10 = 180, y 180 ÷ 2 = 90.",
+      "funFact": null
+    },
+    {
+      "category": "matematica",
+      "type": "true_false",
+      "difficulty": 3,
+      "text": "La suma de dos números impares siempre da un número impar.",
+      "choices": [
+        {
+          "text": "Verdadero",
+          "isCorrect": false
+        },
+        {
+          "text": "Falso",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "Impar + impar siempre da PAR: por ejemplo 3 + 5 = 8. Cada impar es un par más 1, y al sumarlos, esos dos 'unos' extra forman otro par.",
+      "funFact": null
+    },
+    {
+      "category": "matematica",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "Un número es divisible por 3 cuando…",
+      "choices": [
+        {
+          "text": "Termina en 3",
+          "isCorrect": false
+        },
+        {
+          "text": "La suma de sus cifras es divisible por 3",
+          "isCorrect": true
+        },
+        {
+          "text": "Es impar",
+          "isCorrect": false
+        },
+        {
+          "text": "Termina en 0",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Por ejemplo, 741: 7 + 4 + 1 = 12, que es divisible por 3, así que 741 también lo es. Este criterio funciona porque 10, 100, 1000… siempre dejan resto 1 al dividirlos por 3.",
+      "funFact": "El mismo truco funciona para el 9: si las cifras suman un múltiplo de 9, el número es divisible por 9."
+    },
+    {
+      "category": "matematica",
+      "type": "multiple_choice",
+      "difficulty": 4,
+      "text": "Un bate y una pelota cuestan 1,10 en total. El bate cuesta 1,00 más que la pelota. ¿Cuánto cuesta la pelota?",
+      "choices": [
+        {
+          "text": "0,10",
+          "isCorrect": false
+        },
+        {
+          "text": "0,05",
+          "isCorrect": true
+        },
+        {
+          "text": "1,00",
+          "isCorrect": false
+        },
+        {
+          "text": "0,15",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Si la pelota costara 0,10, el bate costaría 1,10 y juntos sumarían 1,20: ¡demasiado! La pelota cuesta 0,05 y el bate 1,05: la diferencia es exactamente 1,00 y la suma 1,10.",
+      "funFact": "Más de la mitad de los estudiantes de universidades como Harvard y MIT respondieron mal esta pregunta en un estudio famoso."
+    },
+    {
+      "category": "matematica",
+      "type": "multiple_choice",
+      "difficulty": 4,
+      "text": "¿Cuánto suman todos los números del 1 al 100?",
+      "choices": [
+        {
+          "text": "5050",
+          "isCorrect": true
+        },
+        {
+          "text": "5000",
+          "isCorrect": false
+        },
+        {
+          "text": "10000",
+          "isCorrect": false
+        },
+        {
+          "text": "4950",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Empareja extremos: 1+100 = 101, 2+99 = 101… Hay 50 parejas que suman 101 cada una: 50 × 101 = 5050. Buscar simetrías convierte un problema largo en uno de un solo paso.",
+      "funFact": null
+    },
+    {
+      "category": "matematica",
+      "type": "multiple_choice",
+      "difficulty": 4,
+      "text": "¿Cuántos segundos tiene un día completo?",
+      "choices": [
+        {
+          "text": "3.600",
+          "isCorrect": false
+        },
+        {
+          "text": "1.440",
+          "isCorrect": false
+        },
+        {
+          "text": "86.400",
+          "isCorrect": true
+        },
+        {
+          "text": "36.000",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "24 horas × 60 minutos × 60 segundos = 86.400. Paso a paso: 24 × 60 = 1.440 minutos por día, y 1.440 × 60 = 86.400 segundos.",
+      "funFact": "Tu corazón late aproximadamente una vez por segundo: unos 100.000 latidos cada día."
+    },
+    {
+      "category": "matematica",
+      "type": "multiple_choice",
+      "difficulty": 4,
+      "text": "¿Cuánto es 111 × 111?",
+      "choices": [
+        {
+          "text": "11.111",
+          "isCorrect": false
+        },
+        {
+          "text": "12.321",
+          "isCorrect": true
+        },
+        {
+          "text": "12.221",
+          "isCorrect": false
+        },
+        {
+          "text": "13.331",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Los 'repunos' forman pirámides al elevarse al cuadrado: 11 × 11 = 121 y 111 × 111 = 12321. Las cifras suben hasta la cantidad de unos (3) y luego bajan: 1-2-3-2-1.",
+      "funFact": "El patrón sigue: 1111 × 1111 = 1234321, ¡una pirámide numérica perfecta!"
+    },
+    {
+      "category": "matematica",
+      "type": "true_false",
+      "difficulty": 4,
+      "text": "Si pudieras doblar una hoja de papel por la mitad 42 veces, su grosor superaría la distancia de la Tierra a la Luna.",
+      "choices": [
+        {
+          "text": "Verdadero",
+          "isCorrect": true
+        },
+        {
+          "text": "Falso",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Cada doblez duplica el grosor: tras 42 dobleces, una hoja de 0,1 mm mide 0,1 mm × 2⁴², unos 440.000 km, más que los 384.400 km hasta la Luna. Así de poderoso es el crecimiento exponencial.",
+      "funFact": "En la práctica es imposible: el récord mundial de dobleces de una hoja de papel es de solo 12."
+    },
+    {
+      "category": "matematica",
+      "type": "multiple_choice",
+      "difficulty": 5,
+      "text": "¿Qué ángulo forman las agujas del reloj exactamente a las 3:15?",
+      "choices": [
+        {
+          "text": "0 grados",
+          "isCorrect": false
+        },
+        {
+          "text": "15 grados",
+          "isCorrect": false
+        },
+        {
+          "text": "7,5 grados",
+          "isCorrect": true
+        },
+        {
+          "text": "30 grados",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "A las 3:15 el minutero apunta exactamente al 3, pero la aguja de la hora ya avanzó un cuarto del camino entre el 3 y el 4. Ese tramo mide 30 grados, y un cuarto de 30 es 7,5 grados.",
+      "funFact": "Las agujas de un reloj se superponen exactamente 22 veces al día, no 24 como muchos creen."
+    },
+    {
+      "category": "matematica",
+      "type": "multiple_choice",
+      "difficulty": 5,
+      "text": "¿Cuántos números entre 1 y 100 (incluidos) son divisibles por 3?",
+      "choices": [
+        {
+          "text": "30",
+          "isCorrect": false
+        },
+        {
+          "text": "34",
+          "isCorrect": false
+        },
+        {
+          "text": "33",
+          "isCorrect": true
+        },
+        {
+          "text": "36",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Los múltiplos de 3 van del 3 al 99: 3 × 1 hasta 3 × 33. Basta dividir 100 ÷ 3 = 33,33… y quedarse con la parte entera: 33 números.",
+      "funFact": null
+    },
+    {
+      "category": "matematica",
+      "type": "multiple_choice",
+      "difficulty": 5,
+      "text": "Un nenúfar duplica su tamaño cada día y cubre todo el lago en 48 días. ¿Qué día cubría exactamente la mitad del lago?",
+      "choices": [
+        {
+          "text": "El día 24",
+          "isCorrect": false
+        },
+        {
+          "text": "El día 47",
+          "isCorrect": true
+        },
+        {
+          "text": "El día 46",
+          "isCorrect": false
+        },
+        {
+          "text": "El día 12",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Como se duplica cada día, un día antes de cubrir todo cubría la mitad: el día 47. La intuición dice 'la mitad del tiempo, la mitad del lago', pero el crecimiento exponencial no funciona así.",
+      "funFact": "Este problema clásico se usa para explicar por qué los problemas de crecimiento acelerado parecen 'aparecer de repente'."
+    },
+    {
+      "category": "capciosas",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "text": "¿De qué color era el caballo blanco de San Martín?",
+      "choices": [
+        {
+          "text": "Negro",
+          "isCorrect": false
+        },
+        {
+          "text": "Blanco",
+          "isCorrect": true
+        },
+        {
+          "text": "Marrón",
+          "isCorrect": false
+        },
+        {
+          "text": "No se sabe",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "¡La respuesta está en la propia pregunta! Dice 'el caballo blanco', así que era blanco. Muchas veces buscamos trampas donde no las hay: leer con atención es la mejor herramienta.",
+      "funFact": "Esta es una de las preguntas capciosas más famosas del mundo hispanohablante, usada para enseñar a escuchar con atención."
+    },
+    {
+      "category": "capciosas",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "text": "Si tienes 3 manzanas y tomas 2, ¿cuántas manzanas tienes?",
+      "choices": [
+        {
+          "text": "1",
+          "isCorrect": false
+        },
+        {
+          "text": "3",
+          "isCorrect": false
+        },
+        {
+          "text": "2",
+          "isCorrect": true
+        },
+        {
+          "text": "5",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Si TOMAS 2 manzanas, esas 2 están en tus manos: tienes 2. La trampa está en que el cerebro quiere restar 3 − 2 = 1, pero nadie dijo que regalaras nada.",
+      "funFact": null
+    },
+    {
+      "category": "capciosas",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "text": "¿Qué pesa más: un kilo de plumas o un kilo de hierro?",
+      "choices": [
+        {
+          "text": "El kilo de hierro",
+          "isCorrect": false
+        },
+        {
+          "text": "El kilo de plumas",
+          "isCorrect": false
+        },
+        {
+          "text": "Pesan exactamente lo mismo",
+          "isCorrect": true
+        },
+        {
+          "text": "Depende de la balanza",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Un kilo es un kilo, sin importar de qué material sea. Confundimos peso con densidad: el hierro es más denso (ocupa menos espacio), pero un kilo siempre pesa un kilo.",
+      "funFact": "Un kilo de plumas ocuparía una bolsa enorme, mientras que un kilo de hierro cabe en la palma de la mano."
+    },
+    {
+      "category": "capciosas",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "text": "Entras a una habitación oscura con un fósforo. Hay una vela, una lámpara de aceite y una chimenea. ¿Qué enciendes primero?",
+      "choices": [
+        {
+          "text": "La vela",
+          "isCorrect": false
+        },
+        {
+          "text": "El fósforo",
+          "isCorrect": true
+        },
+        {
+          "text": "La lámpara",
+          "isCorrect": false
+        },
+        {
+          "text": "La chimenea",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Sin encender primero el fósforo, no puedes encender nada más. La pregunta te hace elegir entre las opciones 'grandes' y olvidar el paso previo indispensable.",
+      "funFact": null
+    },
+    {
+      "category": "capciosas",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "text": "¿Qué animal pone huevos: el gallo o la gallina?",
+      "choices": [
+        {
+          "text": "El gallo",
+          "isCorrect": false
+        },
+        {
+          "text": "Ambos",
+          "isCorrect": false
+        },
+        {
+          "text": "Ninguno",
+          "isCorrect": false
+        },
+        {
+          "text": "La gallina",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "Solo las hembras ponen huevos: la gallina. El gallo es el macho y no pone huevos jamás. Parece obvio, pero cuando respondemos rápido, a veces lo obvio se escapa.",
+      "funFact": "Una gallina puede poner alrededor de 300 huevos al año."
+    },
+    {
+      "category": "capciosas",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "Algunos meses tienen 31 días y otros 30. ¿Cuántos meses tienen 28 días?",
+      "choices": [
+        {
+          "text": "Uno",
+          "isCorrect": false
+        },
+        {
+          "text": "Los doce",
+          "isCorrect": true
+        },
+        {
+          "text": "Dos",
+          "isCorrect": false
+        },
+        {
+          "text": "Ninguno",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "TODOS los meses tienen 28 días… ¡y algunos tienen más! La pregunta no dice 'exactamente 28 días'. Febrero es el único que tiene SOLO 28 (o 29), pero los doce llegan a 28.",
+      "funFact": null
+    },
+    {
+      "category": "capciosas",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "El padre de Juan tiene cinco hijos: Lala, Lele, Lili, Lolo y… ¿cómo se llama el quinto?",
+      "choices": [
+        {
+          "text": "Lulu",
+          "isCorrect": false
+        },
+        {
+          "text": "Lalo",
+          "isCorrect": false
+        },
+        {
+          "text": "Juan",
+          "isCorrect": true
+        },
+        {
+          "text": "No se puede saber",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "El enunciado empieza diciendo 'el padre de JUAN', así que Juan es uno de los cinco hijos. El patrón de las vocales (La, Le, Li, Lo…) te empuja a responder 'Lulu' sin pensar.",
+      "funFact": "Los patrones automáticos son atajos mentales llamados heurísticas: útiles casi siempre, traicioneros en los acertijos."
+    },
+    {
+      "category": "capciosas",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "Un tren eléctrico viaja hacia el norte a 100 km/h. El viento sopla hacia el sur. ¿Hacia dónde va el humo del tren?",
+      "choices": [
+        {
+          "text": "Hacia el sur",
+          "isCorrect": false
+        },
+        {
+          "text": "Hacia el norte",
+          "isCorrect": false
+        },
+        {
+          "text": "Hacia arriba",
+          "isCorrect": false
+        },
+        {
+          "text": "No hay humo: es un tren eléctrico",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "Los trenes eléctricos no queman combustible, así que no producen humo. Todos los datos de velocidad y viento son distractores para que no notes la palabra clave: 'eléctrico'.",
+      "funFact": null
+    },
+    {
+      "category": "capciosas",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "¿Cuántos animales de cada especie llevó Moisés en el arca?",
+      "choices": [
+        {
+          "text": "Dos",
+          "isCorrect": false
+        },
+        {
+          "text": "Siete",
+          "isCorrect": false
+        },
+        {
+          "text": "Ninguno: fue Noé, no Moisés",
+          "isCorrect": true
+        },
+        {
+          "text": "Uno",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Según el relato bíblico, el arca fue de Noé, no de Moisés. Nuestro cerebro reconoce el formato de la historia y responde 'dos' sin verificar el nombre. A este fenómeno se le llama la 'ilusión de Moisés'.",
+      "funFact": "Los psicólogos usan esta pregunta en estudios reales sobre por qué no detectamos errores en frases familiares."
+    },
+    {
+      "category": "capciosas",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "¿De qué color son las mangas del chaleco de un mago?",
+      "choices": [
+        {
+          "text": "Negras",
+          "isCorrect": false
+        },
+        {
+          "text": "Los chalecos no tienen mangas",
+          "isCorrect": true
+        },
+        {
+          "text": "Rojas",
+          "isCorrect": false
+        },
+        {
+          "text": "Del color del sombrero",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Un chaleco es, por definición, una prenda SIN mangas. La pregunta te invita a imaginar colores para que no cuestiones la premisa. Siempre revisa si la pregunta tiene sentido antes de responderla.",
+      "funFact": null
+    },
+    {
+      "category": "capciosas",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "Antes de acostarte a dormir, ¿qué es lo primero que harás mañana al despertar?",
+      "choices": [
+        {
+          "text": "Desayunar",
+          "isCorrect": false
+        },
+        {
+          "text": "Abrir los ojos",
+          "isCorrect": true
+        },
+        {
+          "text": "Apagar la alarma",
+          "isCorrect": false
+        },
+        {
+          "text": "Levantarte",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Antes de cualquier otra cosa, al despertar abres los ojos. Las otras acciones vienen después. Las capciosas suelen esconder el paso más básico y automático de todos.",
+      "funFact": null
+    },
+    {
+      "category": "capciosas",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "Conduces un autobús: suben 7 personas, bajan 3, luego suben 5 y bajan 2. ¿De qué color son los ojos del conductor?",
+      "choices": [
+        {
+          "text": "Del color de tus propios ojos",
+          "isCorrect": true
+        },
+        {
+          "text": "Marrones",
+          "isCorrect": false
+        },
+        {
+          "text": "No se puede saber",
+          "isCorrect": false
+        },
+        {
+          "text": "Azules",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "La primera palabra lo dice todo: 'Conduces'. ¡El conductor eres tú! Los números de pasajeros son puro distractor para que olvides el comienzo del enunciado.",
+      "funFact": null
+    },
+    {
+      "category": "capciosas",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "Un médico te da 3 pastillas y te dice que tomes una cada media hora. ¿Cuánto tiempo te duran?",
+      "choices": [
+        {
+          "text": "Una hora y media",
+          "isCorrect": false
+        },
+        {
+          "text": "Media hora",
+          "isCorrect": false
+        },
+        {
+          "text": "Dos horas",
+          "isCorrect": false
+        },
+        {
+          "text": "Una hora",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "Tomas la primera pastilla ya mismo (minuto 0), la segunda a los 30 minutos y la tercera a los 60. Total: una hora. El error común es multiplicar 3 × 30 sin notar que la primera no espera.",
+      "funFact": "Este mismo razonamiento se usa para contar postes de una cerca: para 3 postes hay solo 2 espacios entre ellos."
+    },
+    {
+      "category": "capciosas",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "¿Cuánta tierra hay dentro de un hoyo de 1 metro de largo, 1 de ancho y 1 de profundidad?",
+      "choices": [
+        {
+          "text": "Un metro cúbico",
+          "isCorrect": false
+        },
+        {
+          "text": "Nada: un hoyo está vacío",
+          "isCorrect": true
+        },
+        {
+          "text": "Mil kilos",
+          "isCorrect": false
+        },
+        {
+          "text": "Depende del terreno",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Un hoyo es precisamente el lugar de donde se SACÓ la tierra: está vacío. Las medidas exactas te empujan a calcular un volumen que no hace falta calcular.",
+      "funFact": null
+    },
+    {
+      "category": "capciosas",
+      "type": "true_false",
+      "difficulty": 3,
+      "text": "Cuando un avión se accidenta en la frontera entre dos países, los sobrevivientes deben ser enterrados en su país de origen.",
+      "choices": [
+        {
+          "text": "Verdadero",
+          "isCorrect": false
+        },
+        {
+          "text": "Falso",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "¡A los SOBREVIVIENTES no se los entierra: están vivos! La palabra 'frontera' y el dilema legal te distraen del detalle absurdo del enunciado.",
+      "funFact": null
+    },
+    {
+      "category": "capciosas",
+      "type": "true_false",
+      "difficulty": 3,
+      "text": "Si un gallo pone un huevo justo en la cumbre de un techo a dos aguas, el huevo rodará hacia el lado más inclinado.",
+      "choices": [
+        {
+          "text": "Verdadero",
+          "isCorrect": false
+        },
+        {
+          "text": "Falso",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "El huevo no rueda hacia ningún lado porque… ¡los gallos no ponen huevos! Cuando una pregunta parte de una premisa imposible, la respuesta correcta es rechazar la premisa.",
+      "funFact": null
+    },
+    {
+      "category": "capciosas",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "¿Qué cosa se rompe con solo nombrarla?",
+      "choices": [
+        {
+          "text": "Un espejo",
+          "isCorrect": false
+        },
+        {
+          "text": "Una promesa",
+          "isCorrect": false
+        },
+        {
+          "text": "El silencio",
+          "isCorrect": true
+        },
+        {
+          "text": "El hielo",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "En cuanto pronuncias la palabra 'silencio' (o cualquier otra), el silencio deja de existir: lo rompes al hablar. Es un juego entre el significado de la palabra y el acto de decirla.",
+      "funFact": null
+    },
+    {
+      "category": "capciosas",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "Cuanto más grande es, menos se ve. ¿Qué es?",
+      "choices": [
+        {
+          "text": "La oscuridad",
+          "isCorrect": true
+        },
+        {
+          "text": "El sol",
+          "isCorrect": false
+        },
+        {
+          "text": "Una montaña",
+          "isCorrect": false
+        },
+        {
+          "text": "El viento",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Cuanto más grande es la oscuridad, menos se puede ver. El acertijo invierte la lógica habitual: esperamos que lo grande se vea más, no menos.",
+      "funFact": null
+    },
+    {
+      "category": "capciosas",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "¿Qué hay exactamente en el centro de París?",
+      "choices": [
+        {
+          "text": "La Torre Eiffel",
+          "isCorrect": false
+        },
+        {
+          "text": "El río Sena",
+          "isCorrect": false
+        },
+        {
+          "text": "El Louvre",
+          "isCorrect": false
+        },
+        {
+          "text": "La letra R",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "En el centro de la palabra 'París' está la letra R: P-a-R-í-s. El acertijo juega con dos sentidos de 'centro': el geográfico y el de la palabra escrita.",
+      "funFact": null
+    },
+    {
+      "category": "capciosas",
+      "type": "multiple_choice",
+      "difficulty": 4,
+      "text": "Dos personas nacieron de la misma madre, el mismo día, el mismo año y a la misma hora, pero NO son mellizas ni gemelas. ¿Cómo se explica?",
+      "choices": [
+        {
+          "text": "Es imposible",
+          "isCorrect": false
+        },
+        {
+          "text": "Son trillizas: nacieron tres, no dos",
+          "isCorrect": true
+        },
+        {
+          "text": "Nacieron en países distintos",
+          "isCorrect": false
+        },
+        {
+          "text": "Una fue adoptada",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Si nacieron tres bebés (trillizos), dos cualesquiera de ellos no son 'mellizos' a secas: son parte de un trío. El enunciado solo menciona a dos para ocultarte al tercero.",
+      "funFact": null
+    },
+    {
+      "category": "capciosas",
+      "type": "true_false",
+      "difficulty": 4,
+      "text": "En algunos países está permitido que un hombre se case con la hermana de su viuda.",
+      "choices": [
+        {
+          "text": "Verdadero",
+          "isCorrect": false
+        },
+        {
+          "text": "Falso",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "Si un hombre tiene 'viuda', significa que él ya murió… ¡y los muertos no se casan en ningún país! La palabra 'viuda' esconde la clave de todo el acertijo.",
+      "funFact": null
+    },
+    {
+      "category": "capciosas",
+      "type": "multiple_choice",
+      "difficulty": 4,
+      "text": "¿Qué palabra del español está escrita incorrectamente en todos los diccionarios?",
+      "choices": [
+        {
+          "text": "Ninguna, los diccionarios no tienen errores",
+          "isCorrect": false
+        },
+        {
+          "text": "Ortografía",
+          "isCorrect": false
+        },
+        {
+          "text": "La palabra 'incorrectamente'",
+          "isCorrect": true
+        },
+        {
+          "text": "Diccionario",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "La palabra 'incorrectamente' aparece escrita en los diccionarios… y ella misma 'está escrita incorrectamente' según el juego de palabras del enunciado. Es una trampa autorreferente.",
+      "funFact": null
+    },
+    {
+      "category": "capciosas",
+      "type": "true_false",
+      "difficulty": 4,
+      "text": "Antes de que el monte Everest fuera descubierto y medido, la montaña más alta del mundo era el K2.",
+      "choices": [
+        {
+          "text": "Verdadero",
+          "isCorrect": false
+        },
+        {
+          "text": "Falso",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "El Everest ya era la montaña más alta del mundo antes de ser descubierto: que los humanos no lo supiéramos no cambia la realidad. Descubrir algo no lo crea, solo lo revela.",
+      "funFact": "El Everest fue identificado como la cumbre más alta en 1852, durante el Gran Levantamiento Trigonométrico de la India."
+    },
+    {
+      "category": "capciosas",
+      "type": "multiple_choice",
+      "difficulty": 4,
+      "text": "Cuanto más le quitas, más grande se hace. ¿Qué es?",
+      "choices": [
+        {
+          "text": "Una deuda",
+          "isCorrect": false
+        },
+        {
+          "text": "El hambre",
+          "isCorrect": false
+        },
+        {
+          "text": "La sed",
+          "isCorrect": false
+        },
+        {
+          "text": "Un agujero",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "Cuanta más tierra le quitas a un agujero, más grande queda. El acertijo rompe la regla intuitiva de que quitar siempre achica.",
+      "funFact": null
+    },
+    {
+      "category": "capciosas",
+      "type": "multiple_choice",
+      "difficulty": 5,
+      "text": "¿Cuántas veces se escribe el dígito 9 en los números del 1 al 100?",
+      "choices": [
+        {
+          "text": "10 veces",
+          "isCorrect": false
+        },
+        {
+          "text": "20 veces",
+          "isCorrect": true
+        },
+        {
+          "text": "11 veces",
+          "isCorrect": false
+        },
+        {
+          "text": "19 veces",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Hay diez 9 en las unidades (9, 19, 29… 99) y diez en las decenas (90, 91… 99). Ojo: el 99 aporta DOS nueves. Total: 20. La trampa es olvidar la fila de los noventa o contar el 99 una sola vez.",
+      "funFact": null
+    },
+    {
+      "category": "capciosas",
+      "type": "multiple_choice",
+      "difficulty": 5,
+      "text": "Un hombre cae desde una escalera de 20 metros y no sufre ni un rasguño. ¿Cómo es posible?",
+      "choices": [
+        {
+          "text": "Cayó sobre un colchón",
+          "isCorrect": false
+        },
+        {
+          "text": "Es un superhéroe",
+          "isCorrect": false
+        },
+        {
+          "text": "Cayó desde el primer escalón",
+          "isCorrect": true
+        },
+        {
+          "text": "La escalera estaba acostada",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "El enunciado dice que la ESCALERA mide 20 metros, no que él cayera desde 20 metros de altura. Estaba parado en el primer escalón. Atribuimos la medida a la caída sin que nadie lo afirme.",
+      "funFact": null
+    },
+    {
+      "category": "capciosas",
+      "type": "multiple_choice",
+      "difficulty": 5,
+      "text": "Tengo dos monedas que suman 30 centavos y una de ellas NO es de 10 centavos. ¿Qué monedas son?",
+      "choices": [
+        {
+          "text": "Dos de 15 centavos",
+          "isCorrect": false
+        },
+        {
+          "text": "Es imposible",
+          "isCorrect": false
+        },
+        {
+          "text": "Tres de 10 centavos",
+          "isCorrect": false
+        },
+        {
+          "text": "Una de 20 y una de 10: la de 20 es la que no es de 10",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "El enunciado dice que UNA de ellas no es de 10 centavos… ¡pero la otra sí puede serlo! Una moneda de 20 y una de 10 suman 30 y cumplen la condición al pie de la letra.",
+      "funFact": "Este acertijo enseña a distinguir entre 'una no es' y 'ninguna es', una diferencia clave en lógica."
+    },
+    {
+      "category": "curiosidades",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "text": "¿Qué es el Sol?",
+      "choices": [
+        {
+          "text": "Un planeta",
+          "isCorrect": false
+        },
+        {
+          "text": "Una estrella",
+          "isCorrect": true
+        },
+        {
+          "text": "Un satélite",
+          "isCorrect": false
+        },
+        {
+          "text": "Un cometa",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "El Sol es una estrella: una enorme bola de gas que produce su propia luz y calor mediante fusión nuclear. Los planetas, en cambio, solo reflejan la luz que reciben.",
+      "funFact": "Dentro del Sol cabrían aproximadamente 1.300.000 planetas Tierra."
+    },
+    {
+      "category": "curiosidades",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "text": "¿Cuál es el planeta más grande del sistema solar?",
+      "choices": [
+        {
+          "text": "Saturno",
+          "isCorrect": false
+        },
+        {
+          "text": "La Tierra",
+          "isCorrect": false
+        },
+        {
+          "text": "Júpiter",
+          "isCorrect": true
+        },
+        {
+          "text": "Neptuno",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Júpiter es tan grande que dentro de él cabrían más de 1.300 Tierras. Es un gigante gaseoso, compuesto principalmente de hidrógeno y helio, como una estrella que no llegó a encenderse.",
+      "funFact": "La Gran Mancha Roja de Júpiter es una tormenta más grande que la Tierra que lleva siglos activa."
+    },
+    {
+      "category": "curiosidades",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "text": "¿Cuál es el océano más grande del mundo?",
+      "choices": [
+        {
+          "text": "El Atlántico",
+          "isCorrect": false
+        },
+        {
+          "text": "El Índico",
+          "isCorrect": false
+        },
+        {
+          "text": "El Ártico",
+          "isCorrect": false
+        },
+        {
+          "text": "El Pacífico",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "El Pacífico cubre más de 165 millones de km²: es más grande que todos los continentes juntos. Su nombre se lo puso el explorador Magallanes porque lo encontró tranquilo ('pacífico') al cruzarlo.",
+      "funFact": "El punto más profundo del planeta, la fosa de las Marianas, está en el Pacífico y baja casi 11 kilómetros."
+    },
+    {
+      "category": "curiosidades",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "text": "¿Cuál es el país más grande del mundo por superficie?",
+      "choices": [
+        {
+          "text": "Rusia",
+          "isCorrect": true
+        },
+        {
+          "text": "China",
+          "isCorrect": false
+        },
+        {
+          "text": "Canadá",
+          "isCorrect": false
+        },
+        {
+          "text": "Estados Unidos",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Rusia mide unos 17 millones de km², casi el doble que Canadá, el segundo. Es tan extensa que abarca 11 husos horarios: cuando en un extremo amanece, en el otro ya es de noche.",
+      "funFact": "Rusia ocupa territorio en dos continentes: Europa y Asia."
+    },
+    {
+      "category": "curiosidades",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "text": "¿Cuál es el animal terrestre más rápido del mundo?",
+      "choices": [
+        {
+          "text": "El león",
+          "isCorrect": false
+        },
+        {
+          "text": "El guepardo",
+          "isCorrect": true
+        },
+        {
+          "text": "El caballo",
+          "isCorrect": false
+        },
+        {
+          "text": "La liebre",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "El guepardo alcanza más de 100 km/h en carreras cortas: acelera como un auto deportivo. Su cuerpo aerodinámico, columna flexible y cola timón lo hacen un velocista perfecto.",
+      "funFact": "Solo puede mantener esa velocidad unos segundos: si la presa aguanta, el guepardo se rinde agotado."
+    },
+    {
+      "category": "curiosidades",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "¿Cuántos corazones tiene un pulpo?",
+      "choices": [
+        {
+          "text": "Uno",
+          "isCorrect": false
+        },
+        {
+          "text": "Dos",
+          "isCorrect": false
+        },
+        {
+          "text": "Tres",
+          "isCorrect": true
+        },
+        {
+          "text": "Ocho",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Los pulpos tienen tres corazones: dos bombean sangre a las branquias y uno al resto del cuerpo. Además, su sangre es azul porque usa cobre en lugar de hierro para transportar oxígeno.",
+      "funFact": "El corazón principal del pulpo se detiene cuando nada: por eso prefiere caminar por el fondo del mar."
+    },
+    {
+      "category": "curiosidades",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "¿Cuánto tarda la luz del Sol en llegar a la Tierra?",
+      "choices": [
+        {
+          "text": "Llega instantáneamente",
+          "isCorrect": false
+        },
+        {
+          "text": "Unos 8 minutos",
+          "isCorrect": true
+        },
+        {
+          "text": "Unas 8 horas",
+          "isCorrect": false
+        },
+        {
+          "text": "Unos 8 segundos",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "La luz viaja a 300.000 km por segundo, y aun así tarda unos 8 minutos y 20 segundos en recorrer los 150 millones de km que nos separan del Sol. Siempre vemos el Sol como era 8 minutos atrás.",
+      "funFact": "Cuando miras estrellas lejanas, ves luz que salió hace cientos o miles de años: mirar el cielo es mirar el pasado."
+    },
+    {
+      "category": "curiosidades",
+      "type": "true_false",
+      "difficulty": 2,
+      "text": "Los murciélagos son completamente ciegos.",
+      "choices": [
+        {
+          "text": "Verdadero",
+          "isCorrect": false
+        },
+        {
+          "text": "Falso",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "Todos los murciélagos pueden ver, algunos bastante bien. Lo que ocurre es que muchos cazan de noche usando ecolocalización: emiten sonidos y escuchan el eco para 'ver' con los oídos.",
+      "funFact": "La expresión 'ciego como un murciélago' es científicamente incorrecta: algunos murciélagos frugívoros tienen una vista excelente."
+    },
+    {
+      "category": "curiosidades",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "¿Qué hace realmente un avestruz cuando se siente en peligro?",
+      "choices": [
+        {
+          "text": "Entierra la cabeza en la arena",
+          "isCorrect": false
+        },
+        {
+          "text": "Se hace el muerto durante horas",
+          "isCorrect": false
+        },
+        {
+          "text": "Vuela a un árbol",
+          "isCorrect": false
+        },
+        {
+          "text": "Corre a gran velocidad o se echa al suelo",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "Que los avestruces entierran la cabeza es un mito: se asfixiarían. En realidad huyen corriendo hasta a 70 km/h o se echan al suelo con el cuello estirado para pasar desapercibidos.",
+      "funFact": "El avestruz es el ave más grande del mundo y sus huevos pesan lo mismo que unos 24 huevos de gallina."
+    },
+    {
+      "category": "curiosidades",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "En los caballitos de mar, ¿quién lleva a las crías durante la gestación?",
+      "choices": [
+        {
+          "text": "El macho",
+          "isCorrect": true
+        },
+        {
+          "text": "La hembra",
+          "isCorrect": false
+        },
+        {
+          "text": "Ambos se turnan",
+          "isCorrect": false
+        },
+        {
+          "text": "Nadie: dejan los huevos en algas",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "El caballito de mar es de los pocos animales donde el macho queda 'embarazado': la hembra deposita los huevos en una bolsa de su vientre y él los incuba hasta que nacen.",
+      "funFact": "Un caballito de mar macho puede dar a luz a cientos de crías de una sola vez."
+    },
+    {
+      "category": "curiosidades",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "¿Cuántos huesos tiene el cuerpo de un adulto humano?",
+      "choices": [
+        {
+          "text": "106",
+          "isCorrect": false
+        },
+        {
+          "text": "306",
+          "isCorrect": false
+        },
+        {
+          "text": "206",
+          "isCorrect": true
+        },
+        {
+          "text": "150",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Un adulto tiene 206 huesos. Más de la mitad están en las manos y los pies: cada mano tiene 27 y cada pie 26. El esqueleto es una obra de ingeniería liviana y resistente.",
+      "funFact": "El fémur, el hueso del muslo, es proporcionalmente más resistente que el hormigón."
+    },
+    {
+      "category": "curiosidades",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "¿Por qué los flamencos son de color rosado?",
+      "choices": [
+        {
+          "text": "Nacen así por genética",
+          "isCorrect": false
+        },
+        {
+          "text": "Por los pigmentos de su alimentación",
+          "isCorrect": true
+        },
+        {
+          "text": "Por tomar mucho sol",
+          "isCorrect": false
+        },
+        {
+          "text": "Para atraer pareja cambian de color a voluntad",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Los flamencos nacen grises. Se vuelven rosados por los carotenoides, pigmentos presentes en los pequeños crustáceos y algas que comen. Literalmente, son lo que comen.",
+      "funFact": "En los zoológicos deben darles alimento rico en carotenoides o van perdiendo el color rosado."
+    },
+    {
+      "category": "curiosidades",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "¿Cuál es el planeta más caliente del sistema solar?",
+      "choices": [
+        {
+          "text": "Mercurio, el más cercano al Sol",
+          "isCorrect": false
+        },
+        {
+          "text": "Venus",
+          "isCorrect": true
+        },
+        {
+          "text": "Marte",
+          "isCorrect": false
+        },
+        {
+          "text": "Júpiter",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Aunque Mercurio está más cerca del Sol, Venus es más caliente: su densa atmósfera de dióxido de carbono atrapa el calor como un invernadero extremo, superando los 460 °C día y noche.",
+      "funFact": "En Venus hace tanto calor que el plomo se derretiría sobre su superficie."
+    },
+    {
+      "category": "curiosidades",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "¿Qué guardan los camellos en sus jorobas?",
+      "choices": [
+        {
+          "text": "Agua",
+          "isCorrect": false
+        },
+        {
+          "text": "Aire",
+          "isCorrect": false
+        },
+        {
+          "text": "Grasa",
+          "isCorrect": true
+        },
+        {
+          "text": "Músculo extra",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Las jorobas almacenan grasa, no agua. Esa grasa es una reserva de energía que les permite pasar semanas sin comer. Su resistencia a la sed viene de otros trucos, como glóbulos rojos especiales.",
+      "funFact": "Un camello sediento puede beber más de 100 litros de agua en unos 10 minutos."
+    },
+    {
+      "category": "curiosidades",
+      "type": "true_false",
+      "difficulty": 3,
+      "text": "La Gran Muralla china se puede ver a simple vista desde la Luna.",
+      "choices": [
+        {
+          "text": "Verdadero",
+          "isCorrect": false
+        },
+        {
+          "text": "Falso",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "Es un mito famoso: desde la Luna no se distingue ninguna construcción humana. La muralla es larguísima pero muy angosta; verla desde allí sería como ver un cabello a 3 kilómetros de distancia.",
+      "funFact": "Varios astronautas, incluidos los chinos, han confirmado que ni siquiera desde la órbita baja es fácil distinguirla a simple vista."
+    },
+    {
+      "category": "curiosidades",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "¿Cuál es el hueso más pequeño del cuerpo humano?",
+      "choices": [
+        {
+          "text": "El estribo, dentro del oído",
+          "isCorrect": true
+        },
+        {
+          "text": "La falange del meñique",
+          "isCorrect": false
+        },
+        {
+          "text": "El hueso de la nariz",
+          "isCorrect": false
+        },
+        {
+          "text": "El coxis",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "El estribo mide unos 3 milímetros y está en el oído medio. Junto al martillo y el yunque, transmite las vibraciones del sonido hacia el oído interno para que podamos escuchar.",
+      "funFact": "Los tres huesecillos del oído ya tienen su tamaño definitivo cuando nacemos."
+    },
+    {
+      "category": "curiosidades",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "¿Qué porcentaje de la superficie de la Tierra está cubierto por agua, aproximadamente?",
+      "choices": [
+        {
+          "text": "50%",
+          "isCorrect": false
+        },
+        {
+          "text": "60%",
+          "isCorrect": false
+        },
+        {
+          "text": "90%",
+          "isCorrect": false
+        },
+        {
+          "text": "71%",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "Alrededor del 71% del planeta está cubierto de agua, casi toda salada. Por eso, vista desde el espacio, la Tierra se ve azul y la llaman 'el planeta azul'.",
+      "funFact": "Menos del 1% del agua del planeta es dulce y accesible para el consumo humano."
+    },
+    {
+      "category": "curiosidades",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "¿Con cuántos huesos nace aproximadamente un bebé humano?",
+      "choices": [
+        {
+          "text": "206, igual que un adulto",
+          "isCorrect": false
+        },
+        {
+          "text": "Alrededor de 300",
+          "isCorrect": true
+        },
+        {
+          "text": "Alrededor de 100",
+          "isCorrect": false
+        },
+        {
+          "text": "Alrededor de 500",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Los bebés nacen con unos 300 huesos, muchos de ellos blandos y separados para facilitar el parto y el crecimiento. Con los años, varios se fusionan hasta quedar los 206 del adulto.",
+      "funFact": "El cráneo del bebé tiene zonas blandas llamadas fontanelas que se cierran durante los primeros dos años de vida."
+    },
+    {
+      "category": "curiosidades",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "¿Cómo comunican las abejas a sus compañeras dónde hay flores con néctar?",
+      "choices": [
+        {
+          "text": "Con zumbidos de distinta intensidad",
+          "isCorrect": false
+        },
+        {
+          "text": "Dejando un rastro de olor por el camino",
+          "isCorrect": false
+        },
+        {
+          "text": "Con una danza en forma de ocho",
+          "isCorrect": true
+        },
+        {
+          "text": "Guiándolas en persona hasta el lugar",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Las abejas realizan la 'danza del meneo': un baile en forma de ocho cuyo ángulo indica la dirección respecto al sol y cuya duración indica la distancia. Es un lenguaje simbólico real.",
+      "funFact": "El científico Karl von Frisch ganó el premio Nobel en 1973 por descifrar esta danza."
+    },
+    {
+      "category": "curiosidades",
+      "type": "multiple_choice",
+      "difficulty": 4,
+      "text": "¿Cuál es el desierto más grande del mundo?",
+      "choices": [
+        {
+          "text": "El Sahara",
+          "isCorrect": false
+        },
+        {
+          "text": "El desierto de Gobi",
+          "isCorrect": false
+        },
+        {
+          "text": "El desierto de Atacama",
+          "isCorrect": false
+        },
+        {
+          "text": "La Antártida",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "Un desierto se define por la falta de precipitaciones, no por el calor ni la arena. La Antártida casi no recibe lluvia ni nieve nueva, y con 14 millones de km² supera ampliamente al Sahara.",
+      "funFact": "Hay valles secos en la Antártida donde no llueve ni nieva desde hace aproximadamente 2 millones de años."
+    },
+    {
+      "category": "curiosidades",
+      "type": "multiple_choice",
+      "difficulty": 4,
+      "text": "¿Qué animal tiene huellas dactilares casi indistinguibles de las humanas?",
+      "choices": [
+        {
+          "text": "El chimpancé",
+          "isCorrect": false
+        },
+        {
+          "text": "El koala",
+          "isCorrect": true
+        },
+        {
+          "text": "El gorila",
+          "isCorrect": false
+        },
+        {
+          "text": "El mapache",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Las huellas dactilares del koala son tan parecidas a las humanas que podrían confundir un análisis forense. Lo curioso es que evolucionaron por separado: un caso de evolución convergente.",
+      "funFact": "Se cree que las huellas les ayudan a evaluar por tacto las hojas de eucalipto que comen."
+    },
+    {
+      "category": "curiosidades",
+      "type": "true_false",
+      "difficulty": 4,
+      "text": "Los tiburones ya existían en la Tierra antes que los árboles.",
+      "choices": [
+        {
+          "text": "Verdadero",
+          "isCorrect": true
+        },
+        {
+          "text": "Falso",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Los tiburones aparecieron hace unos 450 millones de años, mientras que los primeros árboles verdaderos surgieron hace unos 385 millones. Los tiburones les llevan unos 65 millones de años de ventaja.",
+      "funFact": "Los tiburones también son más antiguos que los anillos de Saturno y sobrevivieron a las cinco grandes extinciones masivas."
+    },
+    {
+      "category": "curiosidades",
+      "type": "multiple_choice",
+      "difficulty": 4,
+      "text": "¿Qué es más caliente: un rayo o la superficie del Sol?",
+      "choices": [
+        {
+          "text": "La superficie del Sol, por mucho",
+          "isCorrect": false
+        },
+        {
+          "text": "Son iguales",
+          "isCorrect": false
+        },
+        {
+          "text": "Un rayo, varias veces más caliente",
+          "isCorrect": true
+        },
+        {
+          "text": "Depende de la tormenta",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Un rayo calienta el aire a unos 30.000 °C, unas cinco veces la temperatura de la superficie del Sol (5.500 °C). Eso sí: el interior del Sol alcanza 15 millones de grados, fuera de competencia.",
+      "funFact": "El trueno es el sonido del aire expandiéndose de forma explosiva por ese calentamiento instantáneo."
+    },
+    {
+      "category": "curiosidades",
+      "type": "multiple_choice",
+      "difficulty": 4,
+      "text": "Se encontró miel comestible en tumbas del antiguo Egipto. ¿Por qué la miel casi nunca se echa a perder?",
+      "choices": [
+        {
+          "text": "Porque tiene poca agua, es ácida y contiene compuestos antibacterianos",
+          "isCorrect": true
+        },
+        {
+          "text": "Porque las abejas la esterilizan con calor",
+          "isCorrect": false
+        },
+        {
+          "text": "Porque contiene conservantes que le agregan los apicultores",
+          "isCorrect": false
+        },
+        {
+          "text": "Es un mito: la miel vence al año",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "La miel tiene muy poca agua, es ácida y contiene peróxido de hidrógeno natural: un ambiente donde las bacterias no pueden vivir. Bien sellada, puede durar miles de años.",
+      "funFact": "Arqueólogos hallaron miel de unos 3.000 años en tumbas egipcias, todavía en buen estado."
+    },
+    {
+      "category": "curiosidades",
+      "type": "multiple_choice",
+      "difficulty": 5,
+      "text": "¿Qué porcentaje de la energía del cuerpo consume el cerebro humano, aproximadamente?",
+      "choices": [
+        {
+          "text": "5%",
+          "isCorrect": false
+        },
+        {
+          "text": "20%",
+          "isCorrect": true
+        },
+        {
+          "text": "50%",
+          "isCorrect": false
+        },
+        {
+          "text": "35%",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "El cerebro pesa solo el 2% del cuerpo, pero consume alrededor del 20% de la energía. Pensar, recordar y hasta soñar son actividades metabólicamente carísimas.",
+      "funFact": "En los bebés la proporción es aún mayor: su cerebro puede consumir hasta el 60% de la energía disponible."
+    },
+    {
+      "category": "curiosidades",
+      "type": "true_false",
+      "difficulty": 5,
+      "text": "Las hormigas no tienen pulmones.",
+      "choices": [
+        {
+          "text": "Verdadero",
+          "isCorrect": true
+        },
+        {
+          "text": "Falso",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Las hormigas respiran por espiráculos: pequeños orificios en su cuerpo conectados a tubos (tráqueas) que llevan el oxígeno directamente a los tejidos, sin necesidad de pulmones.",
+      "funFact": "Ese sistema de respiración limita el tamaño de los insectos: por eso no existen hormigas gigantes como en las películas."
+    },
+    {
+      "category": "curiosidades",
+      "type": "multiple_choice",
+      "difficulty": 5,
+      "text": "¿Cuántas veces por minuto puede llegar a latir el corazón de un colibrí en pleno vuelo?",
+      "choices": [
+        {
+          "text": "Unas 100 veces",
+          "isCorrect": false
+        },
+        {
+          "text": "Unas 300 veces",
+          "isCorrect": false
+        },
+        {
+          "text": "Más de 1.000 veces",
+          "isCorrect": true
+        },
+        {
+          "text": "Unas 70 veces, como el humano",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "En pleno vuelo, el corazón de un colibrí puede superar los 1.000 latidos por minuto para alimentar sus alas, que baten unas 50 veces por segundo. Es uno de los metabolismos más acelerados del reino animal.",
+      "funFact": "Para ahorrar energía por la noche, los colibríes entran en 'torpor': su corazón baja a menos de 100 latidos por minuto."
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "text": "¿Cuántas veces aparece la letra A en la palabra 'banana'?",
+      "choices": [
+        {
+          "text": "2",
+          "isCorrect": false
+        },
+        {
+          "text": "3",
+          "isCorrect": true
+        },
+        {
+          "text": "4",
+          "isCorrect": false
+        },
+        {
+          "text": "1",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "b-A-n-A-n-A: la letra A aparece 3 veces. Para contar letras sin equivocarte, recorre la palabra despacio, letra por letra, en lugar de mirarla de un vistazo.",
+      "funFact": null
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "text": "Observa el patrón: A, B, B, A, B, B, A… ¿Qué letra sigue?",
+      "choices": [
+        {
+          "text": "A",
+          "isCorrect": false
+        },
+        {
+          "text": "C",
+          "isCorrect": false
+        },
+        {
+          "text": "B",
+          "isCorrect": true
+        },
+        {
+          "text": "No hay patrón",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "El bloque que se repite es A-B-B. Después de la última A vienen dos B: la siguiente letra es B. Detectar el 'bloque' que se repite es la clave de todo patrón.",
+      "funFact": null
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "text": "Si la serie es 1A, 2B, 3C… ¿qué sigue?",
+      "choices": [
+        {
+          "text": "4C",
+          "isCorrect": false
+        },
+        {
+          "text": "5E",
+          "isCorrect": false
+        },
+        {
+          "text": "3D",
+          "isCorrect": false
+        },
+        {
+          "text": "4D",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "Avanzan dos series a la vez: los números (1, 2, 3, 4…) y las letras del abecedario (A, B, C, D…). El siguiente par une el 4 con la D.",
+      "funFact": null
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "text": "¿Cuántos números hay en el código 'B7K2M9'?",
+      "choices": [
+        {
+          "text": "3",
+          "isCorrect": true
+        },
+        {
+          "text": "6",
+          "isCorrect": false
+        },
+        {
+          "text": "2",
+          "isCorrect": false
+        },
+        {
+          "text": "4",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Los números son 7, 2 y 9; el resto (B, K, M) son letras. Separar mentalmente los tipos de símbolos es un ejercicio básico de atención selectiva.",
+      "funFact": null
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "text": "¿Qué letra sigue en la serie: A, E, I, O…?",
+      "choices": [
+        {
+          "text": "P",
+          "isCorrect": false
+        },
+        {
+          "text": "U",
+          "isCorrect": true
+        },
+        {
+          "text": "B",
+          "isCorrect": false
+        },
+        {
+          "text": "Y",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Son las cinco vocales en orden: A, E, I, O, U. A veces el patrón no es alfabético ni numérico, sino de una categoría conocida.",
+      "funFact": null
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "¿Cuál es la letra que está exactamente en el medio de la palabra 'cristal'?",
+      "choices": [
+        {
+          "text": "La i",
+          "isCorrect": false
+        },
+        {
+          "text": "La t",
+          "isCorrect": false
+        },
+        {
+          "text": "La s",
+          "isCorrect": true
+        },
+        {
+          "text": "La r",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "'Cristal' tiene 7 letras: c-r-i-s-t-a-l. La cuarta letra, la S, tiene tres letras a cada lado: es el centro exacto. En palabras con cantidad impar de letras siempre hay un centro único.",
+      "funFact": null
+    },
+    {
+      "category": "percepcion",
+      "type": "true_false",
+      "difficulty": 2,
+      "text": "La palabra 'radar' se lee igual de izquierda a derecha que de derecha a izquierda.",
+      "choices": [
+        {
+          "text": "Verdadero",
+          "isCorrect": true
+        },
+        {
+          "text": "Falso",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "r-a-d-a-r al revés sigue siendo r-a-d-a-r: es un palíndromo. Compara la primera letra con la última, la segunda con la penúltima, y así hasta el centro.",
+      "funFact": "'Radar' viene del inglés 'Radio Detection And Ranging', ¡y por casualidad resultó ser palíndromo!"
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "¿Cuántas letras tiene la palabra 'cuatro'?",
+      "choices": [
+        {
+          "text": "4",
+          "isCorrect": false
+        },
+        {
+          "text": "5",
+          "isCorrect": false
+        },
+        {
+          "text": "7",
+          "isCorrect": false
+        },
+        {
+          "text": "6",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "c-u-a-t-r-o: 6 letras. La trampa está en confundir el significado del número (4) con la palabra escrita, que tiene 6 letras. ¡Atención al nivel de la pregunta: habla de letras, no de cantidades!",
+      "funFact": "En español, 'cinco' es el único número cuya cantidad de letras coincide con su valor: tiene 5 letras."
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "Si escribes la palabra 'zorra' al revés, ¿qué obtienes?",
+      "choices": [
+        {
+          "text": "Otra palabra sin sentido",
+          "isCorrect": false
+        },
+        {
+          "text": "La palabra 'arroz'",
+          "isCorrect": true
+        },
+        {
+          "text": "La misma palabra",
+          "isCorrect": false
+        },
+        {
+          "text": "La palabra 'rosa'",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "z-o-r-r-a leída al revés es a-r-r-o-z. Cuando dos palabras distintas se forman una al invertir la otra, se llaman bifrontes o anacíclicas.",
+      "funFact": "Otros bifrontes en español: 'sal' y 'las', 'sol' y 'los', 'aires' y 'seria'."
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "¿Qué animal se esconde dentro de la palabra 'zaPATOs'?",
+      "choices": [
+        {
+          "text": "Un gato",
+          "isCorrect": false
+        },
+        {
+          "text": "Una rata",
+          "isCorrect": false
+        },
+        {
+          "text": "Un pato",
+          "isCorrect": true
+        },
+        {
+          "text": "Un topo",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Dentro de 'zapatos' están seguidas las letras P-A-T-O: za-PATO-s. Encontrar palabras ocultas dentro de otras entrena la percepción visual del lenguaje.",
+      "funFact": "Otro ejemplo: dentro de 'camaleón' se esconde un 'león'."
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "Lee con atención: Ana compró 3 manzanas, 2 peras y 1 sandía. ¿Cuántas frutas compró en total?",
+      "choices": [
+        {
+          "text": "5",
+          "isCorrect": false
+        },
+        {
+          "text": "7",
+          "isCorrect": false
+        },
+        {
+          "text": "6",
+          "isCorrect": true
+        },
+        {
+          "text": "3",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "3 + 2 + 1 = 6 frutas. El desafío no es la suma, sino retener los tres datos del enunciado sin volver a leerlo. La memoria de trabajo guarda unos pocos elementos a la vez: úsala bien.",
+      "funFact": "La memoria de trabajo del ser humano retiene en promedio 7 elementos, con una variación de 2 más o 2 menos."
+    },
+    {
+      "category": "percepcion",
+      "type": "true_false",
+      "difficulty": 2,
+      "text": "Dentro de la palabra 'caracol' se esconde la palabra 'cara'.",
+      "choices": [
+        {
+          "text": "Verdadero",
+          "isCorrect": true
+        },
+        {
+          "text": "Falso",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "CARA-col: las primeras cuatro letras de 'caracol' forman 'cara'. También esconde 'col' al final. Una misma palabra puede contener varias palabras más cortas.",
+      "funFact": null
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "¿Cuántas letras tiene la palabra 'murciélago'?",
+      "choices": [
+        {
+          "text": "9",
+          "isCorrect": false
+        },
+        {
+          "text": "11",
+          "isCorrect": false
+        },
+        {
+          "text": "10",
+          "isCorrect": true
+        },
+        {
+          "text": "12",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "m-u-r-c-i-é-l-a-g-o: 10 letras exactas. Contar de dos en dos (mu-rc-ié-la-go: 5 pares) reduce los errores de conteo.",
+      "funFact": "'Murciélago' es famosa por contener las cinco vocales sin repetir ninguna."
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "¿Cuántas veces aparece la letra E en la palabra 'elefante'?",
+      "choices": [
+        {
+          "text": "2",
+          "isCorrect": false
+        },
+        {
+          "text": "3",
+          "isCorrect": true
+        },
+        {
+          "text": "4",
+          "isCorrect": false
+        },
+        {
+          "text": "1",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "E-l-E-f-a-n-t-E: hay una E al principio, una en el medio y una al final: 3 en total. El error típico es pasar por alto la del medio.",
+      "funFact": null
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "En la frase 'El perro de Pedro persigue palomas por el parque', ¿cuántas palabras empiezan con P?",
+      "choices": [
+        {
+          "text": "5",
+          "isCorrect": false
+        },
+        {
+          "text": "7",
+          "isCorrect": false
+        },
+        {
+          "text": "4",
+          "isCorrect": false
+        },
+        {
+          "text": "6",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "Perro, Pedro, persigue, palomas, por y parque: 6 palabras. Las palabras cortas como 'por' son las que más se escapan al contar rápido.",
+      "funFact": "Las frases donde casi todas las palabras empiezan igual se llaman aliteraciones y son un recurso poético."
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "¿Cuál de estas palabras NO se puede formar reordenando las letras de 'AMOR'?",
+      "choices": [
+        {
+          "text": "ROMA",
+          "isCorrect": false
+        },
+        {
+          "text": "RAMO",
+          "isCorrect": false
+        },
+        {
+          "text": "ROMANO",
+          "isCorrect": true
+        },
+        {
+          "text": "MORA",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "ROMA, RAMO y MORA usan exactamente las letras A, M, O y R. 'ROMANO' necesita 6 letras, incluidas dos O y una N que 'AMOR' no tiene. Un anagrama debe usar las mismas letras, ni más ni menos.",
+      "funFact": "'AMOR' es una mina de anagramas: Roma, ramo, mora, armo y omar."
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "¿Cuál de estas palabras no encaja con las demás: manzana, pera, zanahoria, uva?",
+      "choices": [
+        {
+          "text": "Manzana",
+          "isCorrect": false
+        },
+        {
+          "text": "Zanahoria",
+          "isCorrect": true
+        },
+        {
+          "text": "Uva",
+          "isCorrect": false
+        },
+        {
+          "text": "Pera",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Manzana, pera y uva son frutas; la zanahoria es una hortaliza (una raíz comestible). Encontrar al intruso exige descubrir qué propiedad comparten los demás.",
+      "funFact": "Las zanahorias originales eran moradas o blancas; las naranjas se popularizaron en los Países Bajos en el siglo XVII."
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "¿Cuál de estas palabras NO es un palíndromo: oro, ojo, oso, ola?",
+      "choices": [
+        {
+          "text": "Ola",
+          "isCorrect": true
+        },
+        {
+          "text": "Ojo",
+          "isCorrect": false
+        },
+        {
+          "text": "Oso",
+          "isCorrect": false
+        },
+        {
+          "text": "Oro",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Oro, ojo y oso se leen igual al derecho y al revés. 'Ola' al revés es 'alo', que no es lo mismo. En palabras de 3 letras basta comparar la primera con la última.",
+      "funFact": "Uno de los palíndromos de frase más conocidos en español es: 'Anita lava la tina'."
+    },
+    {
+      "category": "percepcion",
+      "type": "true_false",
+      "difficulty": 3,
+      "text": "La palabra 'reconocer' se lee igual de izquierda a derecha que de derecha a izquierda.",
+      "choices": [
+        {
+          "text": "Verdadero",
+          "isCorrect": true
+        },
+        {
+          "text": "Falso",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "r-e-c-o-n-o-c-e-r invertida da exactamente lo mismo: es un palíndromo de 9 letras. La N central actúa como eje de simetría.",
+      "funFact": "'Reconocer' es uno de los palíndromos más largos de uso común en español."
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 4,
+      "text": "¿Cuántas veces aparece la vocal O (con o sin tilde) en 'otorrinolaringólogo'?",
+      "choices": [
+        {
+          "text": "5",
+          "isCorrect": false
+        },
+        {
+          "text": "7",
+          "isCorrect": false
+        },
+        {
+          "text": "6",
+          "isCorrect": true
+        },
+        {
+          "text": "4",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "O-t-O-r-r-i-n-O-l-a-r-i-n-g-Ó-l-O-g-O: hay 6 oes contando la Ó con tilde. En palabras largas conviene marcar mentalmente cada hallazgo en lugar de confiar en la vista rápida.",
+      "funFact": "El otorrinolaringólogo es el médico especialista en oído, nariz y garganta: su nombre une las tres cosas en griego."
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 4,
+      "text": "¿Cuántas letras tiene la palabra 'paralelepípedo'?",
+      "choices": [
+        {
+          "text": "13",
+          "isCorrect": false
+        },
+        {
+          "text": "14",
+          "isCorrect": true
+        },
+        {
+          "text": "15",
+          "isCorrect": false
+        },
+        {
+          "text": "12",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "p-a-r-a-l-e-l-e-p-í-p-e-d-o: 14 letras. Dividirla en sílabas ayuda: pa-ra-le-le-pí-pe-do son 7 sílabas de 2 letras cada una: 7 × 2 = 14.",
+      "funFact": "Un paralelepípedo es la figura de una caja de zapatos: seis caras planas, paralelas de a pares."
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 4,
+      "text": "Juguemos a cambiar nombres: si al rojo lo llamamos 'azul' y al azul lo llamamos 'verde', ¿de qué color diríamos que es el cielo despejado?",
+      "choices": [
+        {
+          "text": "Azul",
+          "isCorrect": false
+        },
+        {
+          "text": "Verde",
+          "isCorrect": true
+        },
+        {
+          "text": "Rojo",
+          "isCorrect": false
+        },
+        {
+          "text": "Celeste",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "El cielo despejado es de color azul, pero en este juego a ese color lo llamamos 'verde'. Hay que separar la cosa real (el color del cielo) de la etiqueta nueva que le pusimos.",
+      "funFact": "Este tipo de ejercicio se relaciona con el efecto Stroop: al cerebro le cuesta ignorar el significado habitual de las palabras."
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 4,
+      "text": "¿Cuántos meses del año contienen la letra R en su nombre en español?",
+      "choices": [
+        {
+          "text": "6",
+          "isCorrect": false
+        },
+        {
+          "text": "8",
+          "isCorrect": true
+        },
+        {
+          "text": "10",
+          "isCorrect": false
+        },
+        {
+          "text": "7",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Enero, febrero, marzo, abril, septiembre, octubre, noviembre y diciembre llevan R: son 8. Los cuatro sin R son mayo, junio, julio y agosto, justo meses seguidos.",
+      "funFact": "Existe un dicho tradicional que recomienda comer mariscos solo en los meses con R, por ser los más fríos en el hemisferio norte."
+    },
+    {
+      "category": "percepcion",
+      "type": "true_false",
+      "difficulty": 4,
+      "text": "La palabra 'oía' tiene tres sílabas.",
+      "choices": [
+        {
+          "text": "Verdadero",
+          "isCorrect": true
+        },
+        {
+          "text": "Falso",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Se separa o-í-a: tres sílabas en solo tres letras. Las vocales en hiato (que no se unen entre sí) forman sílabas separadas, y la tilde en la í marca justamente esa ruptura.",
+      "funFact": "'Oía' es de las palabras más cortas del español con una sílaba por letra."
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 5,
+      "text": "¿Qué letra sigue en la serie: U, D, T, C, C, S…?",
+      "choices": [
+        {
+          "text": "O",
+          "isCorrect": false
+        },
+        {
+          "text": "D",
+          "isCorrect": false
+        },
+        {
+          "text": "N",
+          "isCorrect": false
+        },
+        {
+          "text": "S",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "Son las iniciales de los números: Uno, Dos, Tres, Cuatro, Cinco, Seis… y sigue Siete, con S. Cuando una serie de letras parece no tener lógica alfabética, prueba pensarla como iniciales.",
+      "funFact": null
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 5,
+      "text": "¿Cuántas sílabas tiene la palabra 'electrodoméstico'?",
+      "choices": [
+        {
+          "text": "6",
+          "isCorrect": false
+        },
+        {
+          "text": "8",
+          "isCorrect": false
+        },
+        {
+          "text": "7",
+          "isCorrect": true
+        },
+        {
+          "text": "9",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Se separa e-lec-tro-do-més-ti-co: 7 sílabas. Pronunciarla en voz alta dando una palmada por sílaba es el método más confiable para contarlas.",
+      "funFact": null
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 5,
+      "text": "Si escribes todos los números del 1 al 20, ¿cuántas veces escribes el dígito 1?",
+      "choices": [
+        {
+          "text": "11",
+          "isCorrect": false
+        },
+        {
+          "text": "12",
+          "isCorrect": true
+        },
+        {
+          "text": "10",
+          "isCorrect": false
+        },
+        {
+          "text": "13",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "El 1 aparece en: 1, 10, 11 (dos veces), 12, 13, 14, 15, 16, 17, 18 y 19. Suma: 1 + 1 + 2 + 8 = 12. La trampa doble: el 11 lleva dos unos y el 10 también cuenta.",
+      "funFact": null
+    },
+    {
+      "category": "palabras",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "text": "¿Cuál es el antónimo (lo contrario) de 'oscuro'?",
+      "choices": [
+        {
+          "text": "Claro",
+          "isCorrect": true
+        },
+        {
+          "text": "Negro",
+          "isCorrect": false
+        },
+        {
+          "text": "Opaco",
+          "isCorrect": false
+        },
+        {
+          "text": "Sombrío",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "El antónimo es la palabra de significado opuesto: lo contrario de oscuro es claro. 'Sombrío' y 'opaco' son casi sinónimos de oscuro, no lo contrario.",
+      "funFact": null
+    },
+    {
+      "category": "palabras",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "text": "Completa el refrán: 'A quien madruga…'",
+      "choices": [
+        {
+          "text": "…el sueño le llega",
+          "isCorrect": false
+        },
+        {
+          "text": "…Dios lo ayuda",
+          "isCorrect": true
+        },
+        {
+          "text": "…le duele la cabeza",
+          "isCorrect": false
+        },
+        {
+          "text": "…el café lo espera",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "El refrán completo es 'A quien madruga, Dios lo ayuda' y elogia la diligencia: quien empieza temprano tiene ventaja. Los refranes condensan sabiduría popular en frases fáciles de recordar.",
+      "funFact": "Existe un contrarrefrán juguetón: 'No por mucho madrugar amanece más temprano'."
+    },
+    {
+      "category": "palabras",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "text": "En español, ¿cómo se escribe la onomatopeya del canto del gallo?",
+      "choices": [
+        {
+          "text": "Muu",
+          "isCorrect": false
+        },
+        {
+          "text": "Cuac",
+          "isCorrect": false
+        },
+        {
+          "text": "Quiquiriquí",
+          "isCorrect": true
+        },
+        {
+          "text": "Pío pío",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "En español el gallo hace 'quiquiriquí'. Las onomatopeyas imitan sonidos reales, pero cada idioma las adapta a su manera.",
+      "funFact": "El mismo gallo dice 'cock-a-doodle-doo' en inglés y 'cocorico' en francés: el gallo no cambia, ¡cambian los oídos!"
+    },
+    {
+      "category": "palabras",
+      "type": "multiple_choice",
+      "difficulty": 1,
+      "text": "¿Cuál de estas formas está escrita correctamente?",
+      "choices": [
+        {
+          "text": "Avía",
+          "isCorrect": false
+        },
+        {
+          "text": "Habya",
+          "isCorrect": false
+        },
+        {
+          "text": "Abía",
+          "isCorrect": false
+        },
+        {
+          "text": "Había",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "La forma correcta del verbo 'haber' es 'había', con H inicial y B. La H es muda, por eso genera tantas dudas al escribir: no se oye, pero cuenta.",
+      "funFact": "La H del español era una F en latín: 'harina' viene de 'farina'."
+    },
+    {
+      "category": "palabras",
+      "type": "true_false",
+      "difficulty": 1,
+      "text": "Las palabras 'hola' y 'ola' se pronuncian exactamente igual.",
+      "choices": [
+        {
+          "text": "Verdadero",
+          "isCorrect": true
+        },
+        {
+          "text": "Falso",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "La H es muda en español, así que 'hola' (saludo) y 'ola' (del mar) suenan idénticas. Se llaman palabras homófonas: igual sonido, distinto significado y escritura.",
+      "funFact": "Otras homófonas famosas: 'tuvo' y 'tubo', 'casa' y 'caza' (en gran parte de Hispanoamérica)."
+    },
+    {
+      "category": "palabras",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "¿Qué significa que una persona sea políglota?",
+      "choices": [
+        {
+          "text": "Que colecciona libros",
+          "isCorrect": false
+        },
+        {
+          "text": "Que habla varios idiomas",
+          "isCorrect": true
+        },
+        {
+          "text": "Que escribe poesía",
+          "isCorrect": false
+        },
+        {
+          "text": "Que habla mucho",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Políglota viene del griego: 'poli' (muchos) y 'glotta' (lengua). Es quien domina varios idiomas. Conocer las raíces griegas y latinas ayuda a deducir palabras nuevas.",
+      "funFact": "Se calcula que más de la mitad de la población mundial habla al menos dos lenguas."
+    },
+    {
+      "category": "palabras",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "¿Cuál de estas palabras contiene las cinco vocales?",
+      "choices": [
+        {
+          "text": "Elefante",
+          "isCorrect": false
+        },
+        {
+          "text": "Hormiga",
+          "isCorrect": false
+        },
+        {
+          "text": "Eucalipto",
+          "isCorrect": true
+        },
+        {
+          "text": "Tortuga",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "E-U-c-A-l-I-p-t-O: eucalipto tiene A, E, I, O, U, cada una exactamente una vez. Para verificarlo, busca las vocales una por una en orden.",
+      "funFact": "Otras palabras con las cinco vocales: murciélago, educación, aeronáutico y arquitecto."
+    },
+    {
+      "category": "palabras",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "¿Cómo se llama una palabra que se lee igual al derecho y al revés, como 'ana'?",
+      "choices": [
+        {
+          "text": "Anagrama",
+          "isCorrect": false
+        },
+        {
+          "text": "Sinónimo",
+          "isCorrect": false
+        },
+        {
+          "text": "Acrónimo",
+          "isCorrect": false
+        },
+        {
+          "text": "Palíndromo",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "Un palíndromo se lee igual en ambas direcciones. Viene del griego 'palin dromein': 'volver a correr hacia atrás'. Un anagrama, en cambio, es reordenar letras para formar otra palabra.",
+      "funFact": "También existen frases palíndromas: 'Dábale arroz a la zorra el abad'."
+    },
+    {
+      "category": "palabras",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "¿Cómo se llama el conjunto de abejas que vive y trabaja junto?",
+      "choices": [
+        {
+          "text": "Manada",
+          "isCorrect": false
+        },
+        {
+          "text": "Enjambre",
+          "isCorrect": true
+        },
+        {
+          "text": "Cardumen",
+          "isCorrect": false
+        },
+        {
+          "text": "Bandada",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "El grupo de abejas es un enjambre. Cada tipo de animal tiene su sustantivo colectivo: manada (lobos), cardumen (peces), bandada (aves), jauría (perros).",
+      "funFact": "Para los peces también se dice 'banco', como en 'banco de sardinas'."
+    },
+    {
+      "category": "palabras",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "¿Cuál es el antónimo de 'abundancia'?",
+      "choices": [
+        {
+          "text": "Riqueza",
+          "isCorrect": false
+        },
+        {
+          "text": "Cantidad",
+          "isCorrect": false
+        },
+        {
+          "text": "Escasez",
+          "isCorrect": true
+        },
+        {
+          "text": "Exceso",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Abundancia significa que hay mucho de algo; su opuesto es escasez: que hay muy poco. 'Riqueza' y 'exceso' se parecen a abundancia, así que son distractores, no antónimos.",
+      "funFact": null
+    },
+    {
+      "category": "palabras",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "¿Cuánto tiempo abarca un bimestre?",
+      "choices": [
+        {
+          "text": "Dos meses",
+          "isCorrect": true
+        },
+        {
+          "text": "Dos semanas",
+          "isCorrect": false
+        },
+        {
+          "text": "Dos años",
+          "isCorrect": false
+        },
+        {
+          "text": "Seis meses",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "'Bi' significa dos y 'mes' está a la vista: un bimestre son dos meses. Con la misma lógica: trimestre (3), semestre (6) y... ¡ojo con 'bienio', que son dos años!",
+      "funFact": null
+    },
+    {
+      "category": "palabras",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "¿Cuál de estas palabras es esdrújula?",
+      "choices": [
+        {
+          "text": "Canción",
+          "isCorrect": false
+        },
+        {
+          "text": "Reloj",
+          "isCorrect": false
+        },
+        {
+          "text": "Ventana",
+          "isCorrect": false
+        },
+        {
+          "text": "Música",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "'Música' se acentúa en la antepenúltima sílaba: MÚ-si-ca, y por eso es esdrújula. 'Canción' es aguda, 'ventana' es grave. Todas las esdrújulas llevan tilde, sin excepción.",
+      "funFact": null
+    },
+    {
+      "category": "palabras",
+      "type": "true_false",
+      "difficulty": 3,
+      "text": "La palabra 'esdrújula' es, ella misma, una palabra esdrújula.",
+      "choices": [
+        {
+          "text": "Verdadero",
+          "isCorrect": true
+        },
+        {
+          "text": "Falso",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Se pronuncia es-DRÚ-ju-la, con el acento en la antepenúltima sílaba: cumple su propia definición. Es una palabra autodescriptiva.",
+      "funFact": "Otra palabra autodescriptiva: 'pentasílaba' tiene exactamente cinco sílabas."
+    },
+    {
+      "category": "palabras",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "¿Cuántas letras tiene el abecedario español actual?",
+      "choices": [
+        {
+          "text": "26",
+          "isCorrect": false
+        },
+        {
+          "text": "27",
+          "isCorrect": true
+        },
+        {
+          "text": "29",
+          "isCorrect": false
+        },
+        {
+          "text": "30",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "El abecedario español tiene 27 letras: las 26 del alfabeto latino básico más la Ñ. Desde 2010, la 'ch' y la 'll' ya no se consideran letras independientes sino dígrafos.",
+      "funFact": "La RAE eliminó la 'ch' y la 'll' como letras del abecedario en su Ortografía de 2010."
+    },
+    {
+      "category": "palabras",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "¿Cuál es el plural correcto de 'el lunes'?",
+      "choices": [
+        {
+          "text": "Los luneses",
+          "isCorrect": false
+        },
+        {
+          "text": "Los lunes",
+          "isCorrect": true
+        },
+        {
+          "text": "Las lunes",
+          "isCorrect": false
+        },
+        {
+          "text": "No tiene plural",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Los días de la semana terminados en S no cambian en plural: solo cambia el artículo, 'el lunes' → 'los lunes'. Lo mismo pasa con martes, miércoles, jueves y viernes.",
+      "funFact": "En cambio, sábado y domingo sí cambian: sábados y domingos."
+    },
+    {
+      "category": "palabras",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "¿Qué idioma tiene más hablantes nativos en el mundo?",
+      "choices": [
+        {
+          "text": "Inglés",
+          "isCorrect": false
+        },
+        {
+          "text": "Hindi",
+          "isCorrect": false
+        },
+        {
+          "text": "Chino mandarín",
+          "isCorrect": true
+        },
+        {
+          "text": "Español",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "El chino mandarín supera los 900 millones de hablantes nativos. El inglés tiene más hablantes TOTALES (sumando quienes lo aprenden como segunda lengua), pero menos nativos que el mandarín.",
+      "funFact": "La diferencia entre hablantes nativos y totales explica por qué distintas listas de 'idiomas más hablados' no coinciden."
+    },
+    {
+      "category": "palabras",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "¿Cuál es la letra más usada en los textos en español?",
+      "choices": [
+        {
+          "text": "La A",
+          "isCorrect": false
+        },
+        {
+          "text": "La E",
+          "isCorrect": true
+        },
+        {
+          "text": "La O",
+          "isCorrect": false
+        },
+        {
+          "text": "La S",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "La E encabeza la frecuencia en español (alrededor del 14% de las letras de un texto), seguida de cerca por la A. Aparece en artículos, terminaciones verbales y palabras muy comunes.",
+      "funFact": "El escritor Georges Perec escribió una novela entera en francés sin usar la letra E: 'La Disparition'."
+    },
+    {
+      "category": "palabras",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "¿Qué estudia la etimología?",
+      "choices": [
+        {
+          "text": "Los insectos",
+          "isCorrect": false
+        },
+        {
+          "text": "El origen y la historia de las palabras",
+          "isCorrect": true
+        },
+        {
+          "text": "La escritura antigua",
+          "isCorrect": false
+        },
+        {
+          "text": "Los sonidos del habla",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "La etimología investiga de dónde vienen las palabras y cómo cambiaron con el tiempo. Ojo con el distractor: los insectos los estudia la entomología, ¡con N!",
+      "funFact": "La palabra 'etimología' viene del griego 'étymon', que significa 'sentido verdadero'."
+    },
+    {
+      "category": "palabras",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "¿Cuál es el antónimo de 'efímero'?",
+      "choices": [
+        {
+          "text": "Breve",
+          "isCorrect": false
+        },
+        {
+          "text": "Frágil",
+          "isCorrect": false
+        },
+        {
+          "text": "Duradero",
+          "isCorrect": true
+        },
+        {
+          "text": "Pequeño",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Efímero significa que dura muy poco tiempo; su opuesto es duradero (o perdurable). 'Breve' es un sinónimo de efímero, colocado ahí para atrapar a los distraídos.",
+      "funFact": "'Efímero' viene del griego 'ephemeros': 'que dura un día', como algunas flores y ciertos insectos."
+    },
+    {
+      "category": "palabras",
+      "type": "multiple_choice",
+      "difficulty": 4,
+      "text": "¿Qué significa la palabra 'inefable'?",
+      "choices": [
+        {
+          "text": "Que no falla nunca",
+          "isCorrect": false
+        },
+        {
+          "text": "Que no se puede expresar con palabras",
+          "isCorrect": true
+        },
+        {
+          "text": "Que no tiene solución",
+          "isCorrect": false
+        },
+        {
+          "text": "Que es invisible",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Inefable describe algo tan grande o asombroso que las palabras no alcanzan para expresarlo. Viene del latín 'ineffabilis': 'que no puede decirse'.",
+      "funFact": "Es irónico: 'inefable' es una palabra que existe justamente para nombrar lo que no se puede nombrar."
+    },
+    {
+      "category": "palabras",
+      "type": "multiple_choice",
+      "difficulty": 4,
+      "text": "¿De qué idioma proviene la palabra 'ojalá'?",
+      "choices": [
+        {
+          "text": "Del griego",
+          "isCorrect": false
+        },
+        {
+          "text": "Del latín",
+          "isCorrect": false
+        },
+        {
+          "text": "Del náhuatl",
+          "isCorrect": false
+        },
+        {
+          "text": "Del árabe",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "'Ojalá' viene del árabe hispánico 'law šá lláh': 'si Dios quisiera'. Refleja los casi 800 años de presencia árabe en la península ibérica.",
+      "funFact": "El español tiene unas 4.000 palabras de origen árabe: almohada, aceituna, azúcar, alcalde y muchas que empiezan con 'al-'."
+    },
+    {
+      "category": "palabras",
+      "type": "true_false",
+      "difficulty": 4,
+      "text": "El español es el segundo idioma del mundo con más hablantes nativos, después del chino mandarín.",
+      "choices": [
+        {
+          "text": "Verdadero",
+          "isCorrect": true
+        },
+        {
+          "text": "Falso",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Con alrededor de 500 millones de hablantes nativos, el español supera al inglés en lengua materna y solo queda detrás del mandarín. En hablantes totales, el inglés pasa al frente.",
+      "funFact": "El país con más hispanohablantes es México, con más de 120 millones."
+    },
+    {
+      "category": "palabras",
+      "type": "multiple_choice",
+      "difficulty": 4,
+      "text": "¿Qué significa la palabra 'vetusto'?",
+      "choices": [
+        {
+          "text": "Muy elegante",
+          "isCorrect": false
+        },
+        {
+          "text": "Muy viejo o anticuado",
+          "isCorrect": true
+        },
+        {
+          "text": "Muy resistente",
+          "isCorrect": false
+        },
+        {
+          "text": "Muy grande",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Vetusto significa muy viejo, generalmente aplicado a edificios o cosas: 'un caserón vetusto'. Comparte raíz latina ('vetus', viejo) con 'veterano'.",
+      "funFact": null
+    },
+    {
+      "category": "palabras",
+      "type": "true_false",
+      "difficulty": 4,
+      "text": "La letra Ñ nació de la costumbre medieval de abreviar la doble N escribiendo una rayita sobre una sola N.",
+      "choices": [
+        {
+          "text": "Verdadero",
+          "isCorrect": true
+        },
+        {
+          "text": "Falso",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Los copistas medievales escribían 'anno' (año) y, para ahorrar espacio y tinta, ponían una N con una rayita encima: la virgulilla. Así nació la Ñ, hoy símbolo del español.",
+      "funFact": "La Ñ también se usa en otras lenguas, como el guaraní, el gallego y el bretón."
+    },
+    {
+      "category": "palabras",
+      "type": "multiple_choice",
+      "difficulty": 5,
+      "text": "¿Cuál es la palabra más larga aceptada por el diccionario de la Real Academia Española?",
+      "choices": [
+        {
+          "text": "Otorrinolaringología",
+          "isCorrect": false
+        },
+        {
+          "text": "Anticonstitucionalmente",
+          "isCorrect": false
+        },
+        {
+          "text": "Desoxirribonucleico",
+          "isCorrect": false
+        },
+        {
+          "text": "Electroencefalografista",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "'Electroencefalografista' (23 letras) es la palabra más larga recogida en el diccionario de la RAE: la persona especializada en hacer electroencefalogramas. Las otras son largas, pero le quedan cortas o no superan sus 23 letras.",
+      "funFact": "En el habla popular suele citarse 'anticonstitucionalmente', pero tiene 22 letras: una menos."
+    },
+    {
+      "category": "palabras",
+      "type": "multiple_choice",
+      "difficulty": 5,
+      "text": "Según los análisis de frecuencia, ¿cuál es la letra MENOS usada en los textos en español?",
+      "choices": [
+        {
+          "text": "La X",
+          "isCorrect": false
+        },
+        {
+          "text": "La K",
+          "isCorrect": false
+        },
+        {
+          "text": "La W",
+          "isCorrect": true
+        },
+        {
+          "text": "La Z",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "La W es la letra menos frecuente del español: aparece casi solo en préstamos de otros idiomas, como 'web' o 'kiwi'. La K le sigue de cerca por la misma razón.",
+      "funFact": "La W entró oficialmente al abecedario español recién en 1969."
+    },
+    {
+      "category": "palabras",
+      "type": "multiple_choice",
+      "difficulty": 5,
+      "text": "¿Qué nombra la palabra 'petricor'?",
+      "choices": [
+        {
+          "text": "El olor de la lluvia al caer sobre tierra seca",
+          "isCorrect": true
+        },
+        {
+          "text": "El miedo a las tormentas",
+          "isCorrect": false
+        },
+        {
+          "text": "Un mineral brillante",
+          "isCorrect": false
+        },
+        {
+          "text": "El sonido del viento entre las rocas",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "El petricor es ese aroma característico que sentimos cuando llueve después de un tiempo seco. Lo producen aceites vegetales y una sustancia llamada geosmina que libera el suelo húmedo.",
+      "funFact": "El término lo acuñaron dos científicos australianos en 1964, uniendo las palabras griegas 'petra' (piedra) e 'icor' (la sangre de los dioses)."
+    }
+  ]
+}
