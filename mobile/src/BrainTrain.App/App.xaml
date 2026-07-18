@@ -20,6 +20,10 @@
             <local:TileColorConverter x:Key="TileColor" />
             <local:AnchorStrokeConverter x:Key="AnchorStroke" />
             <local:FoundColorConverter x:Key="FoundColor" />
+            <local:LitOpacityConverter x:Key="LitOpacity" />
+            <local:MarkerBoundsConverter x:Key="MarkerBounds" />
+            <local:AllTrueConverter x:Key="AllTrue" />
+            <local:RubikFaceColorConverter x:Key="RubikFaceColor" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

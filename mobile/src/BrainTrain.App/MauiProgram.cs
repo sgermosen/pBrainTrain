@@ -73,6 +73,10 @@ public static class MauiProgram
         services.AddTransient<Game2048ViewModel>();
         services.AddTransient<MathSprintViewModel>();
         services.AddTransient<WordSearchViewModel>();
+        services.AddTransient<MemoryPairsViewModel>();
+        services.AddTransient<SimonViewModel>();
+        services.AddTransient<SpotDiffViewModel>();
+        services.AddTransient<RubikGuideViewModel>();
         services.AddTransient<FocusHubViewModel>();
         services.AddTransient<FocusTimerViewModel>();
         services.AddTransient<BreathingViewModel>();
@@ -92,6 +96,10 @@ public static class MauiProgram
         services.AddTransient<Game2048Page>();
         services.AddTransient<MathSprintPage>();
         services.AddTransient<WordSearchPage>();
+        services.AddTransient<MemoryPairsPage>();
+        services.AddTransient<SimonPage>();
+        services.AddTransient<SpotDiffPage>();
+        services.AddTransient<RubikGuidePage>();
         services.AddTransient<FocusPage>();
         services.AddTransient<FocusTimerPage>();
         services.AddTransient<BreathingPage>();

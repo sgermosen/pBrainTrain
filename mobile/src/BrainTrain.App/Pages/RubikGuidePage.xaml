@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BrainTrain.App.Core.ViewModels;assembly=BrainTrain.App.Core"
+             xmlns:mg="clr-namespace:BrainTrain.App.Core.Minigames;assembly=BrainTrain.App.Core"
+             xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+             x:Class="BrainTrain.App.Pages.RubikGuidePage"
+             x:DataType="vm:RubikGuideViewModel"
+             Style="{StaticResource PageStyle}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,32,20,24" Spacing="14">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <Button Text="✕" FontSize="18" BackgroundColor="Transparent"
+                        TextColor="{AppThemeBinding Light={StaticResource MutedLight}, Dark={StaticResource MutedDark}}"
+                        Command="{Binding ExitCommand}" />
+                <Label Grid.Column="1" Text="🧊 Cubo de Rubik" Style="{StaticResource TitleText}" FontSize="22"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+                <Button Grid.Column="2" Text="⏱" FontSize="20" BackgroundColor="Transparent" Command="{Binding ToggleTimerCommand}" />
+            </Grid>
+
+            <!-- ==================== GUÍA ==================== -->
+            <VerticalStackLayout Spacing="12" IsVisible="{Binding ShowTimer, Converter={StaticResource Invert}}">
+                <Label Text="{Binding ProgressLabel}" Style="{StaticResource SubtitleText}" HorizontalOptions="Center" />
+
+                <Border Style="{StaticResource Card}">
+                    <VerticalStackLayout Spacing="10">
+                        <Label FontSize="19" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" LineBreakMode="WordWrap">
+                            <Label.Text>
+                                <MultiBinding StringFormat="{}{0} {1}">
+                                    <Binding Path="Current.Emoji" />
+                                    <Binding Path="Current.Title" />
+                                </MultiBinding>
+                            </Label.Text>
+                        </Label>
+                        <Label Text="{Binding Current.Goal}" Style="{StaticResource SubtitleText}" FontSize="14" LineBreakMode="WordWrap" />
+
+                        <!-- Cara objetivo 3×3 -->
+                        <VerticalStackLayout Spacing="6" IsVisible="{Binding HasPattern}" HorizontalOptions="Center">
+                            <FlexLayout BindableLayout.ItemsSource="{Binding PatternCells}" Wrap="Wrap"
+                                        JustifyContent="Center" WidthRequest="150">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="sys:String">
+                                        <Border StrokeShape="RoundRectangle 6" Stroke="#2B2650" StrokeThickness="2"
+                                                WidthRequest="44" HeightRequest="44" Margin="2"
+                                                BackgroundColor="{Binding ., Converter={StaticResource RubikFaceColor}}" />
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </FlexLayout>
+                            <Label Text="{Binding Current.FaceLabel}" Style="{StaticResource SubtitleText}" FontSize="12" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+
+                        <!-- Algoritmos -->
+                        <VerticalStackLayout BindableLayout.ItemsSource="{Binding Current.Algorithms}" Spacing="6">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="mg:RubikAlgorithm">
+                                    <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" Padding="10,8"
+                                            BackgroundColor="{AppThemeBinding Light={StaticResource PageLight}, Dark={StaticResource PageDark}}">
+                                        <VerticalStackLayout Spacing="2">
+                                            <Label Text="{Binding When}" FontSize="12" Style="{StaticResource SubtitleText}" />
+                                            <Label Text="{Binding Moves}" FontSize="16" FontFamily="OpenSansSemibold"
+                                                   TextColor="{StaticResource Primary}" LineBreakMode="WordWrap" />
+                                        </VerticalStackLayout>
+                                    </Border>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </VerticalStackLayout>
+
+                        <Label Text="{Binding Current.Tip, StringFormat='💡 {0}'}" FontSize="13"
+                               TextColor="{StaticResource Amber}" LineBreakMode="WordWrap" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                    <Button Text="⬅️ Anterior" Style="{StaticResource SecondaryButton}" Command="{Binding PrevCommand}"
+                            IsEnabled="{Binding IsFirst, Converter={StaticResource Invert}}" />
+                    <Button Grid.Column="1" Text="Siguiente ➡️" Style="{StaticResource PrimaryButton}" Command="{Binding NextCommand}"
+                            IsVisible="{Binding IsLast, Converter={StaticResource Invert}}" />
+                    <Button Grid.Column="1" Text="🎉 ¡Lo armé!" Style="{StaticResource AmberButton}" Command="{Binding CompleteGuideCommand}"
+                            IsVisible="{Binding IsLast}" />
+                </Grid>
+
+                <local:MinigameResultView xmlns:local="clr-namespace:BrainTrain.App.Pages" />
+            </VerticalStackLayout>
+
+            <!-- ==================== TIMER ==================== -->
+            <VerticalStackLayout Spacing="14" IsVisible="{Binding ShowTimer}">
+                <Label Text="Timer de speedcubing" Style="{StaticResource SubtitleText}" HorizontalOptions="Center" />
+                <Border Style="{StaticResource Card}" HeightRequest="220">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding TimerTapCommand}" />
+                    </Border.GestureRecognizers>
+                    <VerticalStackLayout VerticalOptions="Center" Spacing="8">
+                        <Label Text="{Binding TimerDisplay}" FontSize="64" FontFamily="OpenSansSemibold"
+                               TextColor="{StaticResource Primary}" HorizontalOptions="Center" />
+                        <Label Text="Toca para iniciar / detener" Style="{StaticResource SubtitleText}" FontSize="13" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Border>
+                <Grid ColumnDefinitions="*,*">
+                    <Border Style="{StaticResource Card}" Margin="0,0,5,0">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="🏆 Mejor" Style="{StaticResource SubtitleText}" FontSize="12" />
+                            <Label Text="{Binding BestDisplay}" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" FontSize="20" />
+                        </VerticalStackLayout>
+                    </Border>
+                    <Border Grid.Column="1" Style="{StaticResource Card}" Margin="5,0,0,0">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="📊 Ao5" Style="{StaticResource SubtitleText}" FontSize="12" />
+                            <Label Text="{Binding Ao5Display}" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" FontSize="20" />
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+                <Label Text="Ao5: promedio de 5 tiempos quitando el mejor y el peor (estándar de la WCA)."
+                       Style="{StaticResource SubtitleText}" FontSize="11" HorizontalTextAlignment="Center" />
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

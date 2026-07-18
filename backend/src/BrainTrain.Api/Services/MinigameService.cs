@@ -32,6 +32,18 @@ public sealed class MinigameService(AppDbContext db, AchievementService achievem
         new("word_search", "Sopa de Letras", "🔤",
             "Encuentra las palabras escondidas en la cuadrícula.",
             XpNum: 6, XpDen: 1, MaxXpPerSession: 60, MaxScore: 12, MinDurationMs: 15_000),
+        new("memory_pairs", "Parejas de Memoria", "🃏",
+            "Voltea cartas y encuentra todas las parejas. Entrena tu memoria de trabajo.",
+            XpNum: 5, XpDen: 1, MaxXpPerSession: 40, MaxScore: 8, MinDurationMs: 15_000),
+        new("simon", "Simón Dice", "🚦",
+            "Repite la secuencia de colores que crece sin parar. ¿Hasta dónde llega tu memoria?",
+            XpNum: 4, XpDen: 1, MaxXpPerSession: 60, MaxScore: 30, MinDurationMs: 15_000),
+        new("spot_diff", "Encuentra las Diferencias", "🔍",
+            "Dos imágenes casi iguales: descubre las 5 diferencias de cada escena.",
+            XpNum: 4, XpDen: 1, MaxXpPerSession: 60, MaxScore: 15, MinDurationMs: 15_000),
+        new("rubik_guide", "Guía Cubo de Rubik", "🧊",
+            "Aprende a armar el cubo paso a paso (método por capas) y cronometra tus tiempos.",
+            XpNum: 20, XpDen: 1, MaxXpPerSession: 20, MaxScore: 1, MinDurationMs: 60_000),
     ];
 
     public static MinigameDef? Find(string code) => Catalog.FirstOrDefault(g => g.Code == code);

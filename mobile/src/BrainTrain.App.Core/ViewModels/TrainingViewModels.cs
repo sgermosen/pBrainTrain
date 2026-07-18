@@ -33,6 +33,10 @@ public partial class TrainingViewModel(ApiClient api, INavigationService nav) : 
         "g2048" => "game2048",
         "math_sprint" => "mathsprint",
         "word_search" => "wordsearch",
+        "memory_pairs" => "memorypairs",
+        "simon" => "simon",
+        "spot_diff" => "spotdiff",
+        "rubik_guide" => "rubikguide",
         _ => "training"
     });
 }

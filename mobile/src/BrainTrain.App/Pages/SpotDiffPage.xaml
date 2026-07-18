@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BrainTrain.App.Core.ViewModels;assembly=BrainTrain.App.Core"
+             x:Class="BrainTrain.App.Pages.SpotDiffPage"
+             x:DataType="vm:SpotDiffViewModel"
+             Style="{StaticResource PageStyle}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16,32,16,24" Spacing="12">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <Button Text="✕" FontSize="18" BackgroundColor="Transparent"
+                        TextColor="{AppThemeBinding Light={StaticResource MutedLight}, Dark={StaticResource MutedDark}}"
+                        Command="{Binding ExitCommand}" />
+                <Label Grid.Column="1" Text="🔍 Diferencias" Style="{StaticResource TitleText}" FontSize="22"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+                <Label Grid.Column="2" Text="{Binding FoundLabel}" Style="{StaticResource SubtitleText}"
+                       FontSize="13" VerticalOptions="Center" />
+            </Grid>
+
+            <Label Text="{Binding SceneLabel}" Style="{StaticResource SubtitleText}" HorizontalOptions="Center" />
+            <Label Text="Toca la diferencia en cualquiera de las dos imágenes."
+                   Style="{StaticResource SubtitleText}" FontSize="12" HorizontalOptions="Center" />
+
+            <!-- Imagen A con marcadores proporcionales -->
+            <Border StrokeShape="RoundRectangle 16" StrokeThickness="0" Padding="0">
+                <AbsoluteLayout x:Name="TopLayout" HeightRequest="240">
+                    <Image x:Name="ImageTop" Source="{Binding ImageA}" Aspect="AspectFill"
+                           AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" />
+                    <BindableLayout.ItemsSource>
+                        <Binding Path="Markers" />
+                    </BindableLayout.ItemsSource>
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="vm:FoundMarker">
+                            <Ellipse Stroke="{StaticResource Success}" StrokeThickness="4" Fill="#334CAF50"
+                                     AbsoluteLayout.LayoutBounds="{Binding ., Converter={StaticResource MarkerBounds}}"
+                                     AbsoluteLayout.LayoutFlags="PositionProportional" WidthRequest="46" HeightRequest="46" />
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </AbsoluteLayout>
+            </Border>
+
+            <!-- Imagen B con los mismos marcadores -->
+            <Border StrokeShape="RoundRectangle 16" StrokeThickness="0" Padding="0">
+                <AbsoluteLayout x:Name="BottomLayout" HeightRequest="240">
+                    <Image x:Name="ImageBottom" Source="{Binding ImageB}" Aspect="AspectFill"
+                           AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" />
+                    <BindableLayout.ItemsSource>
+                        <Binding Path="Markers" />
+                    </BindableLayout.ItemsSource>
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="vm:FoundMarker">
+                            <Ellipse Stroke="{StaticResource Success}" StrokeThickness="4" Fill="#334CAF50"
+                                     AbsoluteLayout.LayoutBounds="{Binding ., Converter={StaticResource MarkerBounds}}"
+                                     AbsoluteLayout.LayoutFlags="PositionProportional" WidthRequest="46" HeightRequest="46" />
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </AbsoluteLayout>
+            </Border>
+
+            <Label Text="Ahí no hay diferencia 🤔" TextColor="{StaticResource Danger}" FontSize="13"
+                   HorizontalOptions="Center" IsVisible="{Binding MissFlash}" />
+
+            <Button Text="Siguiente escena ➡️" Style="{StaticResource PrimaryButton}" Command="{Binding NextSceneCommand}">
+                <Button.IsVisible>
+                    <MultiBinding Converter="{StaticResource AllTrue}">
+                        <Binding Path="SceneComplete" />
+                        <Binding Path="HasNextScene" />
+                    </MultiBinding>
+                </Button.IsVisible>
+            </Button>
+
+            <local:MinigameResultView xmlns:local="clr-namespace:BrainTrain.App.Pages" />
+            <Button Text="Terminar y cobrar XP" Style="{StaticResource SecondaryButton}"
+                    Command="{Binding FinishCommand}" IsVisible="{Binding IsFinished, Converter={StaticResource Invert}}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

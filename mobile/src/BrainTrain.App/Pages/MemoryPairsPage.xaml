@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BrainTrain.App.Core.ViewModels;assembly=BrainTrain.App.Core"
+             x:Class="BrainTrain.App.Pages.MemoryPairsPage"
+             x:DataType="vm:MemoryPairsViewModel"
+             Style="{StaticResource PageStyle}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,32,20,24" Spacing="14">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <Button Text="✕" FontSize="18" BackgroundColor="Transparent"
+                        TextColor="{AppThemeBinding Light={StaticResource MutedLight}, Dark={StaticResource MutedDark}}"
+                        Command="{Binding ExitCommand}" />
+                <Label Grid.Column="1" Text="🃏 Parejas" Style="{StaticResource TitleText}" FontSize="22"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+                <Label Grid.Column="2" Text="{Binding Moves, StringFormat='Intentos: {0}'}"
+                       Style="{StaticResource SubtitleText}" FontSize="13" VerticalOptions="Center" />
+            </Grid>
+
+            <Label Text="{Binding Pairs, StringFormat='Parejas encontradas: {0}/8'}"
+                   Style="{StaticResource SubtitleText}" HorizontalOptions="Center" />
+
+            <Border Style="{StaticResource Card}" Padding="8">
+                <FlexLayout BindableLayout.ItemsSource="{Binding Cards}" Wrap="Wrap" JustifyContent="Center">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="vm:CardItem">
+                            <Border StrokeShape="RoundRectangle 14" StrokeThickness="0" Margin="4"
+                                    WidthRequest="72" HeightRequest="72"
+                                    BackgroundColor="{Binding IsMatched, Converter={StaticResource FoundColor}}">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MemoryPairsViewModel}}, Path=FlipCommand}"
+                                        CommandParameter="{Binding .}" />
+                                </Border.GestureRecognizers>
+                                <Label Text="{Binding Display}" FontSize="30"
+                                       HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </FlexLayout>
+            </Border>
+
+            <local:MinigameResultView xmlns:local="clr-namespace:BrainTrain.App.Pages" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

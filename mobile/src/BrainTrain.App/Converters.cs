@@ -94,6 +94,47 @@ public sealed class FoundColorConverter : IValueConverter
         throw new NotSupportedException();
 }
 
+public sealed class LitOpacityConverter : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        value is true ? 1.0 : 0.35;
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        throw new NotSupportedException();
+}
+
+public sealed class MarkerBoundsConverter : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        value is Core.ViewModels.FoundMarker m ? new Rect(m.X, m.Y, 46, 46) : new Rect(0, 0, 46, 46);
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        throw new NotSupportedException();
+}
+
+public sealed class AllTrueConverter : IMultiValueConverter
+{
+    public object Convert(object[]? values, Type targetType, object? parameter, CultureInfo culture) =>
+        values is not null && values.All(v => v is true);
+    public object[] ConvertBack(object? value, Type[] targetTypes, object? parameter, CultureInfo culture) =>
+        throw new NotSupportedException();
+}
+
+public sealed class RubikFaceColorConverter : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        (value as string) switch
+        {
+            "W" => Colors.White,
+            "Y" => Color.FromArgb("#FFEB3B"),
+            "R" => Color.FromArgb("#F44336"),
+            "G" => Color.FromArgb("#4CAF50"),
+            "B" => Color.FromArgb("#2196F3"),
+            "O" => Color.FromArgb("#FF9800"),
+            _ => Color.FromArgb("#4A4468") // x = cualquier color
+        };
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        throw new NotSupportedException();
+}
+
 public sealed class IsNotNullConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>

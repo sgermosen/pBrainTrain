@@ -21,6 +21,10 @@ public partial class AppShell : Shell
         Routing.RegisterRoute("game2048", typeof(Game2048Page));
         Routing.RegisterRoute("mathsprint", typeof(MathSprintPage));
         Routing.RegisterRoute("wordsearch", typeof(WordSearchPage));
+        Routing.RegisterRoute("memorypairs", typeof(MemoryPairsPage));
+        Routing.RegisterRoute("simon", typeof(SimonPage));
+        Routing.RegisterRoute("spotdiff", typeof(SpotDiffPage));
+        Routing.RegisterRoute("rubikguide", typeof(RubikGuidePage));
         Routing.RegisterRoute("focus", typeof(FocusPage));
         Routing.RegisterRoute("focustimer", typeof(FocusTimerPage));
         Routing.RegisterRoute("breathe", typeof(BreathingPage));

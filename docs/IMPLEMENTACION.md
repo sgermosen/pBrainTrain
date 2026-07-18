@@ -15,8 +15,8 @@
 | Acceso a datos | EF Core 10 (SQLite dev / PostgreSQL prod) | `backend/src/BrainTrain.Infrastructure` |
 | App móvil | .NET MAUI (Android; iOS listo para compilar en Mac) | `mobile/src/BrainTrain.App` |
 | Lógica móvil compartida | net10.0 + CommunityToolkit.Mvvm | `mobile/src/BrainTrain.App.Core` |
-| Pruebas backend | xUnit (43 pruebas: unitarias + integración HTTP) | `backend/tests/BrainTrain.Tests` |
-| Pruebas móviles | xUnit (11 pruebas: ViewModels E2E contra la API real) | `mobile/tests/BrainTrain.App.Core.Tests` |
+| Pruebas backend | xUnit (54 pruebas: unitarias + integración HTTP) | `backend/tests/BrainTrain.Tests` |
+| Pruebas móviles | xUnit (49 pruebas: motores + ViewModels E2E contra la API real) | `mobile/tests/BrainTrain.App.Core.Tests` |
 
 Los proyectos antiguos (`Jmo.*`, Xamarin/XF, netcoreapp3.1) quedan como referencia
 histórica y están **reemplazados** por `backend/` y `mobile/`.
@@ -195,7 +195,11 @@ Todo en `appsettings.json` (sin secretos) sobrescribible por variables de entorn
 
 | Pantalla | Ruta | Qué hace |
 |---|---|---|
-| Entrenamiento | `training` | Catálogo de minijuegos (2048, Cálculo Rápido, Sopa de Letras) |
+| Entrenamiento | `training` | Catálogo de 7 minijuegos |
+| Parejas de Memoria | `memorypairs` | 16 cartas, 8 parejas de emojis (memoria de trabajo) |
+| Simón Dice | `simon` | Secuencia de 4 colores que crece por ronda |
+| Encuentra las Diferencias | `spotdiff` | 3 escenas SVG generadas por código, 5 diferencias c/u, toque validado por regiones normalizadas |
+| Guía Cubo de Rubik | `rubikguide` | Método por capas en 9 pasos (patrones 3×3 + algoritmos) y timer con mejor tiempo y Ao5 |
 | Enfoque | `focus` | Hub: bloque de foco, calma/respiración y "la ciencia" |
 | Bloque de foco | `focustimer` | Meta única + 15/25/50/90 min + sonido de fondo (loops locales) |
 | Respiración | `breathe` | Suspiro fisiológico, caja, exhalación larga y NSDR con pacer animado |
@@ -253,20 +257,15 @@ pregunta-a-pregunta con explicaciones — que es donde ocurre el aprendizaje rea
 | Brain Wars / Brainia | Liga semanal competitiva con reinicio |
 | Apps de "flow"/"la zona" (Focus, Impulse, MentalUP) | Sección **Enfoque**: bloques de foco, respiración guiada, NSDR y audios — todo con nivel de evidencia visible (ver docs/CIENCIA-ENFOQUE.md) |
 
-Ideas listas para una v2 (el modelo de minijuegos es extensible: agregar uno =
-un motor + un VM + una página + una entrada en `MinigameService.Catalog`):
+Ya implementados sobre ese modelo: **Parejas de Memoria**, **Simón Dice**,
+**Encuentra las Diferencias** (escenas SVG→PNG generadas por
+`tools/generate_spotdiff.py` con regiones de acierto normalizadas emitidas a
+`SpotDiffScenes.g.cs`) y la **Guía del Cubo de Rubik** (método por capas, 9
+pasos con patrón de cara objetivo y timer de speedcubing con Ao5).
 
-- **Memoria de parejas / Simón dice / "Solve in 30s"** — motores puros como los actuales.
-- **Encuentra las diferencias** — requiere pares de imágenes con máscaras de
-  zonas; pipeline sugerido: generar pares con edición programática (misma base
-  + N cambios) y servirlos como assets versionados por el backend.
-- **Guía del cubo de Rubik** — tutorial estático por capas (método principiante:
-  cruz blanca → esquinas → segunda capa → cruz amarilla → OLL/PLL básicos) con
-  notación ilustrada; encaja como sección educativa dentro de Entrenamiento,
-  con logro por completar la guía. Un timer de speedcubing es trivial de sumar.
-- **Ilusiones ópticas** (estilo Ilusion) — banco de imágenes con explicación
-  perceptual, mismo espíritu didáctico del quiz.
-- Duelos asíncronos 1v1, packs por temporada.
+Ideas restantes para una v2: "Solve in 30s", ilusiones ópticas con explicación
+perceptual, más escenas de diferencias (solo re-ejecutar el script con escenas
+nuevas), duelos asíncronos 1v1, packs por temporada.
 
 ## 5. Pruebas (cómo ejecutarlas)
 
@@ -276,7 +275,7 @@ un motor + un VM + una página + una entrada en `MinigameService.Catalog`):
 # rewarded ads, minijuegos con topes y PayPal con gateway simulado)
 cd backend && dotnet test
 
-# Móvil: 29 pruebas — motores de minijuegos (2048/mates/sopa) y E2E de los
+# Móvil: 49 pruebas — motores de los 7 minijuegos, respiración/enfoque y E2E de los
 # ViewModels reales contra el backend real en memoria (partida completa,
 # sin vidas → tienda, compra sandbox, premium, vida por anuncio, reto diario,
 # recordatorios, upgrade de cuenta, auto-refresh de token)

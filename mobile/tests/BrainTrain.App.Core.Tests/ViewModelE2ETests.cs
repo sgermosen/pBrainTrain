@@ -180,9 +180,11 @@ public class ViewModelE2ETests : IClassFixture<BackendFixture>
         var training = new TrainingViewModel(api, nav);
         await training.LoadCommand.ExecuteAsync(null);
 
-        Assert.Equal(3, training.Games.Count);
+        Assert.Equal(7, training.Games.Count);
         await training.OpenCommand.ExecuteAsync(training.Games.First(g => g.Code == "g2048"));
         Assert.Contains("game2048", nav.Routes);
+        await training.OpenCommand.ExecuteAsync(training.Games.First(g => g.Code == "rubik_guide"));
+        Assert.Contains("rubikguide", nav.Routes);
     }
 
     [Fact]

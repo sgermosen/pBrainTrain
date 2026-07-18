@@ -79,10 +79,14 @@ public class PremiumAdsMinigamesTests : IClassFixture<ApiFactory>
     {
         var client = _factory.CreateClient();
         var games = await (await client.GetAsync("/api/v1/minigames")).ReadAs<List<MinigameDto>>();
-        Assert.Equal(3, games.Count);
+        Assert.Equal(7, games.Count);
         Assert.Contains(games, g => g.Code == "g2048");
         Assert.Contains(games, g => g.Code == "math_sprint");
         Assert.Contains(games, g => g.Code == "word_search");
+        Assert.Contains(games, g => g.Code == "memory_pairs");
+        Assert.Contains(games, g => g.Code == "simon");
+        Assert.Contains(games, g => g.Code == "spot_diff");
+        Assert.Contains(games, g => g.Code == "rubik_guide");
     }
 
     [Fact]
