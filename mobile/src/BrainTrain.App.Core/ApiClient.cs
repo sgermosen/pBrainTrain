@@ -134,6 +134,10 @@ public sealed class ApiClient(HttpClient http, ITokenStore tokens)
         SendAsync<MinigameResultDto>(HttpMethod.Post, "api/v1/minigames/submit",
             new MinigameSubmitRequest(code, score, durationMs), ct);
 
+    public Task<FocusResultDto> CompleteFocusAsync(string kind, int seconds, CancellationToken ct = default) =>
+        SendAsync<FocusResultDto>(HttpMethod.Post, "api/v1/focus/complete",
+            new FocusCompleteRequest(kind, seconds), ct);
+
     public Task RegisterDeviceAsync(string platform, string token, CancellationToken ct = default) =>
         SendAsync<object?>(HttpMethod.Post, "api/v1/me/devices", new DeviceTokenRequest(platform, token), ct, allowEmpty: true);
 

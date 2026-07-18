@@ -53,6 +53,10 @@ public sealed record PurchaseResponse(int LivesGranted, int CoinsGranted, Profil
 
 public sealed record DeviceTokenRequest(string Platform, string Token);
 
+// ---------- Sesiones de enfoque ----------
+public sealed record FocusCompleteRequest(string Kind, int Seconds);
+public sealed record FocusResultDto(int XpEarned, int DailyXpRemaining, StreakDto Streak, ProfileDto Profile);
+
 // ---------- Anuncios recompensados ----------
 public sealed record AdRewardResponse(LivesDto Lives, int RemainingToday, ProfileDto Profile);
 

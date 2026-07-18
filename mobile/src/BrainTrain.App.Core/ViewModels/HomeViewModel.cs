@@ -87,6 +87,7 @@ public partial class HomeViewModel(
     }
 
     [RelayCommand] private Task GoTrainingAsync() => nav.GoToAsync("training");
+    [RelayCommand] private Task GoFocusAsync() => nav.GoToAsync("focus");
     [RelayCommand] private Task GoProfileAsync() => nav.GoToAsync("profile");
     [RelayCommand] private Task GoStoreAsync() => nav.GoToAsync("store");
     [RelayCommand] private Task GoLeaderboardAsync() => nav.GoToAsync("leaderboard");

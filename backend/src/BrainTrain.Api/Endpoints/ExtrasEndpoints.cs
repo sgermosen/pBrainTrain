@@ -58,6 +58,45 @@ public static class ExtrasEndpoints
             Results.Ok(await minigames.SubmitAsync(http.User.UserId(), req, ct)))
             .RequireAuthorization();
 
+        // ---------- Sesiones de enfoque (flow/respiración/NSDR) ----------
+        // XP simbólico y capado: el incentivo es el hábito, no farmear el leaderboard.
+        app.MapPost("/api/v1/focus/complete", async (FocusCompleteRequest req, HttpContext http,
+            AppDbContext db, IOptions<GameOptions> options, AchievementService achievements, CancellationToken ct) =>
+        {
+            var opt = options.Value;
+            if (req.Seconds < opt.FocusMinSeconds)
+                return Results.Problem(statusCode: 422, title: "too_short",
+                    detail: $"Una sesión cuenta a partir de {opt.FocusMinSeconds / 60} minutos.");
+            if (req.Seconds > 4 * 3600)
+                return Results.Problem(statusCode: 422, title: "too_long", detail: "Sesión inválida.");
+
+            var user = await db.Users.FindAsync([http.User.UserId()], ct);
+            if (user is null) return Results.Problem(statusCode: 401, title: "user_not_found");
+
+            var now = DateTime.UtcNow;
+            var today = DateOnly.FromDateTime(now);
+            if (user.FocusDateUtc != today)
+            {
+                user.FocusDateUtc = today;
+                user.FocusXpToday = 0;
+            }
+
+            var xp = Math.Min(opt.FocusXpPerSession, Math.Max(0, opt.FocusDailyXpCap - user.FocusXpToday));
+            ProgressionLogic.EnsureCurrentWeek(user, today);
+            ProgressionLogic.UpdateStreak(user, today); // cuidar la mente también mantiene la racha
+            user.FocusXpToday += xp;
+            user.Xp += xp;
+            user.WeeklyXp += xp;
+            user.Level = ProgressionLogic.LevelForXp(user.Xp);
+            await achievements.EvaluateAsync(user, ct);
+            await db.SaveChangesAsync(ct);
+
+            return Results.Ok(new FocusResultDto(
+                xp, Math.Max(0, opt.FocusDailyXpCap - user.FocusXpToday),
+                new StreakDto(user.StreakDays, user.BestStreakDays, user.LastActivityDateUtc == today),
+                ProfileMapper.ToDto(user, opt, now)));
+        }).RequireAuthorization();
+
         // ---------- PayPal (portal web) ----------
         app.MapGet("/api/v1/paypal/config", (PayPalCheckoutService paypal) => Results.Ok(paypal.Config()));
 

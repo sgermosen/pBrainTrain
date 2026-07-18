@@ -55,6 +55,10 @@ public class User
     public DateOnly? MinigameDateUtc { get; set; }
     public int MinigameXpToday { get; set; }
 
+    // ----- Sesiones de enfoque (flow/respiración): XP simbólico con tope diario -----
+    public DateOnly? FocusDateUtc { get; set; }
+    public int FocusXpToday { get; set; }
+
     // ----- Contadores agregados para logros y estadísticas -----
     public int TotalAnswered { get; set; }
     public int TotalCorrect { get; set; }

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BrainTrain.App.Core.ViewModels;assembly=BrainTrain.App.Core"
+             xmlns:focus="clr-namespace:BrainTrain.App.Core.Focus;assembly=BrainTrain.App.Core"
+             xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+             x:Class="BrainTrain.App.Pages.FocusTimerPage"
+             x:DataType="vm:FocusTimerViewModel"
+             Style="{StaticResource PageStyle}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,32,20,24" Spacing="14">
+            <Grid ColumnDefinitions="Auto,*">
+                <Button Text="✕" FontSize="18" BackgroundColor="Transparent"
+                        TextColor="{AppThemeBinding Light={StaticResource MutedLight}, Dark={StaticResource MutedDark}}"
+                        Command="{Binding CancelCommand}" />
+                <Label Grid.Column="1" Text="🎯 Bloque de foco" Style="{StaticResource TitleText}" FontSize="22"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+            </Grid>
+
+            <!-- Preparación (checklist basada en el coste de interrupciones) -->
+            <Border Style="{StaticResource Card}" IsVisible="{Binding IsRunning, Converter={StaticResource Invert}}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Prepara tu flow (30 segundos)" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" />
+                    <Label Text="1️⃣ Escribe UNA meta concreta para este bloque" Style="{StaticResource SubtitleText}" FontSize="13" />
+                    <Entry Text="{Binding Goal}" Placeholder="Ej: terminar el resumen del capítulo 3" MaxLength="80" />
+                    <Label Text="2️⃣ Pon el teléfono en No Molestar (una interrupción cuesta ~23 min de re-enfoque)"
+                           Style="{StaticResource SubtitleText}" FontSize="13" LineBreakMode="WordWrap" />
+                    <Label Text="3️⃣ Elige duración y sonido:" Style="{StaticResource SubtitleText}" FontSize="13" />
+
+                    <FlexLayout BindableLayout.ItemsSource="{Binding Durations}" Wrap="Wrap" JustifyContent="Center">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="sys:Int32">
+                                <Button Text="{Binding ., StringFormat='{0} min'}" Margin="4" HeightRequest="44"
+                                        Style="{StaticResource SecondaryButton}" FontSize="14" WidthRequest="82"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:FocusTimerViewModel}}, Path=PickDurationCommand}"
+                                        CommandParameter="{Binding .}" />
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Sounds}" Spacing="6">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="focus:FocusSound">
+                                <Border StrokeShape="RoundRectangle 12" StrokeThickness="0" Padding="10,8"
+                                        BackgroundColor="{AppThemeBinding Light={StaticResource PageLight}, Dark={StaticResource PageDark}}">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:FocusTimerViewModel}}, Path=PickSoundCommand}"
+                                            CommandParameter="{Binding .}" />
+                                    </Border.GestureRecognizers>
+                                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
+                                        <Label Text="{Binding Emoji}" FontSize="18" VerticalOptions="Center" />
+                                        <VerticalStackLayout Grid.Column="1" Spacing="0">
+                                            <Label Text="{Binding Name}" Style="{StaticResource BodyText}" FontSize="14" FontFamily="OpenSansSemibold" />
+                                            <Label Text="{Binding Note}" Style="{StaticResource SubtitleText}" FontSize="11" LineBreakMode="WordWrap" />
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+
+                    <Label Text="{Binding SelectionSummary}" Style="{StaticResource BodyText}" FontSize="14"
+                           FontFamily="OpenSansSemibold" HorizontalOptions="Center" TextColor="{StaticResource Primary}" />
+                    <Button Text="▶️ Entrar en el flow" Style="{StaticResource PrimaryButton}" Command="{Binding StartCommand}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Sesión en curso -->
+            <Border Style="{StaticResource Card}" IsVisible="{Binding IsRunning}">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="{Binding Goal, StringFormat='Meta: {0}'}" Style="{StaticResource SubtitleText}"
+                           HorizontalOptions="Center" IsVisible="{Binding Goal, Converter={StaticResource NotNull}}" />
+                    <Label Text="{Binding Clock}" FontSize="64" FontFamily="OpenSansSemibold"
+                           TextColor="{StaticResource Primary}" HorizontalOptions="Center" />
+                    <ProgressBar Progress="{Binding Progress}" ProgressColor="{StaticResource Primary}" />
+                    <Label Text="Una sola cosa. Si te distraes, vuelve sin culpa." Style="{StaticResource SubtitleText}"
+                           FontSize="13" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Fin de sesión -->
+            <Border Style="{StaticResource Card}" BackgroundColor="{StaticResource Secondary}" IsVisible="{Binding IsFinished}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="🎉 ¡Bloque completado!" TextColor="{StaticResource Tertiary}"
+                           FontFamily="OpenSansSemibold" FontSize="18" HorizontalOptions="Center" />
+                    <Label Text="{Binding Result.XpEarned, StringFormat='+{0} XP por cuidar tu enfoque'}"
+                           TextColor="{StaticResource Primary}" FontFamily="OpenSansSemibold" HorizontalOptions="Center" />
+                    <Label Text="Descansa de verdad: levántate, mira lejos, toma agua. Tres suspiros fisiológicos si quedaste acelerado."
+                           TextColor="{StaticResource Tertiary}" FontSize="13" HorizontalTextAlignment="Center" />
+                    <Label Text="{Binding Error}" TextColor="{StaticResource Danger}" FontSize="13"
+                           IsVisible="{Binding Error, Converter={StaticResource NotNull}}" HorizontalTextAlignment="Center" />
+                    <Button Text="Listo" Style="{StaticResource PrimaryButton}" Command="{Binding ExitCommand}" />
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

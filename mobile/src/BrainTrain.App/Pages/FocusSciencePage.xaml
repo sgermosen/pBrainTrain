@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BrainTrain.App.Pages.FocusSciencePage"
+             Style="{StaticResource PageStyle}"
+             Title="La ciencia">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,36,20,24" Spacing="12">
+            <Label Text="🔬 ¿Y esto funciona?" Style="{StaticResource TitleText}" />
+            <Label Text="Nuestra regla: sin humo. Cada técnica muestra su nivel de evidencia real. Esto no es un tratamiento médico; es entrenamiento de hábitos con respaldo científico."
+                   Style="{StaticResource SubtitleText}" />
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="🎯 Bloques sin interrupciones — evidencia FUERTE" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" />
+                    <Label Text="Tras una interrupción, volver a concentrarse toma en promedio ~23 minutos (Mark et al., 2008, estudio de la Univ. de California). Por eso el bloque de foco te pide una sola meta y el teléfono en silencio: es la palanca más potente de toda esta sección."
+                           Style="{StaticResource SubtitleText}" FontSize="13" LineBreakMode="WordWrap" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="🌊 El estado de flow — evidencia MODERADA" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" />
+                    <Label Text="Décadas de investigación (Csikszentmihalyi) muestran que el flow aparece cuando el reto iguala tu habilidad, la meta es clara y el feedback inmediato. Todo BrainTrain está diseñado así — incluida la dificultad adaptativa del quiz."
+                           Style="{StaticResource SubtitleText}" FontSize="13" LineBreakMode="WordWrap" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="🌬️ Suspiro fisiológico — evidencia MODERADA" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" />
+                    <Label Text="En un ensayo controlado de Stanford (Balban et al., 2023, Cell Reports Medicine; 108 personas, 5 min/día, 28 días), el 'cyclic sighing' mejoró el ánimo más que la meditación mindfulness y redujo la frecuencia respiratoria. No promete milagros: es la forma más rápida de bajar revoluciones."
+                           Style="{StaticResource SubtitleText}" FontSize="13" LineBreakMode="WordWrap" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="🛌 NSDR / Yoga Nidra — evidencia MODERADA (efectos pequeños)" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" />
+                    <Label Text="Un ensayo con ~770 participantes (Moszeik et al., 2022) encontró menos estrés y mejor sueño con sesiones de 11 minutos. Los efectos son reales pero modestos. ¿Escuchaste que 'sube la dopamina 65%'? Eso viene de un estudio con solo 8 personas sin réplica — por eso no lo usamos como argumento."
+                           Style="{StaticResource SubtitleText}" FontSize="13" LineBreakMode="WordWrap" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="🌧️ Sonidos de naturaleza — evidencia MODERADA" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" />
+                    <Label Text="Una síntesis en PNAS (Buxton et al., 2021) muestra que los sonidos naturales reducen el estrés y mejoran levemente el rendimiento cognitivo frente a sonidos urbanos. Nuestra lluvia es sintética y sin copyright, generada matemáticamente."
+                           Style="{StaticResource SubtitleText}" FontSize="13" LineBreakMode="WordWrap" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="🟤 Ruido de fondo — depende de ti" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" />
+                    <Label Text="El ruido blanco/rosa ayuda un poco a personas con dificultades de atención (metaanálisis 2024), pero a otras les estorba. El famoso ruido marrón no tiene estudios propios: lo ofrecemos porque enmascara bien el ruido ambiente. Pruébalo y decide — esa es la única recomendación honesta."
+                           Style="{StaticResource SubtitleText}" FontSize="13" LineBreakMode="WordWrap" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="🎧 Tonos binaurales — evidencia MIXTA" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" />
+                    <Label Text="Un metaanálisis (2019) encuentra beneficios pequeños; otra revisión (2023) concluye que la 'sincronización de ondas cerebrales' no está demostrada. Los incluimos porque a algunas personas les funcionan como ancla auditiva — con audífonos — pero jamás te diremos que 'desbloquean tu cerebro'."
+                           Style="{StaticResource SubtitleText}" FontSize="13" LineBreakMode="WordWrap" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="⏲️ ¿Por qué 15/25/50/90 minutos?" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" />
+                    <Label Text="El Pomodoro y los ciclos de 90 minutos son estructuras útiles, no leyes biológicas exactas. Lo que sí está probado: necesitas pausas reales para sostener el rendimiento. Elige el bloque que le quede a tu tarea y descansa de verdad entre bloques."
+                           Style="{StaticResource SubtitleText}" FontSize="13" LineBreakMode="WordWrap" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="Referencias completas en el repositorio: docs/CIENCIA-ENFOQUE.md"
+                   Style="{StaticResource SubtitleText}" FontSize="11" HorizontalTextAlignment="Center" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

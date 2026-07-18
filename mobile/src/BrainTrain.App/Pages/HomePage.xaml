@@ -71,7 +71,10 @@
 
                 <!-- Juego rápido y entrenamiento -->
                 <Button Text="🎲 Partida rápida" Style="{StaticResource PrimaryButton}" Command="{Binding PlayQuickCommand}" />
-                <Button Text="🧠 Entrenamiento (minijuegos)" Style="{StaticResource SecondaryButton}" Command="{Binding GoTrainingCommand}" />
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                    <Button Text="🧠 Entrenamiento" Style="{StaticResource SecondaryButton}" Command="{Binding GoTrainingCommand}" />
+                    <Button Grid.Column="1" Text="🧘 Enfoque" Style="{StaticResource SecondaryButton}" Command="{Binding GoFocusCommand}" />
+                </Grid>
 
                 <!-- Categorías -->
                 <Label Text="Categorías" Style="{StaticResource TitleText}" FontSize="20" Margin="0,8,0,0" />

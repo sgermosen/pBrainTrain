@@ -31,6 +31,11 @@ public sealed class GameOptions
     /// <summary>Tope diario de XP obtenible por minijuegos (anti-farmeo del leaderboard).</summary>
     public int MinigameDailyXpCap { get; set; } = 300;
 
+    /// <summary>Sesiones de enfoque: XP simbólico (no farmeable) y duración mínima real.</summary>
+    public int FocusXpPerSession { get; set; } = 10;
+    public int FocusDailyXpCap { get; set; } = 30;
+    public int FocusMinSeconds { get; set; } = 180;
+
     /// <summary>XP por respuesta correcta = XpPerDifficulty * dificultad(1..5).</summary>
     public int XpPerDifficulty { get; set; } = 10;
     public int PerfectBonusXp { get; set; } = 25;

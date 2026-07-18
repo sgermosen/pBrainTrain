@@ -71,6 +71,10 @@ public sealed record MinigameDto(string Code, string Name, string Emoji, string 
 public sealed record MinigameSubmitRequest(string Code, int Score, int DurationMs);
 public sealed record MinigameResultDto(int XpEarned, int CoinsEarned, int DailyXpRemaining, StreakDto Streak, ProfileDto Profile);
 
+// ---------- Sesiones de enfoque ----------
+public sealed record FocusCompleteRequest(string Kind, int Seconds);
+public sealed record FocusResultDto(int XpEarned, int DailyXpRemaining, StreakDto Streak, ProfileDto Profile);
+
 // ---------- PayPal (portal web) ----------
 public sealed record PayPalConfigDto(bool Enabled, string ClientId, string Currency, string Mode);
 public sealed record PayPalCreateOrderRequest(string ProductId);
@@ -109,6 +113,8 @@ public sealed record ApiInfoDto(string Name, string Version, string Environment)
 [JsonSerializable(typeof(List<MinigameDto>))]
 [JsonSerializable(typeof(MinigameSubmitRequest))]
 [JsonSerializable(typeof(MinigameResultDto))]
+[JsonSerializable(typeof(FocusCompleteRequest))]
+[JsonSerializable(typeof(FocusResultDto))]
 [JsonSerializable(typeof(PayPalConfigDto))]
 [JsonSerializable(typeof(PayPalCreateOrderRequest))]
 [JsonSerializable(typeof(PayPalCreateOrderResponse))]

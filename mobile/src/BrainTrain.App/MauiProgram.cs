@@ -54,6 +54,9 @@ public static class MauiProgram
         services.AddSingleton<IPlatformPurchaser, SandboxPurchaser>();
         // Anuncios: simulados en dev; producción usa AdMob (ver PUBLICACION.md).
         services.AddSingleton<IAdService, SandboxAdService>();
+        // Audio de la sección Enfoque (loops procedurales locales).
+        services.AddSingleton(Plugin.Maui.Audio.AudioManager.Current);
+        services.AddSingleton<IFocusAudioPlayer, FocusAudioPlayer>();
 
         // ---------- ViewModels ----------
         services.AddTransient<OnboardingViewModel>();
@@ -70,6 +73,9 @@ public static class MauiProgram
         services.AddTransient<Game2048ViewModel>();
         services.AddTransient<MathSprintViewModel>();
         services.AddTransient<WordSearchViewModel>();
+        services.AddTransient<FocusHubViewModel>();
+        services.AddTransient<FocusTimerViewModel>();
+        services.AddTransient<BreathingViewModel>();
 
         // ---------- Páginas ----------
         services.AddTransient<OnboardingPage>();
@@ -86,6 +92,10 @@ public static class MauiProgram
         services.AddTransient<Game2048Page>();
         services.AddTransient<MathSprintPage>();
         services.AddTransient<WordSearchPage>();
+        services.AddTransient<FocusPage>();
+        services.AddTransient<FocusTimerPage>();
+        services.AddTransient<BreathingPage>();
+        services.AddTransient<FocusSciencePage>();
 
         return builder.Build();
     }

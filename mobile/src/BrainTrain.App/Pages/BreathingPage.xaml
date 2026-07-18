@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BrainTrain.App.Core.ViewModels;assembly=BrainTrain.App.Core"
+             xmlns:focus="clr-namespace:BrainTrain.App.Core.Focus;assembly=BrainTrain.App.Core"
+             x:Class="BrainTrain.App.Pages.BreathingPage"
+             x:DataType="vm:BreathingViewModel"
+             Style="{StaticResource PageStyle}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,32,20,24" Spacing="14">
+            <Grid ColumnDefinitions="Auto,*">
+                <Button Text="✕" FontSize="18" BackgroundColor="Transparent"
+                        TextColor="{AppThemeBinding Light={StaticResource MutedLight}, Dark={StaticResource MutedDark}}"
+                        Command="{Binding ExitCommand}" />
+                <Label Grid.Column="1" Text="🌬️ Calma y claridad" Style="{StaticResource TitleText}" FontSize="22"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+            </Grid>
+
+            <!-- Selección de protocolo -->
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Protocols}" Spacing="10"
+                                 IsVisible="{Binding IsRunning, Converter={StaticResource Invert}}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="focus:BreathProtocol">
+                        <Border Style="{StaticResource Card}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BreathingViewModel}}, Path=SelectCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                <Label Text="{Binding Emoji}" FontSize="30" VerticalOptions="Center" />
+                                <VerticalStackLayout Grid.Column="1" Spacing="3">
+                                    <Label Text="{Binding Name}" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" />
+                                    <Label Text="{Binding Description}" Style="{StaticResource SubtitleText}" FontSize="13" LineBreakMode="WordWrap" />
+                                    <Label Text="{Binding EvidenceNote}" FontSize="11" TextColor="{StaticResource Amber}" LineBreakMode="WordWrap" />
+                                </VerticalStackLayout>
+                                <Label Grid.Column="2" Text="{Binding DefaultMinutes, StringFormat='{0} min'}"
+                                       FontSize="12" TextColor="{StaticResource Primary}" FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+
+            <!-- Confirmación e inicio -->
+            <Border Style="{StaticResource Card}" IsVisible="{Binding Selected, Converter={StaticResource NotNull}}">
+                <VerticalStackLayout Spacing="10" IsVisible="{Binding IsRunning, Converter={StaticResource Invert}}">
+                    <Label Text="{Binding Selected.Name}" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" HorizontalOptions="Center" />
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="🌧️ Lluvia de fondo" Style="{StaticResource BodyText}" VerticalOptions="Center" />
+                        <Switch Grid.Column="1" IsToggled="{Binding RainEnabled}" OnColor="{StaticResource Primary}" />
+                    </Grid>
+                    <Button Text="Comenzar" Style="{StaticResource PrimaryButton}" Command="{Binding StartCommand}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Sesión: pacer animado -->
+            <VerticalStackLayout Spacing="16" IsVisible="{Binding IsRunning}">
+                <Label Text="{Binding Clock}" Style="{StaticResource SubtitleText}" HorizontalOptions="Center" />
+                <Grid HeightRequest="260">
+                    <Ellipse Fill="{StaticResource Secondary}" WidthRequest="240" HeightRequest="240"
+                             HorizontalOptions="Center" VerticalOptions="Center" Opacity="0.6" />
+                    <Ellipse x:Name="PacerCircle" Fill="{StaticResource Primary}" WidthRequest="220" HeightRequest="220"
+                             HorizontalOptions="Center" VerticalOptions="Center"
+                             Scale="{Binding Pacer}" Opacity="0.9" />
+                    <Label Text="{Binding PhaseLabel}" TextColor="White" FontFamily="OpenSansSemibold" FontSize="17"
+                           HorizontalOptions="Center" VerticalOptions="Center" />
+                </Grid>
+                <Label Text="{Binding PromptText}" Style="{StaticResource BodyText}" FontSize="16"
+                       HorizontalTextAlignment="Center" MinimumHeightRequest="50" LineBreakMode="WordWrap" />
+                <Button Text="Detener" Style="{StaticResource SecondaryButton}" Command="{Binding StopCommand}" />
+            </VerticalStackLayout>
+
+            <!-- Fin -->
+            <Border Style="{StaticResource Card}" BackgroundColor="{StaticResource Secondary}" IsVisible="{Binding IsFinished}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="🕊️ Sesión completa" TextColor="{StaticResource Tertiary}"
+                           FontFamily="OpenSansSemibold" FontSize="18" HorizontalOptions="Center" />
+                    <Label Text="{Binding Result.XpEarned, StringFormat='+{0} XP por cuidar tu mente'}"
+                           TextColor="{StaticResource Primary}" FontFamily="OpenSansSemibold" HorizontalOptions="Center" />
+                    <Label Text="{Binding Error}" TextColor="{StaticResource Danger}" FontSize="13"
+                           IsVisible="{Binding Error, Converter={StaticResource NotNull}}" HorizontalTextAlignment="Center" />
+                    <Button Text="Listo" Style="{StaticResource PrimaryButton}" Command="{Binding ExitCommand}" />
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

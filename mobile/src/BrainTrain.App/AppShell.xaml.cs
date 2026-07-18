@@ -21,6 +21,10 @@ public partial class AppShell : Shell
         Routing.RegisterRoute("game2048", typeof(Game2048Page));
         Routing.RegisterRoute("mathsprint", typeof(MathSprintPage));
         Routing.RegisterRoute("wordsearch", typeof(WordSearchPage));
+        Routing.RegisterRoute("focus", typeof(FocusPage));
+        Routing.RegisterRoute("focustimer", typeof(FocusTimerPage));
+        Routing.RegisterRoute("breathe", typeof(BreathingPage));
+        Routing.RegisterRoute("focusscience", typeof(FocusSciencePage));
 
         // Si hay sesión guardada, entra directo al juego.
         Dispatcher.Dispatch(async () =>

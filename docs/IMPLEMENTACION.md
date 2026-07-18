@@ -84,6 +84,7 @@ correctas, XP, vidas, compras). El cliente solo presenta y recolecta.
 | POST | `/api/v1/ads/reward-life` | ✔ | Rewarded ad → +1 vida (tope 5/día) |
 | GET | `/api/v1/minigames` | — | Catálogo de minijuegos (OutputCache) |
 | POST | `/api/v1/minigames/submit` | ✔ | XP con topes por sesión y por día (anti-farmeo) |
+| POST | `/api/v1/focus/complete` | ✔ | Sesión de enfoque: XP simbólico (10, tope 30/día), cuenta racha |
 | GET | `/api/v1/paypal/config` | — | Config pública del portal (client-id) |
 | POST | `/api/v1/paypal/create-order` | ✔ | Crea orden PayPal server-side |
 | POST | `/api/v1/paypal/capture` | ✔ | Captura, valida monto/usuario y acredita |
@@ -195,6 +196,10 @@ Todo en `appsettings.json` (sin secretos) sobrescribible por variables de entorn
 | Pantalla | Ruta | Qué hace |
 |---|---|---|
 | Entrenamiento | `training` | Catálogo de minijuegos (2048, Cálculo Rápido, Sopa de Letras) |
+| Enfoque | `focus` | Hub: bloque de foco, calma/respiración y "la ciencia" |
+| Bloque de foco | `focustimer` | Meta única + 15/25/50/90 min + sonido de fondo (loops locales) |
+| Respiración | `breathe` | Suspiro fisiológico, caja, exhalación larga y NSDR con pacer animado |
+| La ciencia | `focusscience` | Evidencia honesta por técnica (qué está probado y qué no) |
 | 2048 | `game2048` | Motor clásico 4×4 con swipe; "cobrar XP" en cualquier momento |
 | Cálculo Rápido | `mathsprint` | 60 s de operaciones con dificultad progresiva (sin negativos) |
 | Sopa de Letras | `wordsearch` | Cuadrícula 10×10, selección por 2 toques, 8 direcciones |
@@ -246,11 +251,22 @@ pregunta-a-pregunta con explicaciones — que es donde ocurre el aprendizaje rea
 | Brain Test / acertijos capciosos | Categoría "Preguntas Capciosas" con trampa + explicación |
 | Duolingo | Rachas, recordatorios, celebración proporcional, cuenta invitada |
 | Brain Wars / Brainia | Liga semanal competitiva con reinicio |
+| Apps de "flow"/"la zona" (Focus, Impulse, MentalUP) | Sección **Enfoque**: bloques de foco, respiración guiada, NSDR y audios — todo con nivel de evidencia visible (ver docs/CIENCIA-ENFOQUE.md) |
 
 Ideas listas para una v2 (el modelo de minijuegos es extensible: agregar uno =
 un motor + un VM + una página + una entrada en `MinigameService.Catalog`):
-memoria de parejas, Simón dice, "Solve in 30s", ilusiones ópticas con imagen,
-duelos asíncronos 1v1.
+
+- **Memoria de parejas / Simón dice / "Solve in 30s"** — motores puros como los actuales.
+- **Encuentra las diferencias** — requiere pares de imágenes con máscaras de
+  zonas; pipeline sugerido: generar pares con edición programática (misma base
+  + N cambios) y servirlos como assets versionados por el backend.
+- **Guía del cubo de Rubik** — tutorial estático por capas (método principiante:
+  cruz blanca → esquinas → segunda capa → cruz amarilla → OLL/PLL básicos) con
+  notación ilustrada; encaja como sección educativa dentro de Entrenamiento,
+  con logro por completar la guía. Un timer de speedcubing es trivial de sumar.
+- **Ilusiones ópticas** (estilo Ilusion) — banco de imágenes con explicación
+  perceptual, mismo espíritu didáctico del quiz.
+- Duelos asíncronos 1v1, packs por temporada.
 
 ## 5. Pruebas (cómo ejecutarlas)
 

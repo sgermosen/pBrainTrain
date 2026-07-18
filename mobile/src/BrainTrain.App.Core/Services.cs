@@ -39,6 +39,21 @@ public interface IAdService
     Task ShowInterstitialIfDueAsync(CancellationToken ct = default);
 }
 
+/// <summary>Reproductor de los audios locales de la sección Enfoque (loops + campana).</summary>
+public interface IFocusAudioPlayer
+{
+    Task StartLoopAsync(string assetName);
+    Task StopAsync();
+    Task PlayChimeAsync();
+}
+
+public sealed class NoopFocusAudioPlayer : IFocusAudioPlayer
+{
+    public Task StartLoopAsync(string assetName) => Task.CompletedTask;
+    public Task StopAsync() => Task.CompletedTask;
+    public Task PlayChimeAsync() => Task.CompletedTask;
+}
+
 /// <summary>Identidad estable del dispositivo para cuentas de invitado.</summary>
 public interface IDeviceIdentity
 {

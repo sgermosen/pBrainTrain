@@ -34,6 +34,7 @@ cd mobile/src/BrainTrain.App && dotnet build -f net10.0-android -t:Run
 
 - 🎮 Partida rápida, por categoría y **reto del día** (gratis, mantiene la racha)
 - 🧠 **Entrenamiento**: minijuegos 2048, Cálculo Rápido y Sopa de Letras (XP con tope diario)
+- 🧘 **Enfoque**: bloques de flow (15–90 min) con audios procedurales, respiración guiada (suspiro fisiológico, caja, exhalación larga), NSDR de 10 min y una pantalla de "la ciencia" con evidencia honesta (docs/CIENCIA-ENFOQUE.md)
 - ❤️ Vidas tipo combustible (regeneran 1 cada 30 min) + tienda con monedas e IAP
 - 📺 Anuncios recompensados: ver un anuncio = +1 vida (máx. 5/día)
 - ⭐ **Premium** (mensual/anual): sin anuncios + conveniencia — nunca pay-to-win
