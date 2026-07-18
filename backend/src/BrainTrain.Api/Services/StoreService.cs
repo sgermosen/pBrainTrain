@@ -62,26 +62,44 @@ public sealed class StoreService(
         if (duplicate)
             throw new GameError(409, "duplicate_receipt", "Esta compra ya fue canjeada.");
 
+        return await GrantProductAsync(userId, product, req.Platform, req.TransactionId, req.Receipt, ct);
+    }
+
+    /// <summary>
+    /// Acredita un producto ya verificado (compra de tienda o captura PayPal)
+    /// registrando el recibo con protección anti-replay.
+    /// </summary>
+    public async Task<PurchaseResponse> GrantProductAsync(
+        long userId, StoreProduct product, StorePlatform platform, string transactionId, string receipt, CancellationToken ct)
+    {
         var user = await db.Users.FindAsync([userId], ct)
                    ?? throw new GameError(401, "user_not_found", "Usuario no encontrado.");
 
         var now = DateTime.UtcNow;
 
         // Materializa la regeneración pendiente antes de sumar vidas compradas.
+        var (maxLives, regen) = ProgressionLogic.LivesParams(user, _game, now);
         var (lives, anchor, _) = ProgressionLogic.ComputeLives(
-            user.Lives, user.LivesUpdatedAtUtc, now, _game.MaxLives, _game.LifeRegenMinutes);
+            user.Lives, user.LivesUpdatedAtUtc, now, maxLives, regen);
         user.Lives = lives + product.Lives; // las compradas pueden superar el tope
-        user.LivesUpdatedAtUtc = user.Lives >= _game.MaxLives ? now : anchor;
+        user.LivesUpdatedAtUtc = user.Lives >= maxLives ? now : anchor;
         user.Coins += product.Coins;
         if (product.Coins > 0) user.CoinsEarnedTotal += product.Coins;
+
+        // Membresía: extiende desde ahora o desde el vencimiento futuro actual.
+        if (product.PremiumDays > 0)
+        {
+            var from = user.PremiumUntilUtc is { } until && until > now ? until : now;
+            user.PremiumUntilUtc = from.AddDays(product.PremiumDays);
+        }
 
         db.PurchaseReceipts.Add(new PurchaseReceipt
         {
             UserId = userId,
-            Platform = req.Platform,
-            ProductId = req.ProductId,
-            TransactionId = req.TransactionId,
-            ReceiptHash = Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(req.Receipt))),
+            Platform = platform,
+            ProductId = product.ProductId,
+            TransactionId = transactionId,
+            ReceiptHash = Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(receipt))),
             LivesGranted = product.Lives,
             CoinsGranted = product.Coins,
             PurchasedAtUtc = now
@@ -100,6 +118,9 @@ public sealed class StoreService(
         return new PurchaseResponse(product.Lives, product.Coins, ProfileMapper.ToDto(user, _game, now));
     }
 
+    public StoreProduct? FindProduct(string productId) =>
+        _store.Products.FirstOrDefault(p => p.ProductId == productId);
+
     /// <summary>Canjea monedas ganadas jugando por una recarga completa de vidas.</summary>
     public async Task<ProfileDto> RefillWithCoinsAsync(long userId, CancellationToken ct)
     {
@@ -107,16 +128,17 @@ public sealed class StoreService(
                    ?? throw new GameError(401, "user_not_found", "Usuario no encontrado.");
 
         var now = DateTime.UtcNow;
+        var (maxLives, regen) = ProgressionLogic.LivesParams(user, _game, now);
         var (lives, _, _) = ProgressionLogic.ComputeLives(
-            user.Lives, user.LivesUpdatedAtUtc, now, _game.MaxLives, _game.LifeRegenMinutes);
+            user.Lives, user.LivesUpdatedAtUtc, now, maxLives, regen);
 
-        if (lives >= _game.MaxLives)
+        if (lives >= maxLives)
             throw new GameError(409, "lives_full", "Ya tienes las vidas completas.");
         if (user.Coins < _game.RefillCoinCost)
             throw new GameError(402, "not_enough_coins", $"Necesitas {_game.RefillCoinCost} monedas.");
 
         user.Coins -= _game.RefillCoinCost;
-        user.Lives = _game.MaxLives;
+        user.Lives = maxLives;
         user.LivesUpdatedAtUtc = now;
         await db.SaveChangesAsync(ct);
 

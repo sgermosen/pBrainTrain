@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BrainTrain — Portal de recargas</title>
+<style>
+  :root { --primary:#6C4DF4; --amber:#FFB300; --bg:#F7F5FF; --card:#fff; --text:#241F45; --muted:#7A748F; --danger:#EF5350; --success:#4CAF50; }
+  * { box-sizing:border-box; margin:0; }
+  body { font-family:'Segoe UI',system-ui,sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+  .wrap { max-width:520px; margin:0 auto; padding:32px 20px 60px; }
+  h1 { font-size:28px; display:flex; align-items:center; gap:10px; }
+  .sub { color:var(--muted); margin:6px 0 24px; font-size:14px; }
+  .card { background:var(--card); border-radius:20px; padding:20px; box-shadow:0 4px 18px rgba(60,40,150,.08); margin-bottom:16px; }
+  label { font-size:13px; color:var(--muted); display:block; margin:10px 0 4px; }
+  input { width:100%; padding:12px 14px; border:1.5px solid #E2DDF7; border-radius:12px; font-size:15px; }
+  input:focus { outline:none; border-color:var(--primary); }
+  button.primary { width:100%; margin-top:14px; padding:14px; background:var(--primary); color:#fff; border:0; border-radius:14px; font-size:16px; font-weight:600; cursor:pointer; }
+  button.primary:disabled { opacity:.6; cursor:wait; }
+  .status { display:flex; gap:10px; margin-bottom:16px; }
+  .chip { background:var(--card); border-radius:14px; padding:10px 14px; font-weight:600; box-shadow:0 2px 10px rgba(60,40,150,.06); }
+  .product { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+  .product h3 { font-size:16px; }
+  .product p { font-size:13px; color:var(--muted); margin-top:2px; }
+  .price { font-weight:700; color:var(--primary); white-space:nowrap; }
+  .paypal-slot { margin-top:12px; }
+  .msg { padding:12px 14px; border-radius:12px; margin-bottom:14px; font-size:14px; display:none; }
+  .msg.error { background:#FDECEC; color:var(--danger); display:block; }
+  .msg.ok { background:#EAF6EB; color:var(--success); display:block; }
+  .premium { border:2px solid var(--amber); }
+  .badge { background:var(--amber); color:#3A2B00; font-size:11px; font-weight:700; border-radius:8px; padding:2px 8px; }
+  .hidden { display:none; }
+  a.logout { color:var(--muted); font-size:13px; float:right; cursor:pointer; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🧠 BrainTrain <span style="font-size:14px;color:var(--muted);font-weight:400">Portal de recargas</span></h1>
+  <p class="sub">Compra monedas, vidas o tu membresía Premium pagando con PayPal. Todo se acredita al instante en tu cuenta del juego.</p>
+
+  <div id="msg" class="msg"></div>
+
+  <!-- Paso 1: iniciar sesión con la cuenta del juego -->
+  <div id="login-card" class="card">
+    <h3>Inicia sesión con tu cuenta del juego</h3>
+    <label>Correo electrónico</label>
+    <input id="email" type="email" autocomplete="email" placeholder="tu@correo.com">
+    <label>Contraseña</label>
+    <input id="password" type="password" autocomplete="current-password" placeholder="••••••••">
+    <button id="login-btn" class="primary">Entrar</button>
+    <p class="sub" style="margin-top:10px">¿Juegas como invitado? Primero crea tu cuenta desde la app:
+      Ajustes → «Guardar mi progreso».</p>
+  </div>
+
+  <!-- Paso 2: productos -->
+  <div id="shop" class="hidden">
+    <div class="status">
+      <div class="chip" id="chip-user">👤</div>
+      <div class="chip" id="chip-coins">🪙</div>
+      <div class="chip" id="chip-premium" style="display:none">⭐ Premium</div>
+      <a class="logout" id="logout">salir</a>
+    </div>
+    <div id="products"></div>
+  </div>
+</div>
+
+<script>
+const api = (path, opts = {}) => fetch(path, {
+  ...opts,
+  headers: { 'Content-Type': 'application/json',
+             ...(token ? { Authorization: 'Bearer ' + token } : {}), ...(opts.headers || {}) }
+}).then(async r => {
+  const body = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(body.detail || body.title || ('Error ' + r.status));
+  return body;
+});
+
+let token = sessionStorage.getItem('bt.token');
+const msg = (text, cls) => { const el = document.getElementById('msg'); el.textContent = text; el.className = 'msg ' + (cls || ''); };
+
+async function login() {
+  const btn = document.getElementById('login-btn');
+  btn.disabled = true; msg('', '');
+  try {
+    const auth = await api('/api/v1/auth/login', { method: 'POST', body: JSON.stringify({
+      email: document.getElementById('email').value.trim(),
+      password: document.getElementById('password').value }) });
+    token = auth.accessToken;
+    sessionStorage.setItem('bt.token', token);
+    await showShop(auth.profile);
+  } catch (e) { msg(e.message, 'error'); }
+  finally { btn.disabled = false; }
+}
+
+async function showShop(profile) {
+  profile = profile || await api('/api/v1/me');
+  document.getElementById('login-card').classList.add('hidden');
+  document.getElementById('shop').classList.remove('hidden');
+  document.getElementById('chip-user').textContent = '👤 ' + profile.displayName;
+  document.getElementById('chip-coins').textContent = '🪙 ' + profile.coins;
+  document.getElementById('chip-premium').style.display = profile.isPremium ? '' : 'none';
+
+  const cfg = await api('/api/v1/paypal/config');
+  if (!cfg.enabled) { msg('Los pagos del portal no están habilitados todavía. Usa la tienda dentro de la app.', 'error'); return; }
+
+  const catalog = await api('/api/v1/store/catalog');
+  const container = document.getElementById('products');
+  container.innerHTML = '';
+  for (const p of catalog.products) {
+    const card = document.createElement('div');
+    card.className = 'card' + (p.productId.includes('premium') ? ' premium' : '');
+    card.innerHTML = `<div class="product"><div>
+        ${p.productId.includes('premium') ? '<span class="badge">SIN ANUNCIOS</span>' : ''}
+        <h3>${p.name}</h3><p>${p.description}</p></div>
+        <div class="price">${p.priceHint}</div></div>
+        <div class="paypal-slot" id="pp-${p.productId.replaceAll('.', '-')}"></div>`;
+    container.appendChild(card);
+  }
+
+  // Carga el SDK de PayPal con el client-id del servidor y monta un botón por producto.
+  const s = document.createElement('script');
+  s.src = `https://www.paypal.com/sdk/js?client-id=${encodeURIComponent(cfg.clientId)}&currency=${cfg.currency}&intent=capture`;
+  s.onload = () => {
+    for (const p of catalog.products) {
+      paypal.Buttons({
+        style: { shape: 'pill', label: 'pay', height: 40 },
+        createOrder: async () => (await api('/api/v1/paypal/create-order',
+          { method: 'POST', body: JSON.stringify({ productId: p.productId }) })).orderId,
+        onApprove: async data => {
+          try {
+            const res = await api('/api/v1/paypal/capture',
+              { method: 'POST', body: JSON.stringify({ orderId: data.orderID }) });
+            msg('✅ ¡Compra acreditada en tu cuenta! ' +
+                (res.coinsGranted ? `+${res.coinsGranted} monedas.` : '') +
+                (res.livesGranted ? ` +${res.livesGranted} vidas.` : '') +
+                (res.profile.isPremium ? ' Premium activo.' : ''), 'ok');
+            document.getElementById('chip-coins').textContent = '🪙 ' + res.profile.coins;
+            document.getElementById('chip-premium').style.display = res.profile.isPremium ? '' : 'none';
+          } catch (e) { msg(e.message, 'error'); }
+        },
+        onError: () => msg('El pago no pudo completarse. Intenta de nuevo.', 'error')
+      }).render('#pp-' + p.productId.replaceAll('.', '-'));
+    }
+  };
+  document.head.appendChild(s);
+}
+
+document.getElementById('login-btn').addEventListener('click', login);
+document.getElementById('password').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+document.getElementById('logout').addEventListener('click', () => { sessionStorage.removeItem('bt.token'); location.reload(); });
+if (token) showShop().catch(() => { sessionStorage.removeItem('bt.token'); token = null; });
+</script>
+</body>
+</html>

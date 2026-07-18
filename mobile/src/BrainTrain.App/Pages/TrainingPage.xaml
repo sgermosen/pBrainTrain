@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BrainTrain.App.Core.ViewModels;assembly=BrainTrain.App.Core"
+             xmlns:core="clr-namespace:BrainTrain.App.Core;assembly=BrainTrain.App.Core"
+             x:Class="BrainTrain.App.Pages.TrainingPage"
+             x:DataType="vm:TrainingViewModel"
+             Style="{StaticResource PageStyle}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,36,20,24" Spacing="14">
+            <Label Text="🧠 Entrenamiento" Style="{StaticResource TitleText}" />
+            <Label Text="Minijuegos para ejercitar cálculo, estrategia y vocabulario. Ganas XP y monedas (con tope diario: el quiz sigue siendo el rey)."
+                   Style="{StaticResource SubtitleText}" />
+
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Games}" Spacing="12">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="core:MinigameDto">
+                        <Border Style="{StaticResource Card}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TrainingViewModel}}, Path=OpenCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="14">
+                                <Label Text="{Binding Emoji}" FontSize="34" VerticalOptions="Center" />
+                                <VerticalStackLayout Grid.Column="1" Spacing="3">
+                                    <Label Text="{Binding Name}" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" FontSize="17" />
+                                    <Label Text="{Binding Description}" Style="{StaticResource SubtitleText}" FontSize="13" LineBreakMode="WordWrap" />
+                                </VerticalStackLayout>
+                                <Label Grid.Column="2" Text="{Binding MaxXpPerSession, StringFormat='hasta {0} XP'}"
+                                       FontSize="12" TextColor="{StaticResource Primary}" FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+
+            <Label Text="{Binding Error}" TextColor="{StaticResource Danger}"
+                   IsVisible="{Binding Error, Converter={StaticResource NotNull}}" HorizontalTextAlignment="Center" />
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

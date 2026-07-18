@@ -32,13 +32,14 @@ public sealed class GameService(
             return await StartDailyAsync(user, snap, now, ct);
 
         // Las partidas normales consumen 1 vida (combustible).
+        var (maxLives, regen) = ProgressionLogic.LivesParams(user, _opt, now);
         var (lives, anchor, _) = ProgressionLogic.ComputeLives(
-            user.Lives, user.LivesUpdatedAtUtc, now, _opt.MaxLives, _opt.LifeRegenMinutes);
+            user.Lives, user.LivesUpdatedAtUtc, now, maxLives, regen);
         if (lives <= 0)
             throw new GameError(409, "no_lives", "Sin vidas. Espera la recarga, canjea monedas o visita la tienda.");
 
         user.Lives = lives - 1;
-        user.LivesUpdatedAtUtc = user.Lives >= _opt.MaxLives ? now : anchor;
+        user.LivesUpdatedAtUtc = user.Lives >= maxLives ? now : anchor;
 
         int[] pool;
         if (req.Mode == GameMode.Category)
@@ -68,12 +69,12 @@ public sealed class GameService(
         await db.SaveChangesAsync(ct);
 
         var (livesNow, _, secs) = ProgressionLogic.ComputeLives(
-            user.Lives, user.LivesUpdatedAtUtc, now, _opt.MaxLives, _opt.LifeRegenMinutes);
+            user.Lives, user.LivesUpdatedAtUtc, now, maxLives, regen);
 
         return new StartGameResponse(
             session.Id,
             ids.Select(i => snap.QuestionsById[i].ToDto()).ToList(),
-            new LivesDto(livesNow, _opt.MaxLives, secs));
+            new LivesDto(livesNow, maxLives, secs));
     }
 
     private async Task<StartGameResponse> StartDailyAsync(User user, CatalogSnapshot snap, DateTime now, CancellationToken ct)
@@ -115,13 +116,14 @@ public sealed class GameService(
             await db.SaveChangesAsync(ct);
         }
 
+        var (maxLives, regen) = ProgressionLogic.LivesParams(user, _opt, now);
         var (livesNow, _, secs) = ProgressionLogic.ComputeLives(
-            user.Lives, user.LivesUpdatedAtUtc, now, _opt.MaxLives, _opt.LifeRegenMinutes);
+            user.Lives, user.LivesUpdatedAtUtc, now, maxLives, regen);
 
         return new StartGameResponse(
             session.Id,
             ids.Select(i => snap.QuestionsById[i].ToDto()).ToList(),
-            new LivesDto(livesNow, _opt.MaxLives, secs));
+            new LivesDto(livesNow, maxLives, secs));
     }
 
     // --------------------------------------------------------------- submit

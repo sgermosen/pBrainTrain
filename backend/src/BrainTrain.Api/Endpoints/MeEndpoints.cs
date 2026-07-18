@@ -53,13 +53,17 @@ public static class MeEndpoints
             var userId = http.User.UserId();
             var row = await db.Users.AsNoTracking()
                 .Where(u => u.Id == userId)
-                .Select(u => new { u.Lives, u.LivesUpdatedAtUtc })
+                .Select(u => new { u.Lives, u.LivesUpdatedAtUtc, u.PremiumUntilUtc })
                 .FirstOrDefaultAsync(ct);
             if (row is null) return Results.Problem(statusCode: 401, title: "user_not_found");
 
+            var now = DateTime.UtcNow;
+            var premium = row.PremiumUntilUtc is { } until && until > now;
+            var maxLives = premium ? opt.Value.PremiumMaxLives : opt.Value.MaxLives;
+            var regen = premium ? opt.Value.PremiumLifeRegenMinutes : opt.Value.LifeRegenMinutes;
             var (lives, _, secs) = ProgressionLogic.ComputeLives(
-                row.Lives, row.LivesUpdatedAtUtc, DateTime.UtcNow, opt.Value.MaxLives, opt.Value.LifeRegenMinutes);
-            return Results.Ok(new LivesDto(lives, opt.Value.MaxLives, secs));
+                row.Lives, row.LivesUpdatedAtUtc, now, maxLives, regen);
+            return Results.Ok(new LivesDto(lives, maxLives, secs));
         });
 
         g.MapGet("/achievements", async (HttpContext http, AppDbContext db, AchievementService achievements,

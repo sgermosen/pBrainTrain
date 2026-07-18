@@ -24,6 +24,7 @@ builder.Host.UseSerilog((ctx, cfg) => cfg
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(JwtOptions.Section));
 builder.Services.Configure<GameOptions>(builder.Configuration.GetSection(GameOptions.Section));
 builder.Services.Configure<StoreOptions>(builder.Configuration.GetSection(StoreOptions.Section));
+builder.Services.Configure<PayPalOptions>(builder.Configuration.GetSection(PayPalOptions.Section));
 
 // ---------- Base de datos: SQLite (dev/pruebas) o PostgreSQL (producción) ----------
 var provider = builder.Configuration["Database:Provider"] ?? "sqlite";
@@ -120,6 +121,11 @@ builder.Services.AddScoped<GameService>();
 builder.Services.AddScoped<AchievementService>();
 builder.Services.AddScoped<StoreService>();
 builder.Services.AddSingleton<IPurchaseVerifier, DefaultPurchaseVerifier>();
+builder.Services.AddScoped<MinigameService>();
+builder.Services.AddScoped<PayPalCheckoutService>();
+builder.Services.AddHttpClient<HttpPayPalGateway>();
+builder.Services.AddSingleton<IPayPalGateway>(sp =>
+    sp.GetRequiredService<HttpPayPalGateway>());
 
 builder.Services.AddHealthChecks().AddCheck<DbHealthCheck>("database");
 builder.Services.AddScoped<DbHealthCheck>();
@@ -150,6 +156,8 @@ if (app.Configuration.GetValue("Database:AutoMigrate", true))
 
 app.UseForwardedHeaders();
 app.UseResponseCompression();
+// Portal web de pagos (wwwroot/portal): página estática con PayPal JS SDK.
+app.UseStaticFiles();
 app.Use(EndpointHelpers.GameErrorMiddleware);
 app.UseRateLimiter();
 app.UseAuthentication();
@@ -165,6 +173,8 @@ app.MapMe();
 app.MapGame();
 app.MapContent();
 app.MapStore();
+app.MapExtras();
+app.MapGet("/portal", () => Results.Redirect("/portal/index.html"));
 
 app.Run();
 

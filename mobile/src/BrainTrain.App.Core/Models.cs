@@ -15,7 +15,8 @@ public sealed record TotalsDto(int Answered, int Correct, int Sessions, int Perf
 public sealed record ProfileDto(
     long Id, string DisplayName, string AvatarCode, bool IsGuest, string? Email,
     int Xp, int Level, int XpIntoLevel, int XpForNextLevel,
-    int Coins, LivesDto Lives, StreakDto Streak, int WeeklyXp, TotalsDto Totals);
+    int Coins, LivesDto Lives, StreakDto Streak, int WeeklyXp, TotalsDto Totals,
+    bool IsPremium, DateTime? PremiumUntilUtc, bool ShowAds);
 public sealed record UpdateProfileRequest(string? DisplayName, string? AvatarCode);
 
 public sealed record CategoryDto(int Id, string Slug, string Name, string Emoji, string Color, string Description);
@@ -51,6 +52,14 @@ public sealed record PurchaseRequest(string Platform, string ProductId, string T
 public sealed record PurchaseResponse(int LivesGranted, int CoinsGranted, ProfileDto Profile);
 
 public sealed record DeviceTokenRequest(string Platform, string Token);
+
+// ---------- Anuncios recompensados ----------
+public sealed record AdRewardResponse(LivesDto Lives, int RemainingToday, ProfileDto Profile);
+
+// ---------- Minijuegos de entrenamiento ----------
+public sealed record MinigameDto(string Code, string Name, string Emoji, string Description, int MaxXpPerSession);
+public sealed record MinigameSubmitRequest(string Code, int Score, int DurationMs);
+public sealed record MinigameResultDto(int XpEarned, int CoinsEarned, int DailyXpRemaining, StreakDto Streak, ProfileDto Profile);
 
 /// <summary>Modos de juego que entiende el backend.</summary>
 public static class GameModes

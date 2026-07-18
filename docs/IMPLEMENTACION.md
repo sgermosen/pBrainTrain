@@ -78,9 +78,16 @@ correctas, XP, vidas, compras). El cliente solo presenta y recolecta.
 | POST | `/api/v1/game/{id}/submit` | ✔ | Corrección server-side, XP, logros, racha |
 | GET | `/api/v1/daily` | ✔ | Estado del reto del día |
 | GET | `/api/v1/leaderboard/weekly` | opcional | Top 50 + mi posición |
-| GET | `/api/v1/store/catalog` | — | OutputCache 5 min |
+| GET | `/api/v1/store/catalog` | — | OutputCache 5 min (incluye productos Premium) |
 | POST | `/api/v1/store/purchase` | ✔ | Verificación de recibo + anti-replay |
 | POST | `/api/v1/store/refill-with-coins` | ✔ | Economía blanda: monedas → vidas |
+| POST | `/api/v1/ads/reward-life` | ✔ | Rewarded ad → +1 vida (tope 5/día) |
+| GET | `/api/v1/minigames` | — | Catálogo de minijuegos (OutputCache) |
+| POST | `/api/v1/minigames/submit` | ✔ | XP con topes por sesión y por día (anti-farmeo) |
+| GET | `/api/v1/paypal/config` | — | Config pública del portal (client-id) |
+| POST | `/api/v1/paypal/create-order` | ✔ | Crea orden PayPal server-side |
+| POST | `/api/v1/paypal/capture` | ✔ | Captura, valida monto/usuario y acredita |
+| GET | `/portal` | — | Portal web de pagos (PayPal JS SDK) |
 | GET | `/health` | — | Health check para monitoreo |
 
 Errores uniformes como `ProblemDetails` (`title` = código estable, `detail` = mensaje humano).
@@ -103,6 +110,18 @@ Errores uniformes como `ProblemDetails` (`title` = código estable, `detail` = m
   (semilla = fecha), rejugable socialmente ("¿cuánto sacaste hoy?").
 - **Liga semanal:** `WeeklyXp` con reinicio perezoso al cambiar de semana (lunes UTC);
   sin jobs nocturnos.
+- **Premium (no pay-to-win):** `PremiumUntilUtc` en la fila del usuario. Beneficios
+  de *conveniencia*: sin anuncios, 8 vidas máx. y regeneración cada 20 min. Cero
+  multiplicadores de XP: el leaderboard sigue siendo justo. Se otorga por días
+  (`StoreProduct.PremiumDays`) desde Play/App Store/PayPal; compras sucesivas
+  extienden el vencimiento.
+- **Anuncios recompensados:** ver un anuncio da +1 vida, máximo 5/día
+  (contador `AdRewardsToday` con reinicio perezoso por fecha). Los Premium no ven
+  anuncios (`ShowAds=false` en el perfil).
+- **Minijuegos de entrenamiento** (estilo Lumosity/Peak/2048/Math Master/sopa de
+  letras): el cliente juega, el servidor acredita `XP = score × factor` con tope
+  por sesión y **tope diario de 300 XP** (`MinigameXpToday`), duración mínima y
+  puntaje máximo por juego (anti-bots). Entrenar también cuenta para la racha.
 
 ### 3.4 Seguridad
 
@@ -175,6 +194,10 @@ Todo en `appsettings.json` (sin secretos) sobrescribible por variables de entorn
 
 | Pantalla | Ruta | Qué hace |
 |---|---|---|
+| Entrenamiento | `training` | Catálogo de minijuegos (2048, Cálculo Rápido, Sopa de Letras) |
+| 2048 | `game2048` | Motor clásico 4×4 con swipe; "cobrar XP" en cualquier momento |
+| Cálculo Rápido | `mathsprint` | 60 s de operaciones con dificultad progresiva (sin negativos) |
+| Sopa de Letras | `wordsearch` | Cuadrícula 10×10, selección por 2 toques, 8 direcciones |
 | Onboarding | `//onboarding` | Nombre + avatar y **jugar en <10 segundos** como invitado |
 | Auth | `auth` | Login / registro / ascenso de invitado |
 | Home | `//home` | Vidas, racha, monedas, nivel con barra, **reto del día** destacado, partida rápida, categorías |
@@ -211,16 +234,36 @@ pregunta-a-pregunta con explicaciones — que es donde ocurre el aprendizaje rea
 
 ---
 
+## 4.5 Inspiración y qué tomamos de cada app
+
+| Referencia | Qué adoptamos |
+|---|---|
+| Preguntados / Trivia Crack | Quiz por categorías con emojis y colores, vidas |
+| Lumosity / Peak / NeuroNation | Sección "Entrenamiento" con minijuegos cortos y XP |
+| 2048 / Twenty | Minijuego 2048 completo (motor propio) |
+| Math Master / Logimathics | Cálculo Rápido con dificultad progresiva |
+| Sopa de Letras / apps de palabras | Sopa de Letras 10×10 en español |
+| Brain Test / acertijos capciosos | Categoría "Preguntas Capciosas" con trampa + explicación |
+| Duolingo | Rachas, recordatorios, celebración proporcional, cuenta invitada |
+| Brain Wars / Brainia | Liga semanal competitiva con reinicio |
+
+Ideas listas para una v2 (el modelo de minijuegos es extensible: agregar uno =
+un motor + un VM + una página + una entrada en `MinigameService.Catalog`):
+memoria de parejas, Simón dice, "Solve in 30s", ilusiones ópticas con imagen,
+duelos asíncronos 1v1.
+
 ## 5. Pruebas (cómo ejecutarlas)
 
 ```bash
-# Backend: 43 pruebas (lógica de progresión, selección de preguntas,
-# y flujo HTTP completo: auth, partidas, vidas, tienda, reto diario, liga)
+# Backend: 54 pruebas (progresión, selección de preguntas, y flujo HTTP
+# completo: auth, partidas, vidas, tienda, reto diario, liga, premium,
+# rewarded ads, minijuegos con topes y PayPal con gateway simulado)
 cd backend && dotnet test
 
-# Móvil: 11 pruebas E2E — los ViewModels reales ejecutan sus comandos
-# contra el backend real en memoria (partida completa, sin vidas → tienda,
-# compra sandbox, reto diario, recordatorios, upgrade de cuenta, auto-refresh)
+# Móvil: 29 pruebas — motores de minijuegos (2048/mates/sopa) y E2E de los
+# ViewModels reales contra el backend real en memoria (partida completa,
+# sin vidas → tienda, compra sandbox, premium, vida por anuncio, reto diario,
+# recordatorios, upgrade de cuenta, auto-refresh de token)
 cd mobile/tests/BrainTrain.App.Core.Tests && dotnet test
 ```
 
@@ -247,10 +290,13 @@ dotnet build -f net10.0-android -t:Run
 
 1. **Billing real**: la tienda funciona end-to-end en sandbox; falta conectar
    Google Play Billing/StoreKit y el verificador de recibos de producción
-   (interfaz lista: `IPurchaseVerifier`; pasos en PUBLICACION.md).
-2. **Push remoto**: los recordatorios son locales (no requieren servidor);
+   (interfaz lista: `IPurchaseVerifier`; pasos en PUBLICACION.md §2.6 y §4).
+2. **AdMob real**: `IAdService` y el flujo rewarded→vida están completos con el
+   sandbox; la integración AdMob de producción está documentada en PUBLICACION.md §6.
+3. **PayPal**: integración real implementada (Orders v2 + portal); solo requiere
+   credenciales (`PayPal__ClientId/Secret`) — PUBLICACION.md §7.3.
+4. **Push remoto**: los recordatorios son locales (no requieren servidor);
    `DeviceToken` ya existe para sumar FCM/APNs después.
-3. **iOS**: el código es multiplataforma pero el binario iOS debe compilarse en Mac.
-4. Ideas de v2: modo duelo asíncrono (el esquema `preguntados.sql` original da pistas),
-   preguntas con imagen (`_Resources/` tiene material), packs de contenido por temporada,
-   sonidos/haptics en la app.
+5. **iOS**: el código es multiplataforma pero el binario iOS debe compilarse en Mac.
+6. Ideas de v2: modo duelo asíncrono, preguntas con imagen (`_Resources/` tiene
+   material), más minijuegos (ver §4.5), packs por temporada, sonidos/haptics.

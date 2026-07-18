@@ -21,6 +21,16 @@ public sealed class GameOptions
     public int LifeRegenMinutes { get; set; } = 30;
     public int RefillCoinCost { get; set; } = 100;
 
+    /// <summary>Beneficios Premium: solo conveniencia (más vidas, regeneración rápida) — nunca ventaja competitiva.</summary>
+    public int PremiumMaxLives { get; set; } = 8;
+    public int PremiumLifeRegenMinutes { get; set; } = 20;
+
+    /// <summary>Vidas máximas por día canjeables viendo anuncios recompensados.</summary>
+    public int AdRewardLivesPerDay { get; set; } = 5;
+
+    /// <summary>Tope diario de XP obtenible por minijuegos (anti-farmeo del leaderboard).</summary>
+    public int MinigameDailyXpCap { get; set; } = 300;
+
     /// <summary>XP por respuesta correcta = XpPerDifficulty * dificultad(1..5).</summary>
     public int XpPerDifficulty { get; set; } = 10;
     public int PerfectBonusXp { get; set; } = 25;
@@ -57,6 +67,30 @@ public sealed class StoreProduct
     public int Lives { get; set; }
     public int Coins { get; set; }
 
+    /// <summary>Días de membresía Premium que otorga (0 = no es membresía).</summary>
+    public int PremiumDays { get; set; }
+
     /// <summary>Precio orientativo para UI; el precio real lo fija la tienda (Play/App Store).</summary>
     public string PriceHint { get; set; } = string.Empty;
+
+    /// <summary>Precio cobrado vía PayPal en el portal web (USD).</summary>
+    public decimal PriceUsd { get; set; }
+}
+
+public sealed class PayPalOptions
+{
+    public const string Section = "PayPal";
+
+    /// <summary>Credenciales REST de PayPal. En producción SIEMPRE por variables de entorno.</summary>
+    public string ClientId { get; set; } = string.Empty;
+    public string Secret { get; set; } = string.Empty;
+
+    /// <summary>"sandbox" o "live".</summary>
+    public string Mode { get; set; } = "sandbox";
+    public string Currency { get; set; } = "USD";
+
+    public bool IsConfigured => !string.IsNullOrWhiteSpace(ClientId) && !string.IsNullOrWhiteSpace(Secret);
+    public string BaseUrl => Mode.Equals("live", StringComparison.OrdinalIgnoreCase)
+        ? "https://api-m.paypal.com"
+        : "https://api-m.sandbox.paypal.com";
 }

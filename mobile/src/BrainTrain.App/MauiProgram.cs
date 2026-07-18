@@ -52,6 +52,8 @@ public static class MauiProgram
         // Compras: sandbox en DEBUG (backend con AllowTestReceipts). Para producción,
         // sustituir por la integración de Google Play Billing / StoreKit (ver PUBLICACION.md).
         services.AddSingleton<IPlatformPurchaser, SandboxPurchaser>();
+        // Anuncios: simulados en dev; producción usa AdMob (ver PUBLICACION.md).
+        services.AddSingleton<IAdService, SandboxAdService>();
 
         // ---------- ViewModels ----------
         services.AddTransient<OnboardingViewModel>();
@@ -64,6 +66,10 @@ public static class MauiProgram
         services.AddTransient<LeaderboardViewModel>();
         services.AddTransient<StoreViewModel>();
         services.AddTransient<SettingsViewModel>();
+        services.AddTransient<TrainingViewModel>();
+        services.AddTransient<Game2048ViewModel>();
+        services.AddTransient<MathSprintViewModel>();
+        services.AddTransient<WordSearchViewModel>();
 
         // ---------- Páginas ----------
         services.AddTransient<OnboardingPage>();
@@ -76,6 +82,10 @@ public static class MauiProgram
         services.AddTransient<LeaderboardPage>();
         services.AddTransient<StorePage>();
         services.AddTransient<SettingsPage>();
+        services.AddTransient<TrainingPage>();
+        services.AddTransient<Game2048Page>();
+        services.AddTransient<MathSprintPage>();
+        services.AddTransient<WordSearchPage>();
 
         return builder.Build();
     }

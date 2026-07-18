@@ -32,6 +32,22 @@
                 </Grid>
             </Border>
 
+            <!-- Vida gratis viendo un anuncio (tope diario) -->
+            <Border Style="{StaticResource Card}" IsVisible="{Binding Profile.ShowAds, FallbackValue=true}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="📺 Vida gratis" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" FontSize="16" />
+                    <Label Text="Mira un anuncio corto y recibe ❤️ +1 (hasta 5 al día)." Style="{StaticResource SubtitleText}" FontSize="13" />
+                    <Button Text="Ver anuncio" Style="{StaticResource SecondaryButton}" Command="{Binding WatchAdForLifeCommand}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Estado Premium -->
+            <Border Style="{StaticResource Card}" BackgroundColor="{StaticResource Amber}"
+                    IsVisible="{Binding Profile.IsPremium, FallbackValue=false}">
+                <Label Text="⭐ Eres Premium: sin anuncios, 8 vidas y regeneración rápida. ¡Gracias por apoyar el juego!"
+                       TextColor="#3A2B00" FontFamily="OpenSansSemibold" FontSize="14" />
+            </Border>
+
             <!-- Recarga con monedas ganadas jugando -->
             <Border Style="{StaticResource Card}" BackgroundColor="{StaticResource Secondary}">
                 <VerticalStackLayout Spacing="8">

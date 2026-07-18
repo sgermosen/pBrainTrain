@@ -46,6 +46,16 @@ public static class ProgressionLogic
         return (lives, anchor, secondsToNext);
     }
 
+    /// <summary>¿La membresía Premium está activa en este momento?</summary>
+    public static bool IsPremium(User user, DateTime nowUtc) =>
+        user.PremiumUntilUtc is { } until && until > nowUtc;
+
+    /// <summary>Parámetros de vidas efectivos según membresía (Premium: más tope y regeneración más rápida).</summary>
+    public static (int MaxLives, int RegenMinutes) LivesParams(User user, GameOptions opt, DateTime nowUtc) =>
+        IsPremium(user, nowUtc)
+            ? (opt.PremiumMaxLives, opt.PremiumLifeRegenMinutes)
+            : (opt.MaxLives, opt.LifeRegenMinutes);
+
     /// <summary>Lunes (UTC) de la semana a la que pertenece <paramref name="dateUtc"/>.</summary>
     public static DateOnly WeekStart(DateOnly dateUtc)
     {

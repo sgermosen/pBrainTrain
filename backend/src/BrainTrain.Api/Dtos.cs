@@ -18,7 +18,8 @@ public sealed record TotalsDto(int Answered, int Correct, int Sessions, int Perf
 public sealed record ProfileDto(
     long Id, string DisplayName, string AvatarCode, bool IsGuest, string? Email,
     int Xp, int Level, int XpIntoLevel, int XpForNextLevel,
-    int Coins, LivesDto Lives, StreakDto Streak, int WeeklyXp, TotalsDto Totals);
+    int Coins, LivesDto Lives, StreakDto Streak, int WeeklyXp, TotalsDto Totals,
+    bool IsPremium, DateTime? PremiumUntilUtc, bool ShowAds);
 public sealed record UpdateProfileRequest(string? DisplayName, string? AvatarCode);
 
 // ---------- Contenido ----------
@@ -62,6 +63,20 @@ public sealed record PurchaseResponse(int LivesGranted, int CoinsGranted, Profil
 // ---------- Dispositivos ----------
 public sealed record DeviceTokenRequest(StorePlatform Platform, string Token);
 
+// ---------- Anuncios recompensados ----------
+public sealed record AdRewardResponse(LivesDto Lives, int RemainingToday, ProfileDto Profile);
+
+// ---------- Minijuegos de entrenamiento ----------
+public sealed record MinigameDto(string Code, string Name, string Emoji, string Description, int MaxXpPerSession);
+public sealed record MinigameSubmitRequest(string Code, int Score, int DurationMs);
+public sealed record MinigameResultDto(int XpEarned, int CoinsEarned, int DailyXpRemaining, StreakDto Streak, ProfileDto Profile);
+
+// ---------- PayPal (portal web) ----------
+public sealed record PayPalConfigDto(bool Enabled, string ClientId, string Currency, string Mode);
+public sealed record PayPalCreateOrderRequest(string ProductId);
+public sealed record PayPalCreateOrderResponse(string OrderId);
+public sealed record PayPalCaptureRequest(string OrderId);
+
 // ---------- Salud ----------
 public sealed record ApiInfoDto(string Name, string Version, string Environment);
 
@@ -90,6 +105,14 @@ public sealed record ApiInfoDto(string Name, string Version, string Environment)
 [JsonSerializable(typeof(PurchaseRequest))]
 [JsonSerializable(typeof(PurchaseResponse))]
 [JsonSerializable(typeof(DeviceTokenRequest))]
+[JsonSerializable(typeof(AdRewardResponse))]
+[JsonSerializable(typeof(List<MinigameDto>))]
+[JsonSerializable(typeof(MinigameSubmitRequest))]
+[JsonSerializable(typeof(MinigameResultDto))]
+[JsonSerializable(typeof(PayPalConfigDto))]
+[JsonSerializable(typeof(PayPalCreateOrderRequest))]
+[JsonSerializable(typeof(PayPalCreateOrderResponse))]
+[JsonSerializable(typeof(PayPalCaptureRequest))]
 [JsonSerializable(typeof(ApiInfoDto))]
 [JsonSerializable(typeof(Microsoft.AspNetCore.Mvc.ProblemDetails))]
 public partial class ApiJsonContext : JsonSerializerContext;

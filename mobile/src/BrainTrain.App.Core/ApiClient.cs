@@ -124,6 +124,16 @@ public sealed class ApiClient(HttpClient http, ITokenStore tokens)
     public Task<ProfileDto> RefillWithCoinsAsync(CancellationToken ct = default) =>
         SendAsync<ProfileDto>(HttpMethod.Post, "api/v1/store/refill-with-coins", new { }, ct);
 
+    public Task<AdRewardResponse> ClaimAdRewardAsync(CancellationToken ct = default) =>
+        SendAsync<AdRewardResponse>(HttpMethod.Post, "api/v1/ads/reward-life", new { }, ct);
+
+    public Task<List<MinigameDto>> GetMinigamesAsync(CancellationToken ct = default) =>
+        GetAsync<List<MinigameDto>>("api/v1/minigames", ct);
+
+    public Task<MinigameResultDto> SubmitMinigameAsync(string code, int score, int durationMs, CancellationToken ct = default) =>
+        SendAsync<MinigameResultDto>(HttpMethod.Post, "api/v1/minigames/submit",
+            new MinigameSubmitRequest(code, score, durationMs), ct);
+
     public Task RegisterDeviceAsync(string platform, string token, CancellationToken ct = default) =>
         SendAsync<object?>(HttpMethod.Post, "api/v1/me/devices", new DeviceTokenRequest(platform, token), ct, allowEmpty: true);
 

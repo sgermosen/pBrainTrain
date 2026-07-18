@@ -44,6 +44,17 @@ public class User
     public int WeeklyXp { get; set; }
     public DateOnly WeekStartUtc { get; set; }
 
+    // ----- Membresía Premium (sin anuncios + conveniencia; nunca pay-to-win) -----
+    public DateTime? PremiumUntilUtc { get; set; }
+
+    // ----- Anuncios recompensados: tope diario de vidas por ver anuncios -----
+    public DateOnly? AdRewardDateUtc { get; set; }
+    public int AdRewardsToday { get; set; }
+
+    // ----- Minijuegos de entrenamiento: tope diario de XP (anti-farmeo) -----
+    public DateOnly? MinigameDateUtc { get; set; }
+    public int MinigameXpToday { get; set; }
+
     // ----- Contadores agregados para logros y estadísticas -----
     public int TotalAnswered { get; set; }
     public int TotalCorrect { get; set; }

@@ -17,6 +17,9 @@
             <local:UnlockedOpacityConverter x:Key="UnlockedOpacity" />
             <local:AchievementProgressConverter x:Key="AchievementProgress" />
             <local:AvatarEmojiConverter x:Key="AvatarEmoji" />
+            <local:TileColorConverter x:Key="TileColor" />
+            <local:AnchorStrokeConverter x:Key="AnchorStroke" />
+            <local:FoundColorConverter x:Key="FoundColor" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

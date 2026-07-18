@@ -70,6 +70,24 @@ public sealed class NoopReminderScheduler : IReminderScheduler
 }
 
 /// <summary>
+/// Anuncios simulados para desarrollo: "muestra" el rewarded con una pequeña
+/// espera y devuelve completado. En producción se reemplaza por AdMob
+/// (Plugin.MauiMTAdmob) — pasos exactos en docs/PUBLICACION.md.
+/// </summary>
+public sealed class SandboxAdService : IAdService
+{
+    public bool BannerEnabled => false;
+
+    public async Task<bool> ShowRewardedAdAsync(CancellationToken ct = default)
+    {
+        await Task.Delay(1200, ct); // simula la duración del anuncio
+        return true;
+    }
+
+    public Task ShowInterstitialIfDueAsync(CancellationToken ct = default) => Task.CompletedTask;
+}
+
+/// <summary>
 /// Compra sandbox para desarrollo: el backend (con Store:AllowTestReceipts=true)
 /// acepta el recibo "TEST-OK". En producción se reemplaza por Google Play
 /// Billing / StoreKit — pasos exactos en docs/PUBLICACION.md.

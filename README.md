@@ -33,7 +33,11 @@ cd mobile/src/BrainTrain.App && dotnet build -f net10.0-android -t:Run
 ## Características
 
 - 🎮 Partida rápida, por categoría y **reto del día** (gratis, mantiene la racha)
+- 🧠 **Entrenamiento**: minijuegos 2048, Cálculo Rápido y Sopa de Letras (XP con tope diario)
 - ❤️ Vidas tipo combustible (regeneran 1 cada 30 min) + tienda con monedas e IAP
+- 📺 Anuncios recompensados: ver un anuncio = +1 vida (máx. 5/día)
+- ⭐ **Premium** (mensual/anual): sin anuncios + conveniencia — nunca pay-to-win
+- 💳 Pagos: Google Play Billing / App Store + **portal web con PayPal** (`/portal`)
 - 🔥 Rachas, XP con niveles, 26 logros, liga semanal
 - 🧩 6 categorías: Lógica, Matemática Mental, Preguntas Capciosas, Curiosidades, Percepción y Memoria, Palabras
 - 🛡️ Servidor autoritativo (anti-trampas), JWT + refresh rotado, cuentas invitado ascendibles

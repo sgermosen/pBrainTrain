@@ -104,8 +104,33 @@ public partial class LeaderboardViewModel(ApiClient api) : ObservableObject
 
 // ---------------------------------------------------------------- Tienda
 public partial class StoreViewModel(
-    ApiClient api, IPlatformPurchaser purchaser) : ObservableObject
+    ApiClient api, IPlatformPurchaser purchaser, IAdService ads) : ObservableObject
 {
+    [ObservableProperty] private int? _adLivesRemaining;
+
+    /// <summary>Ver un anuncio recompensado a cambio de una vida (tope diario en el servidor).</summary>
+    [RelayCommand]
+    private async Task WatchAdForLifeAsync()
+    {
+        if (IsBusy) return;
+        IsBusy = true;
+        Error = null;
+        Message = null;
+        try
+        {
+            if (!await ads.ShowRewardedAdAsync())
+                return; // el usuario cerró el anuncio antes de terminar
+
+            var reward = await api.ClaimAdRewardAsync();
+            Profile = reward.Profile;
+            AdLivesRemaining = reward.RemainingToday;
+            Message = $"❤️ ¡+1 vida! Te quedan {reward.RemainingToday} anuncios hoy.";
+        }
+        catch (ApiException e) { Error = e.Message; }
+        catch (HttpRequestException) { Error = "Sin conexión."; }
+        finally { IsBusy = false; }
+    }
+
     public ObservableCollection<StoreProductDto> Products { get; } = [];
     [ObservableProperty] private ProfileDto? _profile;
     [ObservableProperty] private int _refillCoinCost;

@@ -2,9 +2,11 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
 using BrainTrain.Api;
+using BrainTrain.Api.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BrainTrain.Tests;
 
@@ -29,18 +31,49 @@ public class ApiFactory : WebApplicationFactory<Program>
             ["Game:MinSessionSeconds"] = "0",
             ["RateLimiting:GlobalPerMinute"] = "100000",
             ["RateLimiting:AuthPerMinute"] = "100000",
-            ["Store:AllowTestReceipts"] = "true"
+            ["Store:AllowTestReceipts"] = "true",
+            // PayPal "configurado" con credenciales falsas: el gateway real se
+            // sustituye por FakePayPalGateway más abajo.
+            ["PayPal:ClientId"] = "test-client-id",
+            ["PayPal:Secret"] = "test-secret"
         };
         foreach (var (k, v) in ExtraSettings) settings[k] = v;
         builder.UseSetting("environment", "Development");
         builder.ConfigureAppConfiguration((_, cfg) =>
             cfg.AddInMemoryCollection(settings));
+        builder.ConfigureServices(s =>
+            s.AddSingleton<IPayPalGateway>(new FakePayPalGateway()));
     }
 
     protected override void Dispose(bool disposing)
     {
         base.Dispose(disposing);
         try { File.Delete(_dbPath); } catch { /* best effort */ }
+    }
+}
+
+/// <summary>Gateway PayPal simulado: órdenes en memoria, capturas siempre completadas.</summary>
+public sealed class FakePayPalGateway : IPayPalGateway
+{
+    private readonly Dictionary<string, (decimal Amount, string Currency, string CustomId)> _orders = [];
+    private int _seq;
+
+    public Task<string> CreateOrderAsync(decimal amount, string currency, string description, string customId, CancellationToken ct)
+    {
+        var id = $"PPORDER-{Interlocked.Increment(ref _seq)}";
+        lock (_orders) _orders[id] = (amount, currency, customId);
+        return Task.FromResult(id);
+    }
+
+    public Task<PayPalCaptureResult> CaptureOrderAsync(string orderId, CancellationToken ct)
+    {
+        lock (_orders)
+        {
+            if (!_orders.TryGetValue(orderId, out var o))
+                return Task.FromResult(new PayPalCaptureResult(false, "", null, 0, ""));
+            _orders.Remove(orderId); // una orden solo se captura una vez
+            return Task.FromResult(new PayPalCaptureResult(true, $"PPCAP-{Guid.NewGuid():N}", o.CustomId, o.Amount, o.Currency));
+        }
     }
 }
 

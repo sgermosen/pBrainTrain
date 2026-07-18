@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BrainTrain.App.Core.ViewModels;assembly=BrainTrain.App.Core"
+             xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+             x:Class="BrainTrain.App.Pages.MathSprintPage"
+             x:DataType="vm:MathSprintViewModel"
+             Style="{StaticResource PageStyle}">
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto" Padding="20,32" RowSpacing="14">
+        <Grid ColumnDefinitions="Auto,*,Auto">
+            <Button Text="✕" FontSize="18" BackgroundColor="Transparent"
+                    TextColor="{AppThemeBinding Light={StaticResource MutedLight}, Dark={StaticResource MutedDark}}"
+                    Command="{Binding ExitCommand}" />
+            <Label Grid.Column="1" Text="➗ Cálculo Rápido" Style="{StaticResource TitleText}" FontSize="22"
+                   HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Column="2" Text="{Binding SecondsDisplay, StringFormat='⏱ {0}'}"
+                   Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+        </Grid>
+
+        <ProgressBar Grid.Row="1" Progress="{Binding TimeFraction}" ProgressColor="{StaticResource Amber}" />
+
+        <VerticalStackLayout Grid.Row="2" Spacing="18" VerticalOptions="Center">
+            <Border Style="{StaticResource Card}" IsVisible="{Binding IsRunning}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="{Binding Score, StringFormat='Aciertos: {0}'}" Style="{StaticResource SubtitleText}" HorizontalOptions="Center" />
+                    <Label Text="{Binding ProblemText}" FontSize="42" FontFamily="OpenSansSemibold"
+                           Style="{StaticResource BodyText}" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Border>
+
+            <FlexLayout BindableLayout.ItemsSource="{Binding Options}" Wrap="Wrap" JustifyContent="Center"
+                        IsVisible="{Binding IsRunning}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="sys:Int32">
+                        <Button Text="{Binding .}" Style="{StaticResource ChoiceButton}" FontSize="24"
+                                WidthRequest="150" Margin="6"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MathSprintViewModel}}, Path=AnswerCommand}"
+                                CommandParameter="{Binding .}" />
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+
+            <Button Text="▶️ Empezar (60 s)" Style="{StaticResource PrimaryButton}" Command="{Binding StartCommand}">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsRunning}" Value="True">
+                        <Setter Property="IsVisible" Value="False" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsFinished}" Value="True">
+                        <Setter Property="Text" Value="🔁 Jugar otra vez" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+        </VerticalStackLayout>
+
+        <local:MinigameResultView Grid.Row="3" xmlns:local="clr-namespace:BrainTrain.App.Pages" />
+    </Grid>
+</ContentPage>

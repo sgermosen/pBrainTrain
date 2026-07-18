@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BrainTrain.App.Core.ViewModels;assembly=BrainTrain.App.Core"
+             x:Class="BrainTrain.App.Pages.MinigameResultView"
+             x:DataType="vm:MinigameViewModelBase">
+
+    <!-- Overlay de fin de minijuego: recompensa + racha -->
+    <Border Style="{StaticResource Card}" IsVisible="{Binding IsFinished}"
+            BackgroundColor="{StaticResource Secondary}" Margin="0,10,0,0">
+        <VerticalStackLayout Spacing="8">
+            <Label Text="¡Sesión completada! 🎉" TextColor="{StaticResource Tertiary}"
+                   FontFamily="OpenSansSemibold" FontSize="18" HorizontalOptions="Center" />
+            <HorizontalStackLayout Spacing="14" HorizontalOptions="Center">
+                <Label Text="{Binding Result.XpEarned, StringFormat='+{0} XP'}"
+                       TextColor="{StaticResource Primary}" FontFamily="OpenSansSemibold" FontSize="16" />
+                <Label Text="{Binding Result.CoinsEarned, StringFormat='🪙 +{0}'}"
+                       TextColor="{StaticResource Amber}" FontFamily="OpenSansSemibold" FontSize="16" />
+            </HorizontalStackLayout>
+            <Label Text="{Binding Result.DailyXpRemaining, StringFormat='XP de entrenamiento restante hoy: {0}'}"
+                   TextColor="{StaticResource Tertiary}" FontSize="12" HorizontalOptions="Center" />
+            <Label Text="{Binding Error}" TextColor="{StaticResource Danger}" FontSize="13"
+                   IsVisible="{Binding Error, Converter={StaticResource NotNull}}" HorizontalTextAlignment="Center" />
+            <Button Text="Volver al entrenamiento" Style="{StaticResource PrimaryButton}" Command="{Binding ExitCommand}" />
+        </VerticalStackLayout>
+    </Border>
+</ContentView>

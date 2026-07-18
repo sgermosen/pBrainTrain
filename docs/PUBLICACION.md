@@ -15,9 +15,12 @@
 - [ ] URL de producción puesta en `MauiProgram.ApiBaseUrl` (Release)
 - [ ] Keystore Android creado y respaldado (sección 2.2)
 - [ ] Cuenta Google Play ($25 una vez) y/o Apple Developer ($99/año)
-- [ ] Productos IAP creados con los IDs exactos de `appsettings.json`
+- [ ] Productos IAP creados con los IDs exactos de `appsettings.json` (incluye `braintrain.premium.month` y `braintrain.premium.year`)
 - [ ] Billing real conectado (sección 2.6 / 3.5) y verificador de recibos del servidor (sección 4)
-- [ ] Política de privacidad publicada en una URL (obligatoria en ambas tiendas)
+- [ ] AdMob configurado (sección 6) y `SandboxAdService` reemplazado por la implementación real
+- [ ] PayPal: app creada en developer.paypal.com y `PayPal__ClientId`/`PayPal__Secret` en el servidor (sección 7)
+- [ ] Portal de pagos accesible en `https://api.tudominio.com/portal`
+- [ ] Política de privacidad publicada en una URL (obligatoria en ambas tiendas; menciona anuncios y compras)
 
 ---
 
@@ -356,7 +359,131 @@ de recibos ya están hechos y probados.
 - Renders de la app en uso (mockups de las pantallas reales): `docs/renders/*.png`
   — útiles directamente como material de marketing o base para capturas.
 
-## 6. Costos y capacidad (referencia)
+## 6. Anuncios con AdMob (banner + rewarded)
+
+La app ya trae la abstracción `IAdService` y el flujo completo funcionando en
+sandbox: el botón «Ver anuncio» de la tienda muestra el rewarded y el servidor
+acredita **+1 vida con tope de 5/día** (`POST /api/v1/ads/reward-life`).
+Los usuarios Premium no ven anuncios (`profile.showAds == false` oculta la UI).
+
+### 6.1 Crear las unidades de anuncio
+
+1. https://admob.google.com → registra la app (Android y/o iOS) → copia el
+   **App ID** (`ca-app-pub-XXXX~YYYY`).
+2. Crea 2 unidades: **Recompensado** (vida gratis) y **Banner** (opcional, en Home).
+   Guarda sus IDs (`ca-app-pub-XXXX/ZZZZ`).
+3. Vincula AdMob con la ficha de Play cuando la app esté publicada (mejora eCPM).
+
+### 6.2 Integrar en la app MAUI
+
+```bash
+cd mobile/src/BrainTrain.App
+dotnet add package Plugin.MauiMTAdmob
+```
+
+`MauiProgram.cs`: `builder.UseMauiMTAdmob();` y en `Platforms/Android/AndroidManifest.xml`:
+
+```xml
+<meta-data android:name="com.google.android.gms.ads.APPLICATION_ID"
+           android:value="ca-app-pub-XXXX~YYYY"/>
+```
+
+Crea `Services/AdmobAdService.cs` implementando `IAdService`:
+
+```csharp
+using Plugin.MauiMTAdmob;
+using BrainTrain.App.Core;
+
+public sealed class AdmobAdService : IAdService
+{
+    private const string RewardedId = "ca-app-pub-XXXX/ZZZZ"; // unidad recompensada
+    public bool BannerEnabled => true;
+
+    public async Task<bool> ShowRewardedAdAsync(CancellationToken ct = default)
+    {
+        var tcs = new TaskCompletionSource<bool>();
+        CrossMauiMTAdmob.Current.OnRewardedLoaded += (_, _) => CrossMauiMTAdmob.Current.ShowRewarded();
+        CrossMauiMTAdmob.Current.OnUserEarnedReward += (_, _) => tcs.TrySetResult(true);
+        CrossMauiMTAdmob.Current.OnRewardedFailedToLoad += (_, _) => tcs.TrySetResult(false);
+        CrossMauiMTAdmob.Current.OnRewardedClosed += (_, _) => tcs.TrySetResult(false);
+        CrossMauiMTAdmob.Current.LoadRewarded(RewardedId);
+        return await tcs.Task.WaitAsync(TimeSpan.FromSeconds(30), ct);
+    }
+
+    public Task ShowInterstitialIfDueAsync(CancellationToken ct = default) => Task.CompletedTask;
+}
+```
+
+y en `MauiProgram.cs` (Release): `services.AddSingleton<IAdService, AdmobAdService>();`
+en lugar de `SandboxAdService`. Usa los **IDs de prueba de Google** hasta publicar
+(rewarded test: `ca-app-pub-3940256099942544/5224354917`).
+
+### 6.3 Reglas importantes
+
+- App dirigida también a niños → en AdMob marca **tratamiento para menores**
+  (TFCD) y usa solo anuncios aptos; en Play declara "sí muestra anuncios".
+- No pongas banner dentro del quiz (política de UX y de Google: nada de clics accidentales).
+- Opcional avanzado: verificación server-side (SSV) de rewarded — AdMob puede
+  llamar a tu servidor firmando cada recompensa; nuestro endpoint con tope
+  diario ya limita el abuso sin SSV.
+
+## 7. Pagos: Google Pay / Play Billing, suscripciones y PayPal
+
+### 7.1 ¿"Google Pay" o "Play Billing"? (importante)
+
+Para **bienes digitales dentro de la app** (vidas, monedas, Premium) Google
+**obliga** a usar **Google Play Billing** — no la API de Google Pay (esa es para
+bienes físicos/servicios). "Pagar con Google" les aparece automáticamente a los
+usuarios dentro del flujo de Play Billing con sus tarjetas guardadas. Los pasos
+completos ya están en la sección 2.5–2.6. En resumen:
+
+1. Play Console → Monetizar → Productos integrados → crea los 6 IDs (tabla 2.5 + los 2 premium).
+2. App: `Plugin.InAppBilling` + `PlayStorePurchaser` (código en 2.6).
+3. Backend: verificador de recibos con service account (sección 4).
+
+### 7.2 Premium: ¿producto consumible o suscripción real?
+
+BrainTrain implementa Premium como **producto de días** (30/365): simple,
+funciona igual en Play, App Store y PayPal, y no requiere webhooks. Si más
+adelante quieres **suscripción auto-renovable** de Play/App Store:
+
+1. Play Console → Monetizar → Suscripciones → crea `braintrain.premium.sub` con
+   plan base mensual.
+2. Configura **RTDN** (Real-Time Developer Notifications) hacia un endpoint
+   nuevo del backend vía Pub/Sub para enterarte de renovaciones/cancelaciones y
+   actualizar `PremiumUntilUtc`.
+3. En App Store: App Store Server Notifications V2 (JWS) al mismo efecto.
+
+### 7.3 PayPal en el portal web (ya implementado)
+
+El backend incluye la integración completa de **PayPal Orders v2** y un portal
+web en `/portal`: el usuario inicia sesión con su cuenta del juego, elige
+producto y paga con PayPal; el servidor crea la orden, la captura, valida monto
+y usuario, y acredita con anti-replay (`PurchaseReceipts`).
+
+Pasos para activarlo:
+
+1. https://developer.paypal.com → **Apps & Credentials** → Create App (tipo
+   Merchant). Copia **Client ID** y **Secret** de *Sandbox*.
+2. En el servidor (systemd, junto a las demás variables):
+
+```ini
+Environment=PayPal__ClientId=TU-CLIENT-ID
+Environment=PayPal__Secret=TU-SECRET
+Environment=PayPal__Mode=sandbox     # cambia a "live" al salir a producción
+```
+
+3. Prueba en `https://api.tudominio.com/portal` con una cuenta sandbox de
+   comprador (developer.paypal.com → Testing Tools → Sandbox Accounts).
+4. Para producción: crea/usa las credenciales **Live** de la misma app,
+   `PayPal__Mode=live`, y haz una compra real pequeña de verificación.
+5. Los precios PayPal salen de `Store:Products[].PriceUsd` en `appsettings.json`.
+
+> Nota de políticas: vender bienes digitales por web (portal) es válido; lo que
+> las tiendas prohíben es ofrecer *dentro de la app* enlaces para pagar por
+> fuera. No enlaces el portal desde la app iOS/Android.
+
+## 8. Costos y capacidad (referencia)
 
 | Concepto | Costo |
 |---|---|

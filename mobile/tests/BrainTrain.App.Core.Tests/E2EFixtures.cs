@@ -69,3 +69,13 @@ public sealed class FakePurchaser : IPlatformPurchaser
     public Task<PlatformPurchase?> BuyAsync(string productId, CancellationToken ct = default) =>
         Task.FromResult<PlatformPurchase?>(new PlatformPurchase("Test", $"tx-{Guid.NewGuid():N}", "TEST-OK"));
 }
+
+/// <summary>Anuncios simulados: el rewarded siempre se "completa".</summary>
+public sealed class FakeAds : IAdService
+{
+    public bool BannerEnabled => false;
+    public int RewardedShown { get; private set; }
+    public Task<bool> ShowRewardedAdAsync(CancellationToken ct = default)
+    { RewardedShown++; return Task.FromResult(true); }
+    public Task ShowInterstitialIfDueAsync(CancellationToken ct = default) => Task.CompletedTask;
+}

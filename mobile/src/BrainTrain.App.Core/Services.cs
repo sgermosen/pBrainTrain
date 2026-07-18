@@ -28,6 +28,17 @@ public interface IPlatformPurchaser
     Task<PlatformPurchase?> BuyAsync(string productId, CancellationToken ct = default);
 }
 
+/// <summary>
+/// Anuncios de la plataforma (AdMob). El rewarded devuelve true solo si el
+/// usuario completó el anuncio; el servidor otorga la recompensa con tope diario.
+/// </summary>
+public interface IAdService
+{
+    bool BannerEnabled { get; }
+    Task<bool> ShowRewardedAdAsync(CancellationToken ct = default);
+    Task ShowInterstitialIfDueAsync(CancellationToken ct = default);
+}
+
 /// <summary>Identidad estable del dispositivo para cuentas de invitado.</summary>
 public interface IDeviceIdentity
 {

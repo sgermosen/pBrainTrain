@@ -98,7 +98,7 @@ public class ViewModelE2ETests : IClassFixture<BackendFixture>
         Assert.NotNull(home.Error);
 
         // Compra en la tienda (flujo sandbox completo: nativo fake + canje verificado).
-        var store = new StoreViewModel(api, new FakePurchaser());
+        var store = new StoreViewModel(api, new FakePurchaser(), new FakeAds());
         await store.LoadCommand.ExecuteAsync(null);
         var refill = store.Products.First(p => p.ProductId == "braintrain.lives.refill");
         await store.BuyCommand.ExecuteAsync(refill);
@@ -171,6 +171,53 @@ public class ViewModelE2ETests : IClassFixture<BackendFixture>
         Assert.Null(auth.Error);
         var profile = await api.GetProfileAsync();
         Assert.False(profile.IsGuest);
+    }
+
+    [Fact]
+    public async Task Entrenamiento_CargaMinijuegosYNavega()
+    {
+        var (api, nav) = await LoggedGuestAsync();
+        var training = new TrainingViewModel(api, nav);
+        await training.LoadCommand.ExecuteAsync(null);
+
+        Assert.Equal(3, training.Games.Count);
+        await training.OpenCommand.ExecuteAsync(training.Games.First(g => g.Code == "g2048"));
+        Assert.Contains("game2048", nav.Routes);
+    }
+
+    [Fact]
+    public async Task VerAnuncio_DaUnaVidaViaTienda()
+    {
+        var (api, nav) = await LoggedGuestAsync();
+        var flow = new GameFlow();
+        var home = new HomeViewModel(api, flow, nav);
+        await home.PlayQuickCommand.ExecuteAsync(null); // gasta una vida
+
+        var ads = new FakeAds();
+        var store = new StoreViewModel(api, new FakePurchaser(), ads);
+        await store.LoadCommand.ExecuteAsync(null);
+        await store.WatchAdForLifeCommand.ExecuteAsync(null);
+
+        Assert.Equal(1, ads.RewardedShown);
+        Assert.Null(store.Error);
+        Assert.Equal(5, store.Profile!.Lives.Current);
+        Assert.Equal(4, store.AdLivesRemaining);
+    }
+
+    [Fact]
+    public async Task Premium_SeCompraYSeReflejaEnElPerfil()
+    {
+        var (api, _) = await LoggedGuestAsync();
+        var store = new StoreViewModel(api, new FakePurchaser(), new FakeAds());
+        await store.LoadCommand.ExecuteAsync(null);
+
+        var premium = store.Products.First(p => p.ProductId == "braintrain.premium.month");
+        await store.BuyCommand.ExecuteAsync(premium);
+
+        Assert.Null(store.Error);
+        Assert.True(store.Profile!.IsPremium);
+        Assert.False(store.Profile.ShowAds);
+        Assert.Equal(8, store.Profile.Lives.Max);
     }
 
     [Fact]

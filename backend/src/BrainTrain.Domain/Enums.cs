@@ -38,5 +38,6 @@ public enum StorePlatform
 {
     GooglePlay = 0,
     AppStore = 1,
+    PayPal = 2,
     Test = 99
 }

@@ -11,4 +11,8 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="BrainTrain.App.Core.Tests" />
+  </ItemGroup>
+
 </Project>
