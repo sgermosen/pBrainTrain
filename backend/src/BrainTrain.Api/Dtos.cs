@@ -19,7 +19,8 @@ public sealed record ProfileDto(
     long Id, string DisplayName, string AvatarCode, bool IsGuest, string? Email,
     int Xp, int Level, int XpIntoLevel, int XpForNextLevel,
     int Coins, LivesDto Lives, StreakDto Streak, int WeeklyXp, TotalsDto Totals,
-    bool IsPremium, DateTime? PremiumUntilUtc, bool ShowAds);
+    bool IsPremium, DateTime? PremiumUntilUtc, bool ShowAds,
+    int LeagueTier, string LeagueName, bool Calibrated);
 public sealed record UpdateProfileRequest(string? DisplayName, string? AvatarCode);
 
 // ---------- Contenido ----------
@@ -81,6 +82,40 @@ public sealed record PayPalCreateOrderRequest(string ProductId);
 public sealed record PayPalCreateOrderResponse(string OrderId);
 public sealed record PayPalCaptureRequest(string OrderId);
 
+// ---------- Duelos ----------
+public sealed record DuelDto(
+    Guid Id, string Code, DuelStatus Status, string ChallengerName, string? OpponentName,
+    int? MyScore, int? TheirScore, bool IAmChallenger, int TotalCount, DateTime CreatedAtUtc);
+public sealed record DuelStartResponse(DuelDto Duel, Guid SessionId, IReadOnlyList<QuestionDto> Questions, LivesDto Lives);
+public sealed record DuelCreateRequest(bool OpenToPublic);
+public sealed record DuelJoinRequest(string Code);
+
+// ---------- Misiones diarias ----------
+public sealed record QuestDto(
+    string Code, string Name, string Emoji, int Progress, int Target,
+    int CoinReward, int XpReward, bool Completed, bool Claimed);
+public sealed record QuestClaimResponse(int CoinsGranted, int XpGranted, ProfileDto Profile);
+
+// ---------- Tienda de avatares ----------
+public sealed record AvatarShopItemDto(string Code, int PriceCoins, bool Owned);
+public sealed record AvatarBuyRequest(string Code);
+
+// ---------- Radar de habilidades ----------
+public sealed record SkillDto(int CategoryId, string Slug, string Name, string Emoji, int Answered, int Correct, double Accuracy);
+public sealed record SkillsDto(bool Calibrated, IReadOnlyList<SkillDto> Skills);
+
+// ---------- Administración ----------
+public sealed record AdminStatsDto(
+    int TotalUsers, int NewUsersToday, int DauToday, int SessionsToday,
+    int PremiumActive, int ReceiptsTotal, int QuestionsActive);
+public sealed record AdminChoiceDto(string Text, bool IsCorrect);
+public sealed record AdminQuestionRequest(
+    int CategoryId, QuestionType Type, int Difficulty, string Text,
+    string Explanation, string? FunFact, List<AdminChoiceDto> Choices);
+public sealed record AdminQuestionDto(
+    int Id, int CategoryId, QuestionType Type, int Difficulty, string Text,
+    string Explanation, string? FunFact, bool IsActive, List<AdminChoiceDto> Choices);
+
 // ---------- Salud ----------
 public sealed record ApiInfoDto(string Name, string Version, string Environment);
 
@@ -119,6 +154,20 @@ public sealed record ApiInfoDto(string Name, string Version, string Environment)
 [JsonSerializable(typeof(PayPalCreateOrderRequest))]
 [JsonSerializable(typeof(PayPalCreateOrderResponse))]
 [JsonSerializable(typeof(PayPalCaptureRequest))]
+[JsonSerializable(typeof(DuelDto))]
+[JsonSerializable(typeof(List<DuelDto>))]
+[JsonSerializable(typeof(DuelStartResponse))]
+[JsonSerializable(typeof(DuelCreateRequest))]
+[JsonSerializable(typeof(DuelJoinRequest))]
+[JsonSerializable(typeof(List<QuestDto>))]
+[JsonSerializable(typeof(QuestClaimResponse))]
+[JsonSerializable(typeof(List<AvatarShopItemDto>))]
+[JsonSerializable(typeof(AvatarBuyRequest))]
+[JsonSerializable(typeof(SkillsDto))]
+[JsonSerializable(typeof(AdminStatsDto))]
+[JsonSerializable(typeof(AdminQuestionRequest))]
+[JsonSerializable(typeof(AdminQuestionDto))]
+[JsonSerializable(typeof(List<AdminQuestionDto>))]
 [JsonSerializable(typeof(ApiInfoDto))]
 [JsonSerializable(typeof(Microsoft.AspNetCore.Mvc.ProblemDetails))]
 public partial class ApiJsonContext : JsonSerializerContext;

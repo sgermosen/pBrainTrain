@@ -18,6 +18,12 @@ public static class Avatars
         "penguin" => "🐧",
         "koala" => "🐨",
         "dragon" => "🐲",
+        "monkey" => "🐵",
+        "unicorn" => "🦄",
+        "tiger" => "🐯",
+        "wolf" => "🐺",
+        "octopus" => "🐙",
+        "butterfly" => "🦋",
         _ => "🙂"
     };
 }

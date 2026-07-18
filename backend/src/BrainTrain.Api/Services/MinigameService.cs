@@ -44,6 +44,15 @@ public sealed class MinigameService(AppDbContext db, AchievementService achievem
         new("rubik_guide", "Guía Cubo de Rubik", "🧊",
             "Aprende a armar el cubo paso a paso (método por capas) y cronometra tus tiempos.",
             XpNum: 20, XpDen: 1, MaxXpPerSession: 20, MaxScore: 1, MinDurationMs: 60_000),
+        new("stroop", "Test de Stroop", "🎨",
+            "Toca el COLOR de la tinta, no la palabra. El test de atención más famoso de la psicología.",
+            XpNum: 2, XpDen: 1, MaxXpPerSession: 60, MaxScore: 60, MinDurationMs: 15_000),
+        new("chain30", "Cadena Mental", "⛓️",
+            "Sigue la cadena de operaciones que se revela paso a paso y resuelve el total.",
+            XpNum: 10, XpDen: 1, MaxXpPerSession: 50, MaxScore: 5, MinDurationMs: 20_000),
+        new("nback", "N-Back Visual", "🧬",
+            "¿La posición es igual a la de hace N pasos? El ejercicio de memoria de trabajo más estudiado.",
+            XpNum: 3, XpDen: 1, MaxXpPerSession: 60, MaxScore: 20, MinDurationMs: 20_000),
     ];
 
     public static MinigameDef? Find(string code) => Catalog.FirstOrDefault(g => g.Code == code);
@@ -75,6 +84,8 @@ public sealed class MinigameService(AppDbContext db, AchievementService achievem
 
         ProgressionLogic.EnsureCurrentWeek(user, today);
         ProgressionLogic.UpdateStreak(user, today); // entrenar también cuenta para la racha
+        ProgressionLogic.EnsureQuestDay(user, today);
+        user.MinigamesToday++;
 
         var levelBefore = user.Level;
         user.MinigameXpToday += xp;

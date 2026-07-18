@@ -15,8 +15,13 @@ public partial class HomeViewModel(
     [ObservableProperty] private DailyStatusDto? _daily;
     [ObservableProperty] private bool _isBusy;
     [ObservableProperty] private string? _error;
+    [ObservableProperty] private string? _questMessage;
 
     public ObservableCollection<CategoryDto> Categories { get; } = [];
+    public ObservableCollection<QuestDto> Quests { get; } = [];
+
+    public bool NeedsCalibration => Profile is { Calibrated: false };
+    public string LeagueLabel => Profile is null ? "" : $"🛡️ Liga {Profile.LeagueName}";
 
     public bool DailyCompleted => Daily?.Completed == true;
     public string StreakLabel => Profile is null ? "" :
@@ -40,10 +45,15 @@ public partial class HomeViewModel(
                 foreach (var c in await api.GetCategoriesAsync())
                     Categories.Add(c);
             }
+            Quests.Clear();
+            foreach (var q in await api.GetQuestsAsync())
+                Quests.Add(q);
             OnPropertyChanged(nameof(DailyCompleted));
             OnPropertyChanged(nameof(StreakLabel));
             OnPropertyChanged(nameof(LivesLabel));
             OnPropertyChanged(nameof(LevelProgress));
+            OnPropertyChanged(nameof(NeedsCalibration));
+            OnPropertyChanged(nameof(LeagueLabel));
         }
         catch (ApiException e) { Error = e.Message; }
         catch (HttpRequestException) { Error = "Sin conexión. Revisa tu internet."; }
@@ -60,6 +70,29 @@ public partial class HomeViewModel(
     [RelayCommand]
     private Task PlayCategoryAsync(CategoryDto category) =>
         StartGameAsync(GameModes.Category, category);
+
+    /// <summary>Test inicial de nivel: 10 preguntas gratis que calibran la dificultad.</summary>
+    [RelayCommand]
+    private Task PlayCalibrationAsync() => StartGameAsync(GameModes.Calibration, null);
+
+    /// <summary>Reclama el cofre de una misión completada.</summary>
+    [RelayCommand]
+    private async Task ClaimQuestAsync(QuestDto quest)
+    {
+        if (!quest.Completed || quest.Claimed) return;
+        try
+        {
+            var result = await api.ClaimQuestAsync(quest.Code);
+            Profile = result.Profile;
+            QuestMessage = $"🎁 +{result.CoinsGranted} 🪙 y +{result.XpGranted} XP";
+            var i = Quests.IndexOf(quest);
+            if (i >= 0) Quests[i] = quest with { Claimed = true };
+            OnPropertyChanged(nameof(LivesLabel));
+            OnPropertyChanged(nameof(LevelProgress));
+        }
+        catch (ApiException e) { Error = e.Message; }
+        catch (HttpRequestException) { Error = "Sin conexión."; }
+    }
 
     private async Task StartGameAsync(string mode, CategoryDto? category)
     {
@@ -87,6 +120,7 @@ public partial class HomeViewModel(
     }
 
     [RelayCommand] private Task GoTrainingAsync() => nav.GoToAsync("training");
+    [RelayCommand] private Task GoDuelsAsync() => nav.GoToAsync("duels");
     [RelayCommand] private Task GoFocusAsync() => nav.GoToAsync("focus");
     [RelayCommand] private Task GoProfileAsync() => nav.GoToAsync("profile");
     [RelayCommand] private Task GoStoreAsync() => nav.GoToAsync("store");

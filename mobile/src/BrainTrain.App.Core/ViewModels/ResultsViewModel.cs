@@ -16,7 +16,7 @@ public sealed record ReviewItem(
 /// no dopamina vacía) y repaso didáctico con la lógica de cada respuesta —
 /// el momento de aprendizaje más importante de la app.
 /// </summary>
-public partial class ResultsViewModel(GameFlow flow, INavigationService nav) : ObservableObject
+public partial class ResultsViewModel(GameFlow flow, INavigationService nav, IShareService? share = null) : ObservableObject
 {
     [ObservableProperty] private string _headline = "";
     [ObservableProperty] private string _scoreLabel = "";
@@ -68,4 +68,16 @@ public partial class ResultsViewModel(GameFlow flow, INavigationService nav) : O
 
     [RelayCommand]
     private Task GoHomeAsync() => nav.GoToAsync("//home");
+
+    /// <summary>Comparte el resultado estilo Wordle: cuadrícula de emojis sin spoilers.</summary>
+    [RelayCommand]
+    private Task ShareAsync()
+    {
+        if (share is null || flow.LastResult is null) return Task.CompletedTask;
+        var r = flow.LastResult;
+        var grid = string.Join("", r.Results.Select(x => x.WasCorrect ? "🟩" : "🟥"));
+        var modo = flow.Mode == GameModes.Daily ? "el reto diario" : "una partida";
+        var text = $"🧠 BrainTrain — saqué {r.Correct}/{r.Total} en {modo}\n{grid}\n¿Me ganas?";
+        return share.ShareTextAsync("Mi resultado en BrainTrain", text);
+    }
 }

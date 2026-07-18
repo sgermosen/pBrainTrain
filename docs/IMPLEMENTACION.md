@@ -86,6 +86,11 @@ correctas, XP, vidas, compras). El cliente solo presenta y recolecta.
 | POST | `/api/v1/minigames/submit` | ✔ | XP con topes por sesión y por día (anti-farmeo) |
 | POST | `/api/v1/focus/complete` | ✔ | Sesión de enfoque: XP simbólico (10, tope 30/día), cuenta racha |
 | GET | `/api/v1/paypal/config` | — | Config pública del portal (client-id) |
+| POST | `/api/v1/duels` (`/join`, `/random`, `/mine`) | ✔ | Duelos 1v1: mismas preguntas, código de 6 letras o rival al azar; +20 XP al ganador |
+| GET/POST | `/api/v1/quests` / `{code}/claim` | ✔ | 3 misiones diarias deterministas con cofres (contadores en la fila del usuario) |
+| GET/POST | `/api/v1/avatars` / `buy` | ✔ | Tienda de avatares premium con monedas (cosméticos, no pay-to-win) |
+| GET | `/api/v1/me/skills` | ✔ | Radar de precisión por categoría (perfil cerebral) |
+| GET/POST/PUT/DELETE | `/api/admin/*` | X-Admin-Key | Métricas + CRUD de preguntas (panel en `/admin`) |
 | POST | `/api/v1/paypal/create-order` | ✔ | Crea orden PayPal server-side |
 | POST | `/api/v1/paypal/capture` | ✔ | Captura, valida monto/usuario y acredita |
 | GET | `/portal` | — | Portal web de pagos (PayPal JS SDK) |
@@ -123,6 +128,25 @@ Errores uniformes como `ProblemDetails` (`title` = código estable, `detail` = m
   letras): el cliente juega, el servidor acredita `XP = score × factor` con tope
   por sesión y **tope diario de 300 XP** (`MinigameXpToday`), duración mínima y
   puntaje máximo por juego (anti-bots). Entrenar también cuenta para la racha.
+- **Ligas por divisiones** (Bronce→Plata→Oro→Diamante→Leyenda): al cerrar cada
+  semana (evaluación perezosa, sin jobs) subes si tu XP semanal superó el umbral
+  del tier (150/300/500/800) y bajas si no llegaste al mínimo. Metas claras tipo
+  "gana 300 XP esta semana para subir a Oro".
+- **Misiones diarias con cofres**: 3 por día, deterministas por usuario+fecha
+  (de un pool de 6: partidas, perfectas, aciertos, minijuegos, reto diario,
+  enfoque). Progreso desde contadores diarios en la fila del usuario; recompensa
+  al reclamar (monedas + XP). Cero tablas nuevas.
+- **Duelos 1v1 asíncronos**: mismas 7 preguntas para ambos, por código
+  compartible o emparejamiento aleatorio (pool de duelos públicos). Cuestan 1
+  vida, +20 XP al ganador. La partida reutiliza el flujo del quiz.
+- **Test inicial de calibración**: 10 preguntas variadas, gratis y una sola vez;
+  siembra `UserCategoryStat` (dificultad adaptativa afinada desde el minuto 1) y
+  alimenta el radar de habilidades del perfil.
+- **Avatares premium**: 6 comprables con monedas — el destino cosmético de la
+  economía blanda.
+- **Push FCM** (opcional): `FcmPushSender` implementa HTTP v1 completo (OAuth de
+  service account); `StreakReminderService` avisa una vez al día a quien tiene
+  la racha en riesgo. Deshabilitado salvo configuración explícita.
 
 ### 3.4 Seguridad
 

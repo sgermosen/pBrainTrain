@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BrainTrain.App.Core.ViewModels;assembly=BrainTrain.App.Core"
+             x:Class="BrainTrain.App.Pages.NBackPage"
+             x:DataType="vm:NBackViewModel"
+             Style="{StaticResource PageStyle}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,32,20,24" Spacing="14">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <Button Text="✕" FontSize="18" BackgroundColor="Transparent"
+                        TextColor="{AppThemeBinding Light={StaticResource MutedLight}, Dark={StaticResource MutedDark}}"
+                        Command="{Binding ExitCommand}" />
+                <Label Grid.Column="1" Text="🧠 N-Back" Style="{StaticResource TitleText}" FontSize="22"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+                <Label Grid.Column="2" Text="{Binding LevelLabel}"
+                       Style="{StaticResource SubtitleText}" FontSize="13" VerticalOptions="Center" />
+            </Grid>
+
+            <Label Text="Toca ¡IGUAL! si la celda se repite respecto a hace N pasos."
+                   Style="{StaticResource SubtitleText}" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="{Binding ProgressLabel}" Style="{StaticResource SubtitleText}" />
+                <Label Grid.Column="1" Text="{Binding Score, StringFormat='Aciertos: {0}'}"
+                       Style="{StaticResource SubtitleText}" />
+            </Grid>
+
+            <Border Style="{StaticResource Card}" Padding="14">
+                <FlexLayout BindableLayout.ItemsSource="{Binding Cells}" Wrap="Wrap" JustifyContent="Center"
+                            WidthRequest="312" HorizontalOptions="Center">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="vm:NBackCell">
+                            <!-- Celda 3×3: la activa se pinta de violeta -->
+                            <Border StrokeShape="RoundRectangle 14" StrokeThickness="0" Margin="5"
+                                    WidthRequest="92" HeightRequest="92"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource CardDark}}">
+                                <Border.Triggers>
+                                    <DataTrigger TargetType="Border" Binding="{Binding IsActive}" Value="True">
+                                        <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                    </DataTrigger>
+                                </Border.Triggers>
+                            </Border>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </FlexLayout>
+            </Border>
+
+            <Button Text="¡IGUAL!" Style="{StaticResource PrimaryButton}" FontSize="22" HeightRequest="64"
+                    Command="{Binding MatchCommand}" IsVisible="{Binding IsRunning}" />
+
+            <Button Text="▶️ Empezar (20 estímulos)" Style="{StaticResource PrimaryButton}" Command="{Binding StartCommand}">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsRunning}" Value="True">
+                        <Setter Property="IsVisible" Value="False" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsFinished}" Value="True">
+                        <Setter Property="Text" Value="🔁 Jugar otra vez" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+
+            <local:MinigameResultView xmlns:local="clr-namespace:BrainTrain.App.Pages" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

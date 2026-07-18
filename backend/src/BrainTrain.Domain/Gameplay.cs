@@ -14,6 +14,9 @@ public class GameSession
     public GameMode Mode { get; set; }
     public int? CategoryId { get; set; }
 
+    /// <summary>Duelo al que pertenece esta partida (solo Mode=Duel).</summary>
+    public Guid? DuelId { get; set; }
+
     /// <summary>IDs de preguntas servidas, en orden, separadas por coma.</summary>
     public string QuestionIdsCsv { get; set; } = string.Empty;
 

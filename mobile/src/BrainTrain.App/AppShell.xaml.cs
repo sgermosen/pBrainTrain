@@ -25,6 +25,10 @@ public partial class AppShell : Shell
         Routing.RegisterRoute("simon", typeof(SimonPage));
         Routing.RegisterRoute("spotdiff", typeof(SpotDiffPage));
         Routing.RegisterRoute("rubikguide", typeof(RubikGuidePage));
+        Routing.RegisterRoute("duels", typeof(DuelsPage));
+        Routing.RegisterRoute("stroop", typeof(StroopPage));
+        Routing.RegisterRoute("chaincalc", typeof(ChainCalcPage));
+        Routing.RegisterRoute("nback", typeof(NBackPage));
         Routing.RegisterRoute("focus", typeof(FocusPage));
         Routing.RegisterRoute("focustimer", typeof(FocusTimerPage));
         Routing.RegisterRoute("breathe", typeof(BreathingPage));

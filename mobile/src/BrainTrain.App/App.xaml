@@ -24,6 +24,14 @@
             <local:MarkerBoundsConverter x:Key="MarkerBounds" />
             <local:AllTrueConverter x:Key="AllTrue" />
             <local:RubikFaceColorConverter x:Key="RubikFaceColor" />
+            <local:DuelStatusTextConverter x:Key="DuelStatusText" />
+            <local:DuelWaitingConverter x:Key="DuelWaiting" />
+            <local:IsZeroConverter x:Key="IsZero" />
+            <local:QuestProgressConverter x:Key="QuestProgress" />
+            <local:QuestButtonTextConverter x:Key="QuestButtonText" />
+            <local:QuestClaimableConverter x:Key="QuestClaimable" />
+            <local:SkillBarConverter x:Key="SkillBar" />
+            <local:AvatarPriceTextConverter x:Key="AvatarPriceText" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

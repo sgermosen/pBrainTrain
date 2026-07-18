@@ -39,7 +39,11 @@ cd mobile/src/BrainTrain.App && dotnet build -f net10.0-android -t:Run
 - 📺 Anuncios recompensados: ver un anuncio = +1 vida (máx. 5/día)
 - ⭐ **Premium** (mensual/anual): sin anuncios + conveniencia — nunca pay-to-win
 - 💳 Pagos: Google Play Billing / App Store + **portal web con PayPal** (`/portal`)
-- 🔥 Rachas, XP con niveles, 26 logros, liga semanal
+- ⚔️ **Duelos 1v1** asíncronos: reta por código o rival al azar (+20 XP al ganador)
+- 🎁 **Misiones diarias con cofres** y 🧪 **test inicial** que calibra tu dificultad + radar de habilidades
+- 🛡️ **Ligas por divisiones** (Bronce→Leyenda) con metas semanales claras
+- 🔥 Rachas, XP con niveles, 26 logros, leaderboard semanal, avatares desbloqueables
+- 🔔 Push FCM opcional (racha en riesgo) + panel admin web (`/admin`) + CI GitHub Actions
 - 🧩 6 categorías: Lógica, Matemática Mental, Preguntas Capciosas, Curiosidades, Percepción y Memoria, Palabras
 - 🛡️ Servidor autoritativo (anti-trampas), JWT + refresh rotado, cuentas invitado ascendibles
 - ⚡ Diseñado para ~1M de usuarios en un VPS de 2 cores / 4 GB (detalles en IMPLEMENTACION.md)

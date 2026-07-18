@@ -28,6 +28,9 @@ public static class ProfileMapper
                 user.PerfectSessions, user.DailyChallengesCompleted),
             IsPremium: isPremium,
             PremiumUntilUtc: isPremium ? user.PremiumUntilUtc : null,
-            ShowAds: !isPremium);
+            ShowAds: !isPremium,
+            LeagueTier: user.LeagueTier,
+            LeagueName: ProgressionLogic.LeagueNames[Math.Clamp(user.LeagueTier, 0, ProgressionLogic.LeagueNames.Length - 1)],
+            Calibrated: user.CalibratedAtUtc is not null);
     }
 }

@@ -35,7 +35,8 @@ public class ApiFactory : WebApplicationFactory<Program>
             // PayPal "configurado" con credenciales falsas: el gateway real se
             // sustituye por FakePayPalGateway más abajo.
             ["PayPal:ClientId"] = "test-client-id",
-            ["PayPal:Secret"] = "test-secret"
+            ["PayPal:Secret"] = "test-secret",
+            ["Admin:Key"] = "test-admin-key-1234567890"
         };
         foreach (var (k, v) in ExtraSettings) settings[k] = v;
         builder.UseSetting("environment", "Development");

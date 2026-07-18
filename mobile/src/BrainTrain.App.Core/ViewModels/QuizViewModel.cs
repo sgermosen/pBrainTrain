@@ -21,15 +21,17 @@ public partial class QuizViewModel : ObservableObject, IDisposable
     private readonly ApiClient _api;
     private readonly GameFlow _flow;
     private readonly INavigationService _nav;
+    private readonly IHaptics _haptics;
     private QuizEngine? _engine;
     private System.Timers.Timer? _timer;
     private int _secondsLeft;
 
-    public QuizViewModel(ApiClient api, GameFlow flow, INavigationService nav)
+    public QuizViewModel(ApiClient api, GameFlow flow, INavigationService nav, IHaptics? haptics = null)
     {
         _api = api;
         _flow = flow;
         _nav = nav;
+        _haptics = haptics ?? new NoopHaptics();
     }
 
     public ObservableCollection<ChoiceItem> Choices { get; } = [];
@@ -101,6 +103,7 @@ public partial class QuizViewModel : ObservableObject, IDisposable
     [RelayCommand]
     private void SelectChoice(ChoiceItem item)
     {
+        _haptics.Click();
         foreach (var c in Choices) c.IsSelected = ReferenceEquals(c, item);
         _selectedChoiceId = item.Id;
         CanConfirm = true;

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BrainTrain.App.Core.ViewModels;assembly=BrainTrain.App.Core"
+             xmlns:core="clr-namespace:BrainTrain.App.Core;assembly=BrainTrain.App.Core"
+             x:Class="BrainTrain.App.Pages.DuelsPage"
+             x:DataType="vm:DuelsViewModel"
+             Style="{StaticResource PageStyle}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,32,20,24" Spacing="14">
+            <Grid ColumnDefinitions="Auto,*">
+                <Button Text="✕" FontSize="18" BackgroundColor="Transparent"
+                        TextColor="{AppThemeBinding Light={StaticResource MutedLight}, Dark={StaticResource MutedDark}}"
+                        Command="{Binding ExitCommand}" />
+                <Label Grid.Column="1" Text="⚔️ Duelos" Style="{StaticResource TitleText}" FontSize="22"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+            </Grid>
+
+            <Label Text="Mismas 7 preguntas para ambos. Gana quien acierte más (+20 XP al ganador)."
+                   Style="{StaticResource SubtitleText}" HorizontalTextAlignment="Center" />
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <Button Text="🎯 Retar a un amigo" Style="{StaticResource PrimaryButton}" Command="{Binding CreateCommand}" />
+                <Button Grid.Column="1" Text="🎲 Rival al azar" Style="{StaticResource AmberButton}" Command="{Binding RandomCommand}" />
+            </Grid>
+
+            <Border Style="{StaticResource Card}">
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                    <Entry Text="{Binding JoinCode}" Placeholder="Código del duelo (ej. K3PXQ7)" MaxLength="6" />
+                    <Button Grid.Column="1" Text="Unirme" Style="{StaticResource SecondaryButton}"
+                            HeightRequest="44" Command="{Binding JoinCommand}" />
+                </Grid>
+            </Border>
+
+            <Label Text="{Binding Error}" TextColor="{StaticResource Danger}"
+                   IsVisible="{Binding Error, Converter={StaticResource NotNull}}" HorizontalTextAlignment="Center" />
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+
+            <Label Text="Mis duelos" Style="{StaticResource TitleText}" FontSize="18" />
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Duels}" Spacing="10">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="core:DuelDto">
+                        <Border Style="{StaticResource Card}">
+                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                                <VerticalStackLayout Spacing="3">
+                                    <Label Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" FontSize="15">
+                                        <Label.Text>
+                                            <MultiBinding StringFormat="{}{0} vs {1}">
+                                                <Binding Path="ChallengerName" />
+                                                <Binding Path="OpponentName" FallbackValue="(esperando rival)" TargetNullValue="(esperando rival)" />
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+                                    <Label Style="{StaticResource SubtitleText}" FontSize="13"
+                                           Text="{Binding ., Converter={StaticResource DuelStatusText}}" />
+                                </VerticalStackLayout>
+                                <Button Grid.Column="1" Text="📤" FontSize="18" BackgroundColor="Transparent"
+                                        IsVisible="{Binding ., Converter={StaticResource DuelWaiting}}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:DuelsViewModel}}, Path=ShareCodeCommand}"
+                                        CommandParameter="{Binding .}" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+            <Label Text="Aún no tienes duelos. ¡Reta a alguien!" Style="{StaticResource SubtitleText}"
+                   HorizontalTextAlignment="Center" IsVisible="{Binding Duels.Count, Converter={StaticResource IsZero}}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

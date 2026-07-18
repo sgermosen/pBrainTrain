@@ -8,10 +8,6 @@ namespace BrainTrain.Api.Endpoints;
 
 public static class MeEndpoints
 {
-    /// <summary>Avatares locales soportados por la app (sin subida de fotos: seguro para niños).</summary>
-    private static readonly HashSet<string> Avatars =
-        ["fox", "owl", "cat", "panda", "robot", "alien", "lion", "penguin", "koala", "dragon"];
-
     public static void MapMe(this IEndpointRouteBuilder app)
     {
         var g = app.MapGroup("/api/v1/me").RequireAuthorization();
@@ -39,8 +35,9 @@ public static class MeEndpoints
             }
             if (req.AvatarCode is not null)
             {
-                if (!Avatars.Contains(req.AvatarCode))
-                    return Results.Problem(statusCode: 400, title: "bad_avatar", detail: "Avatar desconocido.");
+                if (!AvatarCatalog.Owns(user, req.AvatarCode))
+                    return Results.Problem(statusCode: 400, title: "bad_avatar",
+                        detail: "Avatar no disponible: cómpralo en la tienda de avatares.");
                 user.AvatarCode = req.AvatarCode;
             }
 

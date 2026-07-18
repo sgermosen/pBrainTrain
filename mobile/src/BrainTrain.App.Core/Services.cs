@@ -54,6 +54,31 @@ public sealed class NoopFocusAudioPlayer : IFocusAudioPlayer
     public Task PlayChimeAsync() => Task.CompletedTask;
 }
 
+/// <summary>Hoja de compartir del sistema (para el reto diario estilo Wordle).</summary>
+public interface IShareService
+{
+    Task ShareTextAsync(string title, string text);
+}
+
+public sealed class NoopShareService : IShareService
+{
+    public string? LastShared { get; private set; }
+    public Task ShareTextAsync(string title, string text) { LastShared = text; return Task.CompletedTask; }
+}
+
+/// <summary>Vibración sutil de feedback (refuerzo táctil, no molestia).</summary>
+public interface IHaptics
+{
+    void Click();
+    void Success();
+}
+
+public sealed class NoopHaptics : IHaptics
+{
+    public void Click() { }
+    public void Success() { }
+}
+
 /// <summary>Identidad estable del dispositivo para cuentas de invitado.</summary>
 public interface IDeviceIdentity
 {

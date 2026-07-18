@@ -10,7 +10,16 @@ public enum GameMode
 {
     Quick = 0,
     Category = 1,
-    Daily = 2
+    Daily = 2,
+    Duel = 3,
+    Calibration = 4
+}
+
+public enum DuelStatus
+{
+    WaitingOpponent = 0,
+    InProgress = 1,
+    Complete = 2
 }
 
 public enum AchievementTier

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BrainTrain.App.Core.ViewModels;assembly=BrainTrain.App.Core"
+             xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+             x:Class="BrainTrain.App.Pages.ChainCalcPage"
+             x:DataType="vm:ChainCalcViewModel"
+             Style="{StaticResource PageStyle}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,32,20,24" Spacing="14">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <Button Text="✕" FontSize="18" BackgroundColor="Transparent"
+                        TextColor="{AppThemeBinding Light={StaticResource MutedLight}, Dark={StaticResource MutedDark}}"
+                        Command="{Binding ExitCommand}" />
+                <Label Grid.Column="1" Text="🔗 Cadena en 30 s" Style="{StaticResource TitleText}" FontSize="22"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+                <Label Grid.Column="2" Text="{Binding SecondsDisplay, StringFormat='⏱ {0}'}"
+                       Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+            </Grid>
+
+            <ProgressBar Progress="{Binding TimeFraction}" ProgressColor="{StaticResource Amber}" />
+
+            <Border Style="{StaticResource Card}" IsVisible="{Binding IsRunning}">
+                <VerticalStackLayout Spacing="10">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="{Binding RoundLabel}" Style="{StaticResource SubtitleText}" />
+                        <Label Grid.Column="1" Text="{Binding Score, StringFormat='Aciertos: {0}'}"
+                               Style="{StaticResource SubtitleText}" />
+                    </Grid>
+                    <!-- Paso actual en grande; la cadena acumulada, abajo -->
+                    <Label Text="{Binding StepText}" FontSize="46" FontFamily="OpenSansSemibold"
+                           Style="{StaticResource BodyText}" HorizontalOptions="Center" />
+                    <Label Text="{Binding ChainText}" Style="{StaticResource SubtitleText}"
+                           HorizontalOptions="Center" IsVisible="{Binding ShowOptions}" />
+                    <Label Text="{Binding FeedbackText}" FontFamily="OpenSansSemibold" FontSize="18"
+                           Style="{StaticResource BodyText}" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Border>
+
+            <FlexLayout BindableLayout.ItemsSource="{Binding Options}" Wrap="Wrap" JustifyContent="Center"
+                        IsVisible="{Binding ShowOptions}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="sys:Int32">
+                        <Button Text="{Binding .}" Style="{StaticResource ChoiceButton}" FontSize="24"
+                                WidthRequest="150" Margin="6"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ChainCalcViewModel}}, Path=AnswerCommand}"
+                                CommandParameter="{Binding .}" />
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+
+            <Button Text="▶️ Empezar (5 rondas)" Style="{StaticResource PrimaryButton}" Command="{Binding StartCommand}">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsRunning}" Value="True">
+                        <Setter Property="IsVisible" Value="False" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsFinished}" Value="True">
+                        <Setter Property="Text" Value="🔁 Jugar otra vez" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+
+            <local:MinigameResultView xmlns:local="clr-namespace:BrainTrain.App.Pages" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

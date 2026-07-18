@@ -30,6 +30,10 @@ public sealed class GameService(
 
         if (req.Mode == GameMode.Daily)
             return await StartDailyAsync(user, snap, now, ct);
+        if (req.Mode == GameMode.Calibration)
+            return await StartCalibrationAsync(user, snap, now, ct);
+        if (req.Mode == GameMode.Duel)
+            throw new GameError(400, "use_duel_endpoints", "Los duelos se inician en /api/v1/duels.");
 
         // Las partidas normales consumen 1 vida (combustible).
         var (maxLives, regen) = ProgressionLogic.LivesParams(user, _opt, now);
@@ -115,6 +119,44 @@ public sealed class GameService(
             db.GameSessions.Add(session);
             await db.SaveChangesAsync(ct);
         }
+
+        var (maxLives, regen) = ProgressionLogic.LivesParams(user, _opt, now);
+        var (livesNow, _, secs) = ProgressionLogic.ComputeLives(
+            user.Lives, user.LivesUpdatedAtUtc, now, maxLives, regen);
+
+        return new StartGameResponse(
+            session.Id,
+            ids.Select(i => snap.QuestionsById[i].ToDto()).ToList(),
+            new LivesDto(livesNow, maxLives, secs));
+    }
+
+    /// <summary>
+    /// Test inicial de nivel: 10 preguntas variadas (2 por categoría), sin costo
+    /// de vidas, una sola vez. Siembra la dificultad adaptativa y el radar.
+    /// </summary>
+    private async Task<StartGameResponse> StartCalibrationAsync(User user, CatalogSnapshot snap, DateTime now, CancellationToken ct)
+    {
+        if (user.CalibratedAtUtc is not null)
+            throw new GameError(409, "already_calibrated", "Ya hiciste tu test inicial.");
+
+        var rng = Random.Shared;
+        var ids = snap.QuestionIdsByCategory.Values
+            .SelectMany(pool => pool.OrderBy(_ => rng.Next()).Take(2))
+            .OrderBy(_ => rng.Next())
+            .Take(10)
+            .ToArray();
+
+        var session = new GameSession
+        {
+            Id = Guid.NewGuid(),
+            UserId = user.Id,
+            Mode = GameMode.Calibration,
+            QuestionIdsCsv = string.Join(',', ids),
+            StartedAtUtc = now,
+            TotalCount = ids.Length
+        };
+        db.GameSessions.Add(session);
+        await db.SaveChangesAsync(ct);
 
         var (maxLives, regen) = ProgressionLogic.LivesParams(user, _opt, now);
         var (livesNow, _, secs) = ProgressionLogic.ComputeLives(
@@ -213,6 +255,12 @@ public sealed class GameService(
         var levelBefore = user.Level;
         ProgressionLogic.EnsureCurrentWeek(user, today);
         ProgressionLogic.UpdateStreak(user, today);
+        ProgressionLogic.EnsureQuestDay(user, today);
+        user.SessionsToday++;
+        if (isPerfect) user.PerfectsToday++;
+        user.CorrectToday += correct;
+        if (session.Mode == GameMode.Calibration)
+            user.CalibratedAtUtc = now;
 
         user.TotalAnswered += total;
         user.TotalCorrect += correct;
@@ -239,6 +287,9 @@ public sealed class GameService(
         session.CoinsEarned = coins;
         session.IsPerfect = isPerfect;
 
+        if (session.DuelId is { } duelId)
+            await CompleteDuelSideAsync(duelId, user, correct, now, ct);
+
         var unlocked = await achievements.EvaluateAsync(user, ct);
 
         await db.SaveChangesAsync(ct);
@@ -248,6 +299,35 @@ public sealed class GameService(
             user.Level > levelBefore, user.Level,
             new StreakDto(user.StreakDays, user.BestStreakDays, user.LastActivityDateUtc == today),
             unlocked, results, ProfileMapper.ToDto(user, _opt, now));
+    }
+
+    /// <summary>Escribe mi puntaje en el duelo; si ambos terminaron, cierra y premia al ganador.</summary>
+    private async Task CompleteDuelSideAsync(Guid duelId, User me, int myScore, DateTime now, CancellationToken ct)
+    {
+        var duel = await db.Duels.FirstOrDefaultAsync(d => d.Id == duelId, ct);
+        if (duel is null) return;
+
+        if (duel.ChallengerUserId == me.Id) duel.ChallengerScore = myScore;
+        else if (duel.OpponentUserId == me.Id) duel.OpponentScore = myScore;
+
+        if (duel.ChallengerScore is { } cs && duel.OpponentScore is { } os)
+        {
+            duel.Status = DuelStatus.Complete;
+            duel.CompletedAtUtc = now;
+            if (cs != os)
+            {
+                var winnerId = cs > os ? duel.ChallengerUserId : duel.OpponentUserId!.Value;
+                var winner = winnerId == me.Id
+                    ? me
+                    : await db.Users.FindAsync([winnerId], ct);
+                if (winner is not null)
+                {
+                    winner.Xp += DuelService.WinnerBonusXp;
+                    winner.WeeklyXp += DuelService.WinnerBonusXp;
+                    winner.Level = ProgressionLogic.LevelForXp(winner.Xp);
+                }
+            }
+        }
     }
 
     // -------------------------------------------------------------- helpers

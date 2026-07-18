@@ -44,6 +44,25 @@ public class User
     public int WeeklyXp { get; set; }
     public DateOnly WeekStartUtc { get; set; }
 
+    /// <summary>División de liga (0=Bronce … 4=Leyenda). Se evalúa al cerrar cada semana.</summary>
+    public int LeagueTier { get; set; }
+
+    // ----- Misiones diarias (3 por día, deterministas; reinicio perezoso) -----
+    public DateOnly? QuestDateUtc { get; set; }
+    public int SessionsToday { get; set; }
+    public int PerfectsToday { get; set; }
+    public int CorrectToday { get; set; }
+    public int MinigamesToday { get; set; }
+
+    /// <summary>Bits de las misiones de hoy ya reclamadas (bit = índice 0..2).</summary>
+    public int QuestClaimedMask { get; set; }
+
+    // ----- Avatares premium comprados con monedas (los 10 base son gratis) -----
+    public string OwnedAvatarsCsv { get; set; } = string.Empty;
+
+    /// <summary>Test inicial de calibración completado (siembra la dificultad adaptativa).</summary>
+    public DateTime? CalibratedAtUtc { get; set; }
+
     // ----- Membresía Premium (sin anuncios + conveniencia; nunca pay-to-win) -----
     public DateTime? PremiumUntilUtc { get; set; }
 

@@ -134,6 +134,33 @@ public sealed class ApiClient(HttpClient http, ITokenStore tokens)
         SendAsync<MinigameResultDto>(HttpMethod.Post, "api/v1/minigames/submit",
             new MinigameSubmitRequest(code, score, durationMs), ct);
 
+    public Task<DuelStartResponse> CreateDuelAsync(bool openToPublic, CancellationToken ct = default) =>
+        SendAsync<DuelStartResponse>(HttpMethod.Post, "api/v1/duels", new DuelCreateRequest(openToPublic), ct);
+
+    public Task<DuelStartResponse> JoinDuelAsync(string code, CancellationToken ct = default) =>
+        SendAsync<DuelStartResponse>(HttpMethod.Post, "api/v1/duels/join", new DuelJoinRequest(code), ct);
+
+    public Task<DuelStartResponse> RandomDuelAsync(CancellationToken ct = default) =>
+        SendAsync<DuelStartResponse>(HttpMethod.Post, "api/v1/duels/random", new { }, ct);
+
+    public Task<List<DuelDto>> MyDuelsAsync(CancellationToken ct = default) =>
+        GetAsync<List<DuelDto>>("api/v1/duels/mine", ct);
+
+    public Task<List<QuestDto>> GetQuestsAsync(CancellationToken ct = default) =>
+        GetAsync<List<QuestDto>>("api/v1/quests", ct);
+
+    public Task<QuestClaimResponse> ClaimQuestAsync(string code, CancellationToken ct = default) =>
+        SendAsync<QuestClaimResponse>(HttpMethod.Post, $"api/v1/quests/{code}/claim", new { }, ct);
+
+    public Task<List<AvatarShopItemDto>> GetAvatarShopAsync(CancellationToken ct = default) =>
+        GetAsync<List<AvatarShopItemDto>>("api/v1/avatars", ct);
+
+    public Task<ProfileDto> BuyAvatarAsync(string code, CancellationToken ct = default) =>
+        SendAsync<ProfileDto>(HttpMethod.Post, "api/v1/avatars/buy", new AvatarBuyRequest(code), ct);
+
+    public Task<SkillsDto> GetSkillsAsync(CancellationToken ct = default) =>
+        GetAsync<SkillsDto>("api/v1/me/skills", ct);
+
     public Task<FocusResultDto> CompleteFocusAsync(string kind, int seconds, CancellationToken ct = default) =>
         SendAsync<FocusResultDto>(HttpMethod.Post, "api/v1/focus/complete",
             new FocusCompleteRequest(kind, seconds), ct);

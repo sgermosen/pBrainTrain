@@ -25,6 +25,7 @@ builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(JwtOptio
 builder.Services.Configure<GameOptions>(builder.Configuration.GetSection(GameOptions.Section));
 builder.Services.Configure<StoreOptions>(builder.Configuration.GetSection(StoreOptions.Section));
 builder.Services.Configure<PayPalOptions>(builder.Configuration.GetSection(PayPalOptions.Section));
+builder.Services.Configure<PushOptions>(builder.Configuration.GetSection(PushOptions.Section));
 
 // ---------- Base de datos: SQLite (dev/pruebas) o PostgreSQL (producción) ----------
 var provider = builder.Configuration["Database:Provider"] ?? "sqlite";
@@ -122,7 +123,12 @@ builder.Services.AddScoped<AchievementService>();
 builder.Services.AddScoped<StoreService>();
 builder.Services.AddSingleton<IPurchaseVerifier, DefaultPurchaseVerifier>();
 builder.Services.AddScoped<MinigameService>();
+builder.Services.AddScoped<QuestService>();
+builder.Services.AddScoped<DuelService>();
 builder.Services.AddScoped<PayPalCheckoutService>();
+builder.Services.AddHttpClient<FcmPushSender>();
+builder.Services.AddSingleton<IPushSender>(sp => sp.GetRequiredService<FcmPushSender>());
+builder.Services.AddHostedService<StreakReminderService>();
 builder.Services.AddHttpClient<HttpPayPalGateway>();
 builder.Services.AddSingleton<IPayPalGateway>(sp =>
     sp.GetRequiredService<HttpPayPalGateway>());
@@ -174,7 +180,10 @@ app.MapGame();
 app.MapContent();
 app.MapStore();
 app.MapExtras();
+app.MapSocial();
+app.MapAdmin();
 app.MapGet("/portal", () => Results.Redirect("/portal/index.html"));
+app.MapGet("/admin", () => Results.Redirect("/admin/index.html"));
 
 app.Run();
 

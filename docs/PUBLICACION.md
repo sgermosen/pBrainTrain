@@ -483,7 +483,49 @@ Environment=PayPal__Mode=sandbox     # cambia a "live" al salir a producción
 > las tiendas prohíben es ofrecer *dentro de la app* enlaces para pagar por
 > fuera. No enlaces el portal desde la app iOS/Android.
 
-## 8. Costos y capacidad (referencia)
+## 8. Notificaciones push (FCM), panel admin y CI
+
+### 8.1 Push con Firebase Cloud Messaging (ya implementado en el servidor)
+
+El backend trae la integración FCM HTTP v1 completa (`FcmPushSender`) y un
+barrido diario que avisa a quien tiene la **racha en riesgo** (jugó ayer, hoy
+no). Para activarlo:
+
+1. https://console.firebase.google.com → crea el proyecto y agrega la app
+   Android (`com.sgrysoft.braintrain`); descarga `google-services.json` para la app.
+2. Configuración del proyecto → Cuentas de servicio → **Generar clave privada**
+   (JSON de service account).
+3. En el servidor (systemd): pega el JSON completo en una variable:
+
+```ini
+Environment=Push__ServiceAccountJson={"type":"service_account", ... }
+Environment=Push__StreakReminderEnabled=true
+Environment=Push__StreakReminderHourUtc=23
+```
+
+4. En la app: agrega el paquete de Firebase Messaging para MAUI y registra el
+   token FCM con `POST /api/v1/me/devices` (el endpoint y la tabla ya existen).
+
+### 8.2 Panel de administración
+
+`https://api.tudominio.com/admin` — métricas (usuarios, DAU, partidas, premium,
+compras) y CRUD de preguntas con invalidación de caché automática. Actívalo con:
+
+```ini
+Environment=Admin__Key=una-clave-larga-y-aleatoria-de-32+caracteres
+```
+
+La clave se ingresa en el propio panel (header `X-Admin-Key`). Sin clave
+configurada, el área completa responde 503.
+
+### 8.3 CI con GitHub Actions (ya incluido)
+
+`.github/workflows/ci.yml` corre en cada push/PR: pruebas del backend, pruebas
+móviles y build del APK Android (workload MAUI + SDK preinstalado del runner),
+subiendo el APK como artefacto. Para publicar el `.aab` firmado agrega los
+secretos del keystore (§2.3) en un job de release.
+
+## 9. Costos y capacidad (referencia)
 
 | Concepto | Costo |
 |---|---|

@@ -209,6 +209,62 @@ namespace BrainTrain.Infrastructure.Migrations
                     b.ToTable("DeviceTokens");
                 });
 
+            modelBuilder.Entity("BrainTrain.Domain.Duel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<int?>("ChallengerScore")
+                        .HasColumnType("integer");
+
+                    b.Property<long>("ChallengerUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("character varying(8)");
+
+                    b.Property<DateTime?>("CompletedAtUtc")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsOpenToPublic")
+                        .HasColumnType("boolean");
+
+                    b.Property<int?>("OpponentScore")
+                        .HasColumnType("integer");
+
+                    b.Property<long?>("OpponentUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("QuestionIdsCsv")
+                        .IsRequired()
+                        .HasMaxLength(400)
+                        .HasColumnType("character varying(400)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TotalCount")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChallengerUserId");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.HasIndex("OpponentUserId");
+
+                    b.HasIndex("IsOpenToPublic", "Status");
+
+                    b.ToTable("Duels");
+                });
+
             modelBuilder.Entity("BrainTrain.Domain.GameSession", b =>
                 {
                     b.Property<Guid>("Id")
@@ -225,6 +281,9 @@ namespace BrainTrain.Infrastructure.Migrations
 
                     b.Property<int>("CorrectCount")
                         .HasColumnType("integer");
+
+                    b.Property<Guid?>("DuelId")
+                        .HasColumnType("uuid");
 
                     b.Property<bool>("IsPerfect")
                         .HasColumnType("boolean");
@@ -402,10 +461,16 @@ namespace BrainTrain.Infrastructure.Migrations
                     b.Property<int>("BestStreakDays")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime?>("CalibratedAtUtc")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<int>("Coins")
                         .HasColumnType("integer");
 
                     b.Property<int>("CoinsEarnedTotal")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CorrectToday")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("CreatedAtUtc")
@@ -439,6 +504,9 @@ namespace BrainTrain.Infrastructure.Migrations
                     b.Property<DateOnly?>("LastActivityDateUtc")
                         .HasColumnType("date");
 
+                    b.Property<int>("LeagueTier")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Level")
                         .HasColumnType("integer");
 
@@ -454,16 +522,35 @@ namespace BrainTrain.Infrastructure.Migrations
                     b.Property<int>("MinigameXpToday")
                         .HasColumnType("integer");
 
+                    b.Property<int>("MinigamesToday")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("OwnedAvatarsCsv")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("PasswordHash")
                         .HasColumnType("text");
 
                     b.Property<int>("PerfectSessions")
                         .HasColumnType("integer");
 
+                    b.Property<int>("PerfectsToday")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime?>("PremiumUntilUtc")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("QuestClaimedMask")
+                        .HasColumnType("integer");
+
+                    b.Property<DateOnly?>("QuestDateUtc")
+                        .HasColumnType("date");
+
                     b.Property<int>("SessionsCompleted")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SessionsToday")
                         .HasColumnType("integer");
 
                     b.Property<int>("StreakDays")
@@ -555,6 +642,24 @@ namespace BrainTrain.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BrainTrain.Domain.Duel", b =>
+                {
+                    b.HasOne("BrainTrain.Domain.User", "Challenger")
+                        .WithMany()
+                        .HasForeignKey("ChallengerUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BrainTrain.Domain.User", "Opponent")
+                        .WithMany()
+                        .HasForeignKey("OpponentUserId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Challenger");
+
+                    b.Navigation("Opponent");
                 });
 
             modelBuilder.Entity("BrainTrain.Domain.GameSession", b =>

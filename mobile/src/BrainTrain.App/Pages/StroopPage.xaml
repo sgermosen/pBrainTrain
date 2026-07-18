@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BrainTrain.App.Core.ViewModels;assembly=BrainTrain.App.Core"
+             x:Class="BrainTrain.App.Pages.StroopPage"
+             x:DataType="vm:StroopViewModel"
+             Style="{StaticResource PageStyle}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,32,20,24" Spacing="14">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <Button Text="✕" FontSize="18" BackgroundColor="Transparent"
+                        TextColor="{AppThemeBinding Light={StaticResource MutedLight}, Dark={StaticResource MutedDark}}"
+                        Command="{Binding ExitCommand}" />
+                <Label Grid.Column="1" Text="🎨 Palabra y Color" Style="{StaticResource TitleText}" FontSize="22"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+                <Label Grid.Column="2" Text="{Binding SecondsDisplay, StringFormat='⏱ {0}'}"
+                       Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+            </Grid>
+
+            <ProgressBar Progress="{Binding TimeFraction}" ProgressColor="{StaticResource Amber}" />
+
+            <Label Text="Toca el color de la TINTA, no la palabra." Style="{StaticResource SubtitleText}"
+                   HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+
+            <Border Style="{StaticResource Card}" IsVisible="{Binding IsRunning}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="{Binding Score, StringFormat='Aciertos netos: {0}'}"
+                           Style="{StaticResource SubtitleText}" HorizontalOptions="Center" />
+                    <Label Text="{Binding WordText}" TextColor="{Binding InkColor}"
+                           FontSize="46" FontFamily="OpenSansSemibold" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Botones fijos de tinta: rojo, verde, azul, amarillo (índices 0-3) -->
+            <HorizontalStackLayout Spacing="12" HorizontalOptions="Center" IsVisible="{Binding IsRunning}">
+                <Button BackgroundColor="#EF5350" CornerRadius="16" WidthRequest="70" HeightRequest="70"
+                        Command="{Binding AnswerCommand}" CommandParameter="0" />
+                <Button BackgroundColor="#66BB6A" CornerRadius="16" WidthRequest="70" HeightRequest="70"
+                        Command="{Binding AnswerCommand}" CommandParameter="1" />
+                <Button BackgroundColor="#42A5F5" CornerRadius="16" WidthRequest="70" HeightRequest="70"
+                        Command="{Binding AnswerCommand}" CommandParameter="2" />
+                <Button BackgroundColor="#FFCA28" CornerRadius="16" WidthRequest="70" HeightRequest="70"
+                        Command="{Binding AnswerCommand}" CommandParameter="3" />
+            </HorizontalStackLayout>
+
+            <Button Text="▶️ Empezar (60 s)" Style="{StaticResource PrimaryButton}" Command="{Binding StartCommand}">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsRunning}" Value="True">
+                        <Setter Property="IsVisible" Value="False" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsFinished}" Value="True">
+                        <Setter Property="Text" Value="🔁 Jugar otra vez" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+
+            <local:MinigameResultView xmlns:local="clr-namespace:BrainTrain.App.Pages" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

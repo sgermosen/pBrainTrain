@@ -17,6 +17,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Achievement> Achievements => Set<Achievement>();
     public DbSet<UserAchievement> UserAchievements => Set<UserAchievement>();
     public DbSet<PurchaseReceipt> PurchaseReceipts => Set<PurchaseReceipt>();
+    public DbSet<Duel> Duels => Set<Duel>();
 
     protected override void OnModelCreating(ModelBuilder b)
     {
@@ -113,6 +114,20 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
                 .HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
             e.HasOne(x => x.Achievement).WithMany()
                 .HasForeignKey(x => x.AchievementId).OnDelete(DeleteBehavior.Cascade);
+        });
+
+        b.Entity<Duel>(e =>
+        {
+            e.Property(x => x.Id).ValueGeneratedNever();
+            e.Property(x => x.Code).HasMaxLength(8);
+            e.Property(x => x.QuestionIdsCsv).HasMaxLength(400);
+            e.HasIndex(x => x.Code).IsUnique();
+            // Cubre el matchmaking aleatorio: duelos públicos esperando rival.
+            e.HasIndex(x => new { x.IsOpenToPublic, x.Status });
+            e.HasIndex(x => x.ChallengerUserId);
+            e.HasIndex(x => x.OpponentUserId);
+            e.HasOne(x => x.Challenger).WithMany().HasForeignKey(x => x.ChallengerUserId).OnDelete(DeleteBehavior.Cascade);
+            e.HasOne(x => x.Opponent).WithMany().HasForeignKey(x => x.OpponentUserId).OnDelete(DeleteBehavior.SetNull);
         });
 
         b.Entity<PurchaseReceipt>(e =>

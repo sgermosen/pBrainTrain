@@ -80,14 +80,42 @@ public static class ProgressionLogic
         return true;
     }
 
-    /// <summary>Reinicio perezoso del contador semanal si cambió la semana.</summary>
+    // ----- Ligas por divisiones (umbral de XP semanal, evaluación perezosa) -----
+    public static readonly string[] LeagueNames = ["Bronce", "Plata", "Oro", "Diamante", "Leyenda"];
+    /// <summary>XP semanal necesario para SUBIR desde el tier i.</summary>
+    public static readonly int[] LeaguePromoteXp = [150, 300, 500, 800];
+    /// <summary>XP semanal mínimo para NO BAJAR estando en el tier i.</summary>
+    public static readonly int[] LeagueStayXp = [0, 50, 100, 150, 200];
+
+    /// <summary>
+    /// Reinicio perezoso del contador semanal. Al cerrar una semana se evalúa
+    /// la liga con el XP logrado: sin cohortes ni jobs — reglas claras tipo
+    /// "gana 300 XP esta semana para subir a Oro".
+    /// </summary>
     public static void EnsureCurrentWeek(User user, DateOnly todayUtc)
     {
         var week = WeekStart(todayUtc);
-        if (user.WeekStartUtc != week)
-        {
-            user.WeekStartUtc = week;
-            user.WeeklyXp = 0;
-        }
+        if (user.WeekStartUtc == week) return;
+
+        var xp = user.WeeklyXp;
+        if (user.LeagueTier < LeaguePromoteXp.Length && xp >= LeaguePromoteXp[user.LeagueTier])
+            user.LeagueTier++;
+        else if (user.LeagueTier > 0 && xp < LeagueStayXp[user.LeagueTier])
+            user.LeagueTier--;
+
+        user.WeekStartUtc = week;
+        user.WeeklyXp = 0;
+    }
+
+    /// <summary>Reinicio perezoso de los contadores de misiones diarias.</summary>
+    public static void EnsureQuestDay(User user, DateOnly todayUtc)
+    {
+        if (user.QuestDateUtc == todayUtc) return;
+        user.QuestDateUtc = todayUtc;
+        user.SessionsToday = 0;
+        user.PerfectsToday = 0;
+        user.CorrectToday = 0;
+        user.MinigamesToday = 0;
+        user.QuestClaimedMask = 0;
     }
 }

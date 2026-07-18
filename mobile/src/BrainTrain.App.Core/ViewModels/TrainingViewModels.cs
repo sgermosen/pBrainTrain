@@ -37,6 +37,9 @@ public partial class TrainingViewModel(ApiClient api, INavigationService nav) : 
         "simon" => "simon",
         "spot_diff" => "spotdiff",
         "rubik_guide" => "rubikguide",
+        "stroop" => "stroop",
+        "chain30" => "chaincalc",
+        "nback" => "nback",
         _ => "training"
     });
 }

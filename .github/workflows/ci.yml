@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  tests:
+    name: Pruebas backend + móvil (Core)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Pruebas del backend
+        run: dotnet test backend --nologo
+
+      - name: Pruebas móviles (motores + E2E contra la API real)
+        run: dotnet test mobile/tests/BrainTrain.App.Core.Tests --nologo
+
+  android:
+    name: Build Android (.apk debug)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Instalar workload MAUI Android
+        run: dotnet workload install maui-android
+
+      - name: Compilar la app
+        # Los runners de GitHub traen el Android SDK preinstalado en ANDROID_HOME.
+        run: dotnet build mobile/src/BrainTrain.App -f net10.0-android -c Release -p:AndroidSdkDirectory=$ANDROID_HOME
+
+      - name: Subir APK como artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: braintrain-apk
+          path: mobile/src/BrainTrain.App/bin/Release/net10.0-android/*-Signed.apk
+          if-no-files-found: warn
+
+# Para publicar el .aab firmado a Play, agrega un job con los secretos
+# ANDROID_KEYSTORE (base64), KEY_ALIAS, KEY_PASS y STORE_PASS — pasos en
+# docs/PUBLICACION.md §2.3.

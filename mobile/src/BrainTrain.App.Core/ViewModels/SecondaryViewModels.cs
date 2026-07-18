@@ -10,6 +10,10 @@ public partial class ProfileViewModel(ApiClient api, INavigationService nav) : O
     [ObservableProperty] private ProfileDto? _profile;
     [ObservableProperty] private bool _isBusy;
     [ObservableProperty] private string? _error;
+    [ObservableProperty] private string? _message;
+
+    public ObservableCollection<SkillDto> Skills { get; } = [];
+    public ObservableCollection<AvatarShopItemDto> AvatarShop { get; } = [];
 
     public double LevelProgress => Profile is null || Profile.XpForNextLevel == 0
         ? 0 : Math.Clamp((double)Profile.XpIntoLevel / Profile.XpForNextLevel, 0, 1);
@@ -24,12 +28,34 @@ public partial class ProfileViewModel(ApiClient api, INavigationService nav) : O
         try
         {
             Profile = await api.GetProfileAsync();
+            var skills = await api.GetSkillsAsync();
+            Skills.Clear();
+            foreach (var s in skills.Skills) Skills.Add(s);
+            AvatarShop.Clear();
+            foreach (var a in await api.GetAvatarShopAsync())
+                AvatarShop.Add(a);
             OnPropertyChanged(nameof(LevelProgress));
             OnPropertyChanged(nameof(Accuracy));
         }
         catch (ApiException e) { Error = e.Message; }
         catch (HttpRequestException) { Error = "Sin conexión."; }
         finally { IsBusy = false; }
+    }
+
+    /// <summary>Compra un avatar premium con monedas (queda equipado al instante).</summary>
+    [RelayCommand]
+    private async Task BuyAvatarAsync(AvatarShopItemDto item)
+    {
+        if (item.Owned) { await ChangeAvatarAsync(item.Code); return; }
+        try
+        {
+            Profile = await api.BuyAvatarAsync(item.Code);
+            Message = $"🎉 ¡Avatar nuevo! Te quedan {Profile.Coins} 🪙";
+            var i = AvatarShop.IndexOf(item);
+            if (i >= 0) AvatarShop[i] = item with { Owned = true };
+        }
+        catch (ApiException e) { Error = e.Message; }
+        catch (HttpRequestException) { Error = "Sin conexión."; }
     }
 
     [RelayCommand]

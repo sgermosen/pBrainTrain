@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BrainTrain — Administración</title>
+<style>
+  :root { --primary:#6C4DF4; --amber:#FFB300; --bg:#F7F5FF; --card:#fff; --text:#241F45; --muted:#7A748F; --danger:#EF5350; --success:#4CAF50; }
+  * { box-sizing:border-box; margin:0; }
+  body { font-family:'Segoe UI',system-ui,sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+  .wrap { max-width:900px; margin:0 auto; padding:32px 20px 60px; }
+  h1 { font-size:28px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  h2 { font-size:18px; margin-bottom:12px; }
+  .sub { color:var(--muted); margin:6px 0 24px; font-size:14px; }
+  .card { background:var(--card); border-radius:20px; padding:20px; box-shadow:0 4px 18px rgba(60,40,150,.08); margin-bottom:16px; }
+  label { font-size:13px; color:var(--muted); display:block; margin:10px 0 4px; }
+  input, select, textarea { width:100%; padding:12px 14px; border:1.5px solid #E2DDF7; border-radius:12px; font-size:15px; font-family:inherit; background:#fff; color:var(--text); }
+  input:focus, select:focus, textarea:focus { outline:none; border-color:var(--primary); }
+  textarea { resize:vertical; min-height:70px; }
+  button { font-family:inherit; cursor:pointer; }
+  button.primary { padding:12px 22px; background:var(--primary); color:#fff; border:0; border-radius:14px; font-size:15px; font-weight:600; }
+  button.primary:disabled { opacity:.6; cursor:wait; }
+  button.ghost { padding:10px 18px; background:#fff; color:var(--primary); border:1.5px solid var(--primary); border-radius:14px; font-size:14px; font-weight:600; }
+  button.ghost:disabled { opacity:.4; cursor:default; }
+  button.small { padding:7px 12px; font-size:13px; border-radius:10px; border:0; font-weight:600; }
+  button.edit { background:#EEE9FF; color:var(--primary); }
+  button.deactivate { background:#FDECEC; color:var(--danger); }
+  .msg { padding:12px 14px; border-radius:12px; margin-bottom:14px; font-size:14px; display:none; }
+  .msg.error { background:#FDECEC; color:var(--danger); display:block; }
+  .msg.ok { background:#EAF6EB; color:var(--success); display:block; }
+  .hidden { display:none !important; }
+  a.logout { color:var(--muted); font-size:13px; cursor:pointer; margin-left:auto; font-weight:400; }
+  .toolbar { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
+  .stats { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:14px; margin-bottom:20px; }
+  .stat { background:var(--card); border-radius:20px; padding:18px 20px; box-shadow:0 4px 18px rgba(60,40,150,.08); }
+  .stat .num { font-size:28px; font-weight:700; color:var(--primary); }
+  .stat.amber .num { color:var(--amber); }
+  .stat .lbl { font-size:13px; color:var(--muted); margin-top:2px; }
+  .search { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
+  .search input { flex:1; min-width:200px; }
+  .search button { flex-shrink:0; }
+  .qrow { display:flex; align-items:center; gap:12px; padding:12px 4px; border-bottom:1px solid #EFEBFB; }
+  .qrow:last-child { border-bottom:0; }
+  .qid { font-size:12px; color:var(--muted); min-width:44px; }
+  .qstars { color:var(--amber); font-size:13px; white-space:nowrap; letter-spacing:1px; }
+  .qtext { flex:1; font-size:14px; min-width:0; overflow-wrap:anywhere; }
+  .qtext.inactive { color:var(--muted); text-decoration:line-through; }
+  .qstate { font-size:11px; font-weight:700; border-radius:8px; padding:3px 9px; white-space:nowrap; }
+  .qstate.on { background:#EAF6EB; color:var(--success); }
+  .qstate.off { background:#FDECEC; color:var(--danger); }
+  .qbtns { display:flex; gap:6px; flex-shrink:0; }
+  .pager { display:flex; align-items:center; justify-content:center; gap:14px; margin-top:14px; }
+  .pager span { font-size:13px; color:var(--muted); }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:0 16px; }
+  .grid3 { display:grid; grid-template-columns:2fr 1fr 1fr; gap:0 16px; }
+  @media (max-width:640px){ .grid2,.grid3 { grid-template-columns:1fr; } .qrow { flex-wrap:wrap; } }
+  .choice-row { display:flex; align-items:center; gap:10px; margin-top:8px; }
+  .choice-row input[type=radio] { width:auto; accent-color:var(--primary); }
+  .choice-row input[type=text] { flex:1; }
+  .form-actions { display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; }
+  .empty { color:var(--muted); font-size:14px; padding:16px 4px; }
+  footer { color:var(--muted); font-size:12px; text-align:center; margin-top:28px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🧠 BrainTrain <span style="font-size:14px;color:var(--muted);font-weight:400">Panel de administración</span>
+    <a class="logout hidden" id="logout">salir</a></h1>
+  <p class="sub">Métricas del juego y gestión del banco de preguntas.</p>
+
+  <div id="msg" class="msg"></div>
+
+  <!-- Entrada -->
+  <div id="login-card" class="card" style="max-width:520px">
+    <h2>Acceso de administrador</h2>
+    <label>Clave de administración</label>
+    <input id="admin-key" type="password" placeholder="••••••••" autocomplete="off">
+    <div class="form-actions"><button id="login-btn" class="primary">Entrar</button></div>
+  </div>
+
+  <!-- Panel -->
+  <div id="panel" class="hidden">
+    <div class="toolbar">
+      <h2 style="margin:0">Métricas</h2>
+      <button id="refresh-btn" class="ghost">🔄 Actualizar</button>
+    </div>
+    <div id="stats" class="stats"></div>
+
+    <div class="card">
+      <div class="toolbar">
+        <h2 style="margin:0">Preguntas</h2>
+        <button id="new-btn" class="ghost" style="margin-left:auto">➕ Nueva pregunta</button>
+      </div>
+      <div class="search">
+        <input id="search-input" type="text" placeholder="Buscar en el texto de las preguntas…">
+        <button id="search-btn" class="primary">Buscar</button>
+      </div>
+      <div id="qlist"></div>
+      <div class="pager">
+        <button id="prev-btn" class="ghost">← Anterior</button>
+        <span id="page-label">Página 1</span>
+        <button id="next-btn" class="ghost">Siguiente →</button>
+      </div>
+    </div>
+
+    <!-- Formulario crear/editar -->
+    <div id="editor" class="card hidden">
+      <h2 id="editor-title">Nueva pregunta</h2>
+      <div class="grid3">
+        <div>
+          <label>Categoría</label>
+          <select id="f-category">
+            <option value="1">1 — Lógica</option>
+            <option value="2">2 — Matemática Mental</option>
+            <option value="3">3 — Preguntas Capciosas</option>
+            <option value="4">4 — Curiosidades</option>
+            <option value="5">5 — Percepción y Memoria</option>
+            <option value="6">6 — Palabras y Lenguaje</option>
+          </select>
+        </div>
+        <div>
+          <label>Tipo</label>
+          <select id="f-type">
+            <option value="MultipleChoice">Opción múltiple</option>
+            <option value="TrueFalse">Verdadero / Falso</option>
+          </select>
+        </div>
+        <div>
+          <label>Dificultad</label>
+          <select id="f-difficulty">
+            <option value="1">★☆☆☆☆ (1)</option>
+            <option value="2">★★☆☆☆ (2)</option>
+            <option value="3">★★★☆☆ (3)</option>
+            <option value="4">★★★★☆ (4)</option>
+            <option value="5">★★★★★ (5)</option>
+          </select>
+        </div>
+      </div>
+      <label>Texto de la pregunta</label>
+      <textarea id="f-text"></textarea>
+      <div class="grid2">
+        <div>
+          <label>Explicación</label>
+          <textarea id="f-explanation"></textarea>
+        </div>
+        <div>
+          <label>Dato curioso (opcional)</label>
+          <textarea id="f-funfact"></textarea>
+        </div>
+      </div>
+      <label>Opciones (marca la correcta)</label>
+      <div id="choices"></div>
+      <div class="form-actions">
+        <button id="save-btn" class="primary">Guardar</button>
+        <button id="cancel-btn" class="ghost">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>Los cambios se reflejan en el juego en ≤15 min (caché) o al instante tras crear/editar (la API invalida el caché).</footer>
+</div>
+
+<script>
+let adminKey = sessionStorage.getItem('bt.adminkey');
+let page = 0, search = '', lastCount = 0, editingId = null;
+
+const $ = id => document.getElementById(id);
+const msg = (text, cls) => { const el = $('msg'); el.textContent = text; el.className = 'msg ' + (cls || ''); };
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const stars = d => '★'.repeat(d) + '☆'.repeat(Math.max(0, 5 - d));
+
+const api = (path, opts = {}) => fetch(path, {
+  ...opts,
+  headers: { 'Content-Type': 'application/json', 'X-Admin-Key': adminKey || '', ...(opts.headers || {}) }
+}).then(async r => {
+  const body = r.status === 204 ? {} : await r.json().catch(() => ({}));
+  if (!r.ok) {
+    if (r.status === 503) throw new Error('Administración deshabilitada en el servidor.');
+    if (r.status === 401) throw Object.assign(new Error(body.detail || body.title || 'Clave de administración incorrecta.'), { status: 401 });
+    throw new Error(body.detail || body.title || ('Error ' + r.status));
+  }
+  return body;
+});
+
+/* ---------- Entrada ---------- */
+async function login() {
+  const btn = $('login-btn');
+  btn.disabled = true; msg('', '');
+  adminKey = $('admin-key').value.trim();
+  try {
+    const stats = await api('/api/admin/stats');
+    sessionStorage.setItem('bt.adminkey', adminKey);
+    showPanel(stats);
+  } catch (e) { adminKey = null; msg(e.message, 'error'); }
+  finally { btn.disabled = false; }
+}
+
+function logout() { sessionStorage.removeItem('bt.adminkey'); location.reload(); }
+
+/* ---------- Métricas ---------- */
+const STAT_LABELS = [
+  ['totalUsers', 'Usuarios', ''],
+  ['newUsersToday', 'Nuevos hoy', ''],
+  ['dauToday', 'Jugadores activos hoy', ''],
+  ['sessionsToday', 'Partidas hoy', ''],
+  ['premiumActive', 'Premium activos', 'amber'],
+  ['receiptsTotal', 'Compras', 'amber'],
+  ['questionsActive', 'Preguntas activas', '']
+];
+
+function renderStats(s) {
+  $('stats').innerHTML = STAT_LABELS.map(([k, lbl, cls]) =>
+    `<div class="stat ${cls}"><div class="num">${esc(s[k] ?? '—')}</div><div class="lbl">${lbl}</div></div>`).join('');
+}
+
+async function refreshStats() {
+  const btn = $('refresh-btn');
+  btn.disabled = true;
+  try { renderStats(await api('/api/admin/stats')); msg('', ''); }
+  catch (e) { msg(e.message, 'error'); if (e.status === 401) logout(); }
+  finally { btn.disabled = false; }
+}
+
+function showPanel(stats) {
+  $('login-card').classList.add('hidden');
+  $('panel').classList.remove('hidden');
+  $('logout').classList.remove('hidden');
+  renderStats(stats);
+  loadQuestions();
+}
+
+/* ---------- Lista de preguntas ---------- */
+async function loadQuestions() {
+  try {
+    const list = await api('/api/admin/questions?page=' + page + '&search=' + encodeURIComponent(search));
+    lastCount = list.length;
+    const box = $('qlist');
+    if (!list.length) {
+      box.innerHTML = '<p class="empty">' + (page > 0 ? 'No hay más preguntas.' : 'Sin resultados.') + '</p>';
+    } else {
+      box.innerHTML = list.map(q => `
+        <div class="qrow">
+          <span class="qid">#${q.id}</span>
+          <span class="qstars" title="Dificultad ${q.difficulty}">${stars(q.difficulty)}</span>
+          <span class="qtext ${q.isActive ? '' : 'inactive'}">${esc(q.text)}</span>
+          <span class="qstate ${q.isActive ? 'on' : 'off'}">${q.isActive ? 'Activa' : 'Inactiva'}</span>
+          <span class="qbtns">
+            <button class="small edit" data-edit="${q.id}">✏️ Editar</button>
+            ${q.isActive ? `<button class="small deactivate" data-del="${q.id}">🚫 Desactivar</button>` : ''}
+          </span>
+        </div>`).join('');
+      box.querySelectorAll('[data-edit]').forEach(b =>
+        b.addEventListener('click', () => openEditor(list.find(q => q.id == b.dataset.edit))));
+      box.querySelectorAll('[data-del]').forEach(b =>
+        b.addEventListener('click', () => deactivate(b.dataset.del)));
+    }
+    $('page-label').textContent = 'Página ' + (page + 1);
+    $('prev-btn').disabled = page === 0;
+    $('next-btn').disabled = list.length === 0;
+  } catch (e) { msg(e.message, 'error'); if (e.status === 401) logout(); }
+}
+
+function doSearch() { search = $('search-input').value.trim(); page = 0; loadQuestions(); }
+
+async function deactivate(id) {
+  if (!confirm('¿Desactivar la pregunta #' + id + '? Dejará de aparecer en el juego.')) return;
+  try {
+    await api('/api/admin/questions/' + id, { method: 'DELETE' });
+    msg('Pregunta #' + id + ' desactivada.', 'ok');
+    loadQuestions(); refreshStats();
+  } catch (e) { msg(e.message, 'error'); if (e.status === 401) logout(); }
+}
+
+/* ---------- Formulario crear/editar ---------- */
+function renderChoices(choices) {
+  const isTF = $('f-type').value === 'TrueFalse';
+  const n = isTF ? 2 : 4;
+  const defaults = isTF ? ['Verdadero', 'Falso'] : ['', '', '', ''];
+  $('choices').innerHTML = Array.from({ length: n }, (_, i) => {
+    const c = choices && choices[i];
+    return `<div class="choice-row">
+      <input type="radio" name="correct" value="${i}" ${c ? (c.isCorrect ? 'checked' : '') : (i === 0 ? 'checked' : '')} title="Correcta">
+      <input type="text" class="choice-text" placeholder="Opción ${i + 1}" value="${esc(c ? c.text : defaults[i])}">
+    </div>`;
+  }).join('');
+}
+
+function openEditor(q) {
+  editingId = q ? q.id : null;
+  $('editor-title').textContent = q ? 'Editar pregunta #' + q.id : 'Nueva pregunta';
+  $('f-category').value = q ? q.categoryId : 1;
+  $('f-type').value = q ? q.type : 'MultipleChoice';
+  $('f-difficulty').value = q ? q.difficulty : 1;
+  $('f-text').value = q ? q.text : '';
+  $('f-explanation').value = q ? (q.explanation || '') : '';
+  $('f-funfact').value = q ? (q.funFact || '') : '';
+  renderChoices(q ? q.choices : null);
+  $('editor').classList.remove('hidden');
+  $('editor').scrollIntoView({ behavior: 'smooth' });
+}
+
+function closeEditor() { $('editor').classList.add('hidden'); editingId = null; }
+
+async function save() {
+  const btn = $('save-btn');
+  const texts = [...document.querySelectorAll('.choice-text')].map(i => i.value.trim());
+  const correct = +(document.querySelector('input[name=correct]:checked')?.value ?? 0);
+  const body = {
+    categoryId: +$('f-category').value,
+    type: $('f-type').value,
+    difficulty: +$('f-difficulty').value,
+    text: $('f-text').value.trim(),
+    explanation: $('f-explanation').value.trim(),
+    funFact: $('f-funfact').value.trim() || null,
+    choices: texts.map((t, i) => ({ text: t, isCorrect: i === correct }))
+  };
+  if (!body.text) { msg('Escribe el texto de la pregunta.', 'error'); return; }
+  if (body.choices.some(c => !c.text)) { msg('Completa el texto de todas las opciones.', 'error'); return; }
+  btn.disabled = true;
+  try {
+    if (editingId) await api('/api/admin/questions/' + editingId, { method: 'PUT', body: JSON.stringify(body) });
+    else await api('/api/admin/questions', { method: 'POST', body: JSON.stringify(body) });
+    msg(editingId ? 'Pregunta #' + editingId + ' actualizada.' : 'Pregunta creada.', 'ok');
+    closeEditor(); loadQuestions(); refreshStats();
+  } catch (e) { msg(e.message, 'error'); if (e.status === 401) logout(); }
+  finally { btn.disabled = false; }
+}
+
+/* ---------- Eventos ---------- */
+$('login-btn').addEventListener('click', login);
+$('admin-key').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+$('logout').addEventListener('click', logout);
+$('refresh-btn').addEventListener('click', refreshStats);
+$('search-btn').addEventListener('click', doSearch);
+$('search-input').addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+$('prev-btn').addEventListener('click', () => { if (page > 0) { page--; loadQuestions(); } });
+$('next-btn').addEventListener('click', () => { if (lastCount > 0) { page++; loadQuestions(); } });
+$('new-btn').addEventListener('click', () => openEditor(null));
+$('cancel-btn').addEventListener('click', closeEditor);
+$('save-btn').addEventListener('click', save);
+$('f-type').addEventListener('change', () => renderChoices(null));
+
+if (adminKey) {
+  api('/api/admin/stats').then(showPanel)
+    .catch(() => { sessionStorage.removeItem('bt.adminkey'); adminKey = null; });
+}
+</script>
+</body>
+</html>

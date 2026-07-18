@@ -16,7 +16,8 @@ public sealed record ProfileDto(
     long Id, string DisplayName, string AvatarCode, bool IsGuest, string? Email,
     int Xp, int Level, int XpIntoLevel, int XpForNextLevel,
     int Coins, LivesDto Lives, StreakDto Streak, int WeeklyXp, TotalsDto Totals,
-    bool IsPremium, DateTime? PremiumUntilUtc, bool ShowAds);
+    bool IsPremium, DateTime? PremiumUntilUtc, bool ShowAds,
+    int LeagueTier, string LeagueName, bool Calibrated);
 public sealed record UpdateProfileRequest(string? DisplayName, string? AvatarCode);
 
 public sealed record CategoryDto(int Id, string Slug, string Name, string Emoji, string Color, string Description);
@@ -65,10 +66,32 @@ public sealed record MinigameDto(string Code, string Name, string Emoji, string 
 public sealed record MinigameSubmitRequest(string Code, int Score, int DurationMs);
 public sealed record MinigameResultDto(int XpEarned, int CoinsEarned, int DailyXpRemaining, StreakDto Streak, ProfileDto Profile);
 
+// ---------- Duelos 1v1 ----------
+public sealed record DuelDto(
+    Guid Id, string Code, string Status, string ChallengerName, string? OpponentName,
+    int? MyScore, int? TheirScore, bool IAmChallenger, int TotalCount, DateTime CreatedAtUtc);
+public sealed record DuelStartResponse(DuelDto Duel, Guid SessionId, List<QuestionDto> Questions, LivesDto Lives);
+public sealed record DuelCreateRequest(bool OpenToPublic);
+public sealed record DuelJoinRequest(string Code);
+
+// ---------- Misiones diarias ----------
+public sealed record QuestDto(
+    string Code, string Name, string Emoji, int Progress, int Target,
+    int CoinReward, int XpReward, bool Completed, bool Claimed);
+public sealed record QuestClaimResponse(int CoinsGranted, int XpGranted, ProfileDto Profile);
+
+// ---------- Avatares y habilidades ----------
+public sealed record AvatarShopItemDto(string Code, int PriceCoins, bool Owned);
+public sealed record AvatarBuyRequest(string Code);
+public sealed record SkillDto(int CategoryId, string Slug, string Name, string Emoji, int Answered, int Correct, double Accuracy);
+public sealed record SkillsDto(bool Calibrated, List<SkillDto> Skills);
+
 /// <summary>Modos de juego que entiende el backend.</summary>
 public static class GameModes
 {
     public const string Quick = "Quick";
     public const string Category = "Category";
     public const string Daily = "Daily";
+    public const string Duel = "Duel";
+    public const string Calibration = "Calibration";
 }

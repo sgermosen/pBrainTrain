@@ -20,6 +20,7 @@
                     <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="0">
                         <Label Text="{Binding Profile.DisplayName}" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" />
                         <Label Text="{Binding StreakLabel}" Style="{StaticResource SubtitleText}" FontSize="13" />
+                        <Label Text="{Binding LeagueLabel}" Style="{StaticResource SubtitleText}" FontSize="11" TextColor="{StaticResource Primary}" />
                     </VerticalStackLayout>
                     <Border Grid.Column="2" Style="{StaticResource Card}" Padding="10,6">
                         <HorizontalStackLayout Spacing="4">
@@ -55,6 +56,52 @@
                     </VerticalStackLayout>
                 </Border>
 
+                <!-- Test inicial de nivel (una sola vez) -->
+                <Border Style="{StaticResource Card}" BackgroundColor="{StaticResource Amber}" IsVisible="{Binding NeedsCalibration}">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="🧪 Descubre tu nivel" TextColor="#3A2B00" FontFamily="OpenSansSemibold" FontSize="17" />
+                        <Label Text="10 preguntas rápidas (gratis) para calibrar tu dificultad y armar tu radar de habilidades."
+                               TextColor="#3A2B00" FontSize="13" />
+                        <Button Text="Hacer mi test" Style="{StaticResource PrimaryButton}" Command="{Binding PlayCalibrationCommand}" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Misiones del día -->
+                <Label Text="🎁 Misiones de hoy" Style="{StaticResource TitleText}" FontSize="18" />
+                <Label Text="{Binding QuestMessage}" TextColor="{StaticResource Success}" FontFamily="OpenSansSemibold"
+                       IsVisible="{Binding QuestMessage, Converter={StaticResource NotNull}}" HorizontalTextAlignment="Center" />
+                <VerticalStackLayout BindableLayout.ItemsSource="{Binding Quests}" Spacing="8">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="core:QuestDto">
+                            <Border Style="{StaticResource Card}" Padding="12">
+                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                                    <Label Text="{Binding Emoji}" FontSize="22" VerticalOptions="Center" />
+                                    <VerticalStackLayout Grid.Column="1" Spacing="4">
+                                        <Label Text="{Binding Name}" Style="{StaticResource BodyText}" FontSize="14" FontFamily="OpenSansSemibold" />
+                                        <ProgressBar Progress="{Binding ., Converter={StaticResource QuestProgress}}" ProgressColor="{StaticResource Amber}" />
+                                        <Label Style="{StaticResource SubtitleText}" FontSize="11">
+                                            <Label.Text>
+                                                <MultiBinding StringFormat="{}{0}/{1} · +{2} 🪙 +{3} XP">
+                                                    <Binding Path="Progress" />
+                                                    <Binding Path="Target" />
+                                                    <Binding Path="CoinReward" />
+                                                    <Binding Path="XpReward" />
+                                                </MultiBinding>
+                                            </Label.Text>
+                                        </Label>
+                                    </VerticalStackLayout>
+                                    <Button Grid.Column="2" Style="{StaticResource AmberButton}" HeightRequest="40" WidthRequest="88"
+                                            FontSize="13" VerticalOptions="Center"
+                                            Text="{Binding ., Converter={StaticResource QuestButtonText}}"
+                                            IsEnabled="{Binding ., Converter={StaticResource QuestClaimable}}"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=ClaimQuestCommand}"
+                                            CommandParameter="{Binding .}" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+
                 <!-- Reto del día -->
                 <Border Style="{StaticResource Card}" BackgroundColor="{StaticResource Primary}">
                     <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto" RowSpacing="6">
@@ -75,6 +122,7 @@
                     <Button Text="🧠 Entrenamiento" Style="{StaticResource SecondaryButton}" Command="{Binding GoTrainingCommand}" />
                     <Button Grid.Column="1" Text="🧘 Enfoque" Style="{StaticResource SecondaryButton}" Command="{Binding GoFocusCommand}" />
                 </Grid>
+                <Button Text="⚔️ Duelos 1v1" Style="{StaticResource SecondaryButton}" Command="{Binding GoDuelsCommand}" />
 
                 <!-- Categorías -->
                 <Label Text="Categorías" Style="{StaticResource TitleText}" FontSize="20" Margin="0,8,0,0" />

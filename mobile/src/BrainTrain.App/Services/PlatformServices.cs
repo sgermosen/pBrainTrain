@@ -61,6 +61,29 @@ public sealed class DeviceIdentity : IDeviceIdentity
     }
 }
 
+/// <summary>Hoja de compartir nativa del sistema.</summary>
+public sealed class MauiShareService : IShareService
+{
+    public Task ShareTextAsync(string title, string text) =>
+        Share.Default.RequestAsync(new ShareTextRequest { Title = title, Text = text });
+}
+
+/// <summary>Vibración de feedback; silenciosa si el dispositivo no la soporta.</summary>
+public sealed class MauiHaptics : IHaptics
+{
+    public void Click()
+    {
+        try { HapticFeedback.Default.Perform(HapticFeedbackType.Click); }
+        catch (FeatureNotSupportedException) { }
+    }
+
+    public void Success()
+    {
+        try { HapticFeedback.Default.Perform(HapticFeedbackType.LongPress); }
+        catch (FeatureNotSupportedException) { }
+    }
+}
+
 /// <summary>Plataformas sin recordatorios locales implementados.</summary>
 public sealed class NoopReminderScheduler : IReminderScheduler
 {

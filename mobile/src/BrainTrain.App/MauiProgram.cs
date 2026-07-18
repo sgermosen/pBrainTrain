@@ -57,6 +57,8 @@ public static class MauiProgram
         // Audio de la sección Enfoque (loops procedurales locales).
         services.AddSingleton(Plugin.Maui.Audio.AudioManager.Current);
         services.AddSingleton<IFocusAudioPlayer, FocusAudioPlayer>();
+        services.AddSingleton<IShareService, MauiShareService>();
+        services.AddSingleton<IHaptics, MauiHaptics>();
 
         // ---------- ViewModels ----------
         services.AddTransient<OnboardingViewModel>();
@@ -77,6 +79,10 @@ public static class MauiProgram
         services.AddTransient<SimonViewModel>();
         services.AddTransient<SpotDiffViewModel>();
         services.AddTransient<RubikGuideViewModel>();
+        services.AddTransient<DuelsViewModel>();
+        services.AddTransient<StroopViewModel>();
+        services.AddTransient<ChainCalcViewModel>();
+        services.AddTransient<NBackViewModel>();
         services.AddTransient<FocusHubViewModel>();
         services.AddTransient<FocusTimerViewModel>();
         services.AddTransient<BreathingViewModel>();
@@ -100,6 +106,10 @@ public static class MauiProgram
         services.AddTransient<SimonPage>();
         services.AddTransient<SpotDiffPage>();
         services.AddTransient<RubikGuidePage>();
+        services.AddTransient<DuelsPage>();
+        services.AddTransient<StroopPage>();
+        services.AddTransient<ChainCalcPage>();
+        services.AddTransient<NBackPage>();
         services.AddTransient<FocusPage>();
         services.AddTransient<FocusTimerPage>();
         services.AddTransient<BreathingPage>();

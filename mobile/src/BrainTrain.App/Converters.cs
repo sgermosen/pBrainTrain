@@ -135,6 +135,80 @@ public sealed class RubikFaceColorConverter : IValueConverter
         throw new NotSupportedException();
 }
 
+public sealed class DuelStatusTextConverter : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        if (value is not Core.DuelDto d) return "";
+        return d.Status switch
+        {
+            "WaitingOpponent" => $"Código {d.Code} — esperando rival. ¡Compártelo!",
+            "InProgress" => d.MyScore is null ? "¡Te toca jugar!" : "Esperando que tu rival termine…",
+            _ when d.MyScore > d.TheirScore => $"🏆 ¡Ganaste {d.MyScore}-{d.TheirScore}! (+20 XP)",
+            _ when d.MyScore < d.TheirScore => $"😅 Perdiste {d.MyScore}-{d.TheirScore}. ¡Revancha!",
+            _ => $"🤝 Empate {d.MyScore}-{d.TheirScore}"
+        };
+    }
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        throw new NotSupportedException();
+}
+
+public sealed class DuelWaitingConverter : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        value is Core.DuelDto { Status: "WaitingOpponent" };
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        throw new NotSupportedException();
+}
+
+public sealed class IsZeroConverter : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        value is int i && i == 0;
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        throw new NotSupportedException();
+}
+
+public sealed class QuestProgressConverter : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        value is Core.QuestDto q && q.Target > 0 ? Math.Clamp((double)q.Progress / q.Target, 0, 1) : 0d;
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        throw new NotSupportedException();
+}
+
+public sealed class QuestButtonTextConverter : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        value is Core.QuestDto q ? (q.Claimed ? "✅" : q.Completed ? "🎁 Abrir" : "…") : "";
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        throw new NotSupportedException();
+}
+
+public sealed class QuestClaimableConverter : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        value is Core.QuestDto { Completed: true, Claimed: false };
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        throw new NotSupportedException();
+}
+
+public sealed class SkillBarConverter : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        value is Core.SkillDto s ? Math.Clamp(s.Accuracy, 0, 1) : 0d;
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        throw new NotSupportedException();
+}
+
+public sealed class AvatarPriceTextConverter : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        value is Core.AvatarShopItemDto a ? (a.Owned ? "Usar" : $"{a.PriceCoins} 🪙") : "";
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        throw new NotSupportedException();
+}
+
 public sealed class IsNotNullConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
