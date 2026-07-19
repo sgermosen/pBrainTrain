@@ -43,6 +43,9 @@ public sealed class ApiClient(HttpClient http, ITokenStore tokens)
 
     public bool HasSession { get; private set; }
 
+    /// <summary>Base absoluta para componer URLs de imágenes servidas por la API.</summary>
+    public string BaseUrl => http.BaseAddress?.ToString() ?? "";
+
     public async Task InitializeAsync()
     {
         var (access, _) = await tokens.LoadAsync();
@@ -160,6 +163,9 @@ public sealed class ApiClient(HttpClient http, ITokenStore tokens)
 
     public Task<SkillsDto> GetSkillsAsync(CancellationToken ct = default) =>
         GetAsync<SkillsDto>("api/v1/me/skills", ct);
+
+    public Task<PracticePackDto> GetPracticePackAsync(int count = 40, CancellationToken ct = default) =>
+        GetAsync<PracticePackDto>($"api/v1/practice/pack?count={count}", ct);
 
     public Task<FocusResultDto> CompleteFocusAsync(string kind, int seconds, CancellationToken ct = default) =>
         SendAsync<FocusResultDto>(HttpMethod.Post, "api/v1/focus/complete",

@@ -13,7 +13,7 @@ public sealed class InvertBoolConverter : IValueConverter
 public sealed class DailyButtonTextConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
-        value is true ? "✅ Completado por hoy" : "Jugar el reto";
+        value is true ? Core.L.Daily_Done : Core.L.Daily_Play;
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
         throw new NotSupportedException();
 }

@@ -14,7 +14,7 @@ public static class SeedService
     private sealed record SeedCategory(string Slug, string Name, string Emoji, string Color, string Description);
     private sealed record SeedChoice(string Text, bool IsCorrect);
     private sealed record SeedQuestion(string Category, string Type, int Difficulty, string Text,
-        List<SeedChoice> Choices, string Explanation, string? FunFact);
+        List<SeedChoice> Choices, string Explanation, string? FunFact, string? ImagePath = null);
     private sealed record SeedQuestionsFile(List<SeedCategory> Categories, List<SeedQuestion> Questions);
     private sealed record SeedAchievement(string Code, string Name, string Description, string Emoji,
         string Tier, int XpReward, int CoinReward, string CriteriaType, int Threshold, string? CategorySlug);
@@ -39,6 +39,15 @@ public static class SeedService
 
         var qFile = JsonSerializer.Deserialize<SeedQuestionsFile>(await File.ReadAllTextAsync(questionsPath, ct), JsonOpts)
                     ?? throw new InvalidOperationException("questions.es.json inválido");
+
+        // Preguntas con imagen (opcional, generadas por tools/generate_image_questions.py).
+        var imagesPath = Path.Combine(seedDir, "questions.images.es.json");
+        if (File.Exists(imagesPath))
+        {
+            var extra = JsonSerializer.Deserialize<SeedQuestionsFile>(await File.ReadAllTextAsync(imagesPath, ct), JsonOpts);
+            if (extra?.Questions is { Count: > 0 })
+                qFile.Questions.AddRange(extra.Questions);
+        }
 
         var categories = new Dictionary<string, Category>();
         var sort = 0;
@@ -68,6 +77,7 @@ public static class SeedService
                 Text = q.Text,
                 Explanation = q.Explanation,
                 FunFact = q.FunFact,
+                ImagePath = q.ImagePath,
                 IsActive = true
             };
             var order = 0;

@@ -59,15 +59,15 @@
                 <!-- Test inicial de nivel (una sola vez) -->
                 <Border Style="{StaticResource Card}" BackgroundColor="{StaticResource Amber}" IsVisible="{Binding NeedsCalibration}">
                     <VerticalStackLayout Spacing="8">
-                        <Label Text="🧪 Descubre tu nivel" TextColor="#3A2B00" FontFamily="OpenSansSemibold" FontSize="17" />
-                        <Label Text="10 preguntas rápidas (gratis) para calibrar tu dificultad y armar tu radar de habilidades."
+                        <Label Text="{x:Static core:L.Home_CalibTitle}" TextColor="#3A2B00" FontFamily="OpenSansSemibold" FontSize="17" />
+                        <Label Text="{x:Static core:L.Home_CalibDesc}"
                                TextColor="#3A2B00" FontSize="13" />
-                        <Button Text="Hacer mi test" Style="{StaticResource PrimaryButton}" Command="{Binding PlayCalibrationCommand}" />
+                        <Button Text="{x:Static core:L.Home_CalibButton}" Style="{StaticResource PrimaryButton}" Command="{Binding PlayCalibrationCommand}" />
                     </VerticalStackLayout>
                 </Border>
 
                 <!-- Misiones del día -->
-                <Label Text="🎁 Misiones de hoy" Style="{StaticResource TitleText}" FontSize="18" />
+                <Label Text="{x:Static core:L.Home_QuestsTitle}" Style="{StaticResource TitleText}" FontSize="18" />
                 <Label Text="{Binding QuestMessage}" TextColor="{StaticResource Success}" FontFamily="OpenSansSemibold"
                        IsVisible="{Binding QuestMessage, Converter={StaticResource NotNull}}" HorizontalTextAlignment="Center" />
                 <VerticalStackLayout BindableLayout.ItemsSource="{Binding Quests}" Spacing="8">
@@ -105,8 +105,8 @@
                 <!-- Reto del día -->
                 <Border Style="{StaticResource Card}" BackgroundColor="{StaticResource Primary}">
                     <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto" RowSpacing="6">
-                        <Label Text="⚡ Reto del día" TextColor="White" FontFamily="OpenSansSemibold" FontSize="18" />
-                        <Label Grid.Row="1" Text="7 preguntas, gratis (no gasta vidas) y con bonus de XP. ¡Mantén tu racha!"
+                        <Label Text="{x:Static core:L.Home_DailyTitle}" TextColor="White" FontFamily="OpenSansSemibold" FontSize="18" />
+                        <Label Grid.Row="1" Text="{x:Static core:L.Home_DailyDesc}"
                                TextColor="#E4DEFF" FontSize="13" />
                         <Button Grid.Row="2" Grid.ColumnSpan="2" Margin="0,8,0,0"
                                 Text="{Binding DailyCompleted, Converter={StaticResource DailyButtonText}}"
@@ -117,15 +117,18 @@
                 </Border>
 
                 <!-- Juego rápido y entrenamiento -->
-                <Button Text="🎲 Partida rápida" Style="{StaticResource PrimaryButton}" Command="{Binding PlayQuickCommand}" />
+                <Button Text="{x:Static core:L.Home_QuickGame}" Style="{StaticResource PrimaryButton}" Command="{Binding PlayQuickCommand}" />
                 <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
-                    <Button Text="🧠 Entrenamiento" Style="{StaticResource SecondaryButton}" Command="{Binding GoTrainingCommand}" />
-                    <Button Grid.Column="1" Text="🧘 Enfoque" Style="{StaticResource SecondaryButton}" Command="{Binding GoFocusCommand}" />
+                    <Button Text="{x:Static core:L.Home_Training}" Style="{StaticResource SecondaryButton}" Command="{Binding GoTrainingCommand}" />
+                    <Button Grid.Column="1" Text="{x:Static core:L.Home_Focus}" Style="{StaticResource SecondaryButton}" Command="{Binding GoFocusCommand}" />
                 </Grid>
-                <Button Text="⚔️ Duelos 1v1" Style="{StaticResource SecondaryButton}" Command="{Binding GoDuelsCommand}" />
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                    <Button Text="{x:Static core:L.Home_Duels}" Style="{StaticResource SecondaryButton}" Command="{Binding GoDuelsCommand}" />
+                    <Button Grid.Column="1" Text="{x:Static core:L.Home_Practice}" Style="{StaticResource SecondaryButton}" Command="{Binding GoPracticeCommand}" />
+                </Grid>
 
                 <!-- Categorías -->
-                <Label Text="Categorías" Style="{StaticResource TitleText}" FontSize="20" Margin="0,8,0,0" />
+                <Label Text="{x:Static core:L.Home_Categories}" Style="{StaticResource TitleText}" FontSize="20" Margin="0,8,0,0" />
                 <FlexLayout BindableLayout.ItemsSource="{Binding Categories}" Wrap="Wrap" JustifyContent="SpaceBetween">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate x:DataType="core:CategoryDto">

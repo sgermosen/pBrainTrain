@@ -85,6 +85,7 @@ correctas, XP, vidas, compras). El cliente solo presenta y recolecta.
 | GET | `/api/v1/minigames` | — | Catálogo de minijuegos (OutputCache) |
 | POST | `/api/v1/minigames/submit` | ✔ | XP con topes por sesión y por día (anti-farmeo) |
 | POST | `/api/v1/focus/complete` | ✔ | Sesión de enfoque: XP simbólico (10, tope 30/día), cuenta racha |
+| GET | `/api/v1/practice/pack` | ✔ | Pack de práctica offline CON respuestas (no da XP → feedback instantáneo seguro) |
 | GET | `/api/v1/paypal/config` | — | Config pública del portal (client-id) |
 | POST | `/api/v1/duels` (`/join`, `/random`, `/mine`) | ✔ | Duelos 1v1: mismas preguntas, código de 6 letras o rival al azar; +20 XP al ganador |
 | GET/POST | `/api/v1/quests` / `{code}/claim` | ✔ | 3 misiones diarias deterministas con cofres (contadores en la fila del usuario) |
@@ -147,6 +148,19 @@ Errores uniformes como `ProblemDetails` (`title` = código estable, `detail` = m
 - **Push FCM** (opcional): `FcmPushSender` implementa HTTP v1 completo (OAuth de
   service account); `StreakReminderService` avisa una vez al día a quien tiene
   la racha en riesgo. Deshabilitado salvo configuración explícita.
+- **Práctica offline**: `GET /practice/pack` entrega preguntas CON respuesta y
+  explicación (no otorga XP, así que exponerlas es seguro); la app las cachea en
+  local y ofrece feedback instantáneo por pregunta — funciona sin internet.
+- **Preguntas con imagen**: `Question.ImagePath` + imágenes de percepción
+  generadas por código (`tools/generate_image_questions.py`: conteo de formas y
+  "tono distinto", con la respuesta conocida por construcción) servidas desde
+  wwwroot y renderizadas en el quiz y la práctica.
+- **Sonidos y haptics**: efectos procedurales (`tools/generate_sfx.py`) —
+  celebración proporcional (perfecto/normal/suave), moneda al abrir cofres —
+  y vibración sutil al responder. El fallo suena amable: refuerzo, no castigo.
+- **Idiomas (ES/EN/PT)**: diccionarios en `L.cs` aplicados a las pantallas
+  principales con selector en Ajustes (el contenido del juego sigue en español;
+  el patrón permite completar el resto de pantallas incrementalmente).
 
 ### 3.4 Seguridad
 

@@ -9,7 +9,7 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="20,36,20,24" Spacing="14">
-            <Label Text="🛒 Tienda" Style="{StaticResource TitleText}" />
+            <Label Text="{x:Static core:L.Store_Title}" Style="{StaticResource TitleText}" />
 
             <!-- Estado actual -->
             <Border Style="{StaticResource Card}">
@@ -35,9 +35,9 @@
             <!-- Vida gratis viendo un anuncio (tope diario) -->
             <Border Style="{StaticResource Card}" IsVisible="{Binding Profile.ShowAds, FallbackValue=true}">
                 <VerticalStackLayout Spacing="8">
-                    <Label Text="📺 Vida gratis" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" FontSize="16" />
-                    <Label Text="Mira un anuncio corto y recibe ❤️ +1 (hasta 5 al día)." Style="{StaticResource SubtitleText}" FontSize="13" />
-                    <Button Text="Ver anuncio" Style="{StaticResource SecondaryButton}" Command="{Binding WatchAdForLifeCommand}" />
+                    <Label Text="{x:Static core:L.Store_FreeLife}" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" FontSize="16" />
+                    <Label Text="{x:Static core:L.Store_FreeLifeDesc}" Style="{StaticResource SubtitleText}" FontSize="13" />
+                    <Button Text="{x:Static core:L.Store_WatchAd}" Style="{StaticResource SecondaryButton}" Command="{Binding WatchAdForLifeCommand}" />
                 </VerticalStackLayout>
             </Border>
 
@@ -51,10 +51,10 @@
             <!-- Recarga con monedas ganadas jugando -->
             <Border Style="{StaticResource Card}" BackgroundColor="{StaticResource Secondary}">
                 <VerticalStackLayout Spacing="8">
-                    <Label Text="Recarga con monedas" TextColor="{StaticResource Tertiary}" FontFamily="OpenSansSemibold" FontSize="16" />
+                    <Label Text="{x:Static core:L.Store_RefillTitle}" TextColor="{StaticResource Tertiary}" FontFamily="OpenSansSemibold" FontSize="16" />
                     <Label Text="{Binding RefillCoinCost, StringFormat='Cambia {0} 🪙 ganadas jugando por vidas completas.'}"
                            TextColor="{StaticResource Tertiary}" FontSize="13" />
-                    <Button Text="Recargar vidas" Style="{StaticResource PrimaryButton}" Command="{Binding RefillWithCoinsCommand}" />
+                    <Button Text="{x:Static core:L.Store_Refill}" Style="{StaticResource PrimaryButton}" Command="{Binding RefillWithCoinsCommand}" />
                 </VerticalStackLayout>
             </Border>
 

@@ -44,6 +44,7 @@ cd mobile/src/BrainTrain.App && dotnet build -f net10.0-android -t:Run
 - 🛡️ **Ligas por divisiones** (Bronce→Leyenda) con metas semanales claras
 - 🔥 Rachas, XP con niveles, 26 logros, leaderboard semanal, avatares desbloqueables
 - 🔔 Push FCM opcional (racha en riesgo) + panel admin web (`/admin`) + CI GitHub Actions
+- 📴 **Práctica offline** con feedback instantáneo, 🖼️ preguntas con imagen (percepción), 🔊 sonidos/haptics de celebración y 🌐 idiomas ES/EN/PT en pantallas principales
 - 🧩 6 categorías: Lógica, Matemática Mental, Preguntas Capciosas, Curiosidades, Percepción y Memoria, Palabras
 - 🛡️ Servidor autoritativo (anti-trampas), JWT + refresh rotado, cuentas invitado ascendibles
 - ⚡ Diseñado para ~1M de usuarios en un VPS de 2 cores / 4 GB (detalles en IMPLEMENTACION.md)

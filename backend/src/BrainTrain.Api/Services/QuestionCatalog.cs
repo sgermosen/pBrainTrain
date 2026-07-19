@@ -9,10 +9,11 @@ namespace BrainTrain.Api.Services;
 public sealed record CatalogChoice(int Id, string Text, bool IsCorrect);
 public sealed record CatalogQuestion(
     int Id, int CategoryId, QuestionType Type, int Difficulty,
-    string Text, string Explanation, string? FunFact, IReadOnlyList<CatalogChoice> Choices)
+    string Text, string Explanation, string? FunFact, string? ImagePath,
+    IReadOnlyList<CatalogChoice> Choices)
 {
     public int CorrectChoiceId => Choices.First(c => c.IsCorrect).Id;
-    public QuestionDto ToDto() => new(Id, CategoryId, Type, Difficulty, Text,
+    public QuestionDto ToDto() => new(Id, CategoryId, Type, Difficulty, Text, ImagePath,
         Choices.Select(c => new ChoiceDto(c.Id, c.Text)).ToList());
 }
 
@@ -75,7 +76,7 @@ public sealed class QuestionCatalog(
         var byId = questions.ToDictionary(
             q => q.Id,
             q => new CatalogQuestion(q.Id, q.CategoryId, q.Type, q.Difficulty, q.Text,
-                q.Explanation, q.FunFact,
+                q.Explanation, q.FunFact, q.ImagePath,
                 q.Choices.OrderBy(c => c.SortOrder).Select(c => new CatalogChoice(c.Id, c.Text, c.IsCorrect)).ToList()));
 
         var byCategory = questions.GroupBy(q => q.CategoryId)

@@ -42,3 +42,29 @@ public sealed class FocusAudioPlayer(IAudioManager audioManager) : IFocusAudioPl
 
     public void Dispose() => _ = StopAsync();
 }
+
+/// <summary>Efectos cortos de celebración (assets procedurales en Raw/sfx).</summary>
+public sealed class MauiSfxPlayer(IAudioManager audioManager) : ISfxPlayer
+{
+    public async Task PlayAsync(Sfx sound)
+    {
+        try
+        {
+            var name = sound switch
+            {
+                Sfx.Perfect => "perfect",
+                Sfx.Coin => "coin",
+                Sfx.Soft => "soft",
+                _ => "success"
+            };
+            var stream = await FileSystem.OpenAppPackageFileAsync($"sfx/{name}.wav");
+            var player = audioManager.CreatePlayer(stream);
+            player.PlaybackEnded += (_, _) => player.Dispose();
+            player.Play();
+        }
+        catch (Exception)
+        {
+            // El sonido nunca debe tumbar la app.
+        }
+    }
+}

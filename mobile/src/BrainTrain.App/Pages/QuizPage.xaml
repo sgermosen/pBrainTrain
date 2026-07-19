@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:BrainTrain.App.Core.ViewModels;assembly=BrainTrain.App.Core"
+             xmlns:core="clr-namespace:BrainTrain.App.Core;assembly=BrainTrain.App.Core"
              x:Class="BrainTrain.App.Pages.QuizPage"
              x:DataType="vm:QuizViewModel"
              Style="{StaticResource PageStyle}"
@@ -30,6 +31,8 @@
                 <Border Style="{StaticResource Card}" MinimumHeightRequest="140">
                     <VerticalStackLayout Spacing="8">
                         <Label Text="{Binding CategoryBadge}" TextColor="{StaticResource Amber}" FontSize="13" />
+                        <Image Source="{Binding ImageUrl}" HeightRequest="180" Aspect="AspectFit"
+                               IsVisible="{Binding ImageUrl, Converter={StaticResource NotNull}}" />
                         <Label Text="{Binding QuestionText}" Style="{StaticResource BodyText}" FontSize="19"
                                FontFamily="OpenSansSemibold" LineBreakMode="WordWrap" />
                     </VerticalStackLayout>
@@ -61,7 +64,7 @@
         <!-- Confirmar -->
         <VerticalStackLayout Grid.Row="4" Spacing="8">
             <ActivityIndicator IsRunning="{Binding IsSubmitting}" IsVisible="{Binding IsSubmitting}" />
-            <Button Text="Confirmar respuesta" Style="{StaticResource PrimaryButton}"
+            <Button Text="{x:Static core:L.Quiz_Confirm}" Style="{StaticResource PrimaryButton}"
                     Command="{Binding ConfirmCommand}" IsEnabled="{Binding CanConfirm}" />
         </VerticalStackLayout>
     </Grid>

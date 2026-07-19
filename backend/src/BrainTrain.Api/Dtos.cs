@@ -26,7 +26,13 @@ public sealed record UpdateProfileRequest(string? DisplayName, string? AvatarCod
 // ---------- Contenido ----------
 public sealed record CategoryDto(int Id, string Slug, string Name, string Emoji, string Color, string Description);
 public sealed record ChoiceDto(int Id, string Text);
-public sealed record QuestionDto(int Id, int CategoryId, QuestionType Type, int Difficulty, string Text, IReadOnlyList<ChoiceDto> Choices);
+public sealed record QuestionDto(int Id, int CategoryId, QuestionType Type, int Difficulty, string Text, string? ImageUrl, IReadOnlyList<ChoiceDto> Choices);
+
+// ---------- Práctica offline (con respuestas: no otorga XP) ----------
+public sealed record PracticeQuestionDto(
+    int Id, int CategoryId, QuestionType Type, int Difficulty, string Text, string? ImageUrl,
+    IReadOnlyList<ChoiceDto> Choices, int CorrectChoiceId, string Explanation, string? FunFact);
+public sealed record PracticePackDto(DateTime GeneratedAtUtc, IReadOnlyList<PracticeQuestionDto> Questions);
 
 // ---------- Juego ----------
 public sealed record StartGameRequest(GameMode Mode, int? CategoryId);
@@ -138,6 +144,7 @@ public sealed record ApiInfoDto(string Name, string Version, string Environment)
 [JsonSerializable(typeof(SubmitGameRequest))]
 [JsonSerializable(typeof(GameResultDto))]
 [JsonSerializable(typeof(DailyStatusDto))]
+[JsonSerializable(typeof(PracticePackDto))]
 [JsonSerializable(typeof(List<AchievementDto>))]
 [JsonSerializable(typeof(LeaderboardDto))]
 [JsonSerializable(typeof(StoreCatalogDto))]

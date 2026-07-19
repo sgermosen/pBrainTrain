@@ -66,6 +66,20 @@ public sealed class NoopShareService : IShareService
     public Task ShareTextAsync(string title, string text) { LastShared = text; return Task.CompletedTask; }
 }
 
+/// <summary>Efectos de sonido cortos (celebración proporcional, no ruido).</summary>
+public enum Sfx { Success, Perfect, Coin, Soft }
+
+public interface ISfxPlayer
+{
+    Task PlayAsync(Sfx sound);
+}
+
+public sealed class NoopSfxPlayer : ISfxPlayer
+{
+    public Sfx? LastPlayed { get; private set; }
+    public Task PlayAsync(Sfx sound) { LastPlayed = sound; return Task.CompletedTask; }
+}
+
 /// <summary>Vibración sutil de feedback (refuerzo táctil, no molestia).</summary>
 public interface IHaptics
 {

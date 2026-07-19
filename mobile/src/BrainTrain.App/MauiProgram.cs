@@ -20,6 +20,9 @@ public static class MauiProgram
 
     public static MauiApp CreateMauiApp()
     {
+        // Idioma de la UI (es/en/pt) elegido en Ajustes.
+        BrainTrain.App.Core.L.SetLanguage(Preferences.Get(BrainTrain.App.Core.L.PrefKey, "es"));
+
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
@@ -59,6 +62,7 @@ public static class MauiProgram
         services.AddSingleton<IFocusAudioPlayer, FocusAudioPlayer>();
         services.AddSingleton<IShareService, MauiShareService>();
         services.AddSingleton<IHaptics, MauiHaptics>();
+        services.AddSingleton<ISfxPlayer, MauiSfxPlayer>();
 
         // ---------- ViewModels ----------
         services.AddTransient<OnboardingViewModel>();
@@ -80,6 +84,7 @@ public static class MauiProgram
         services.AddTransient<SpotDiffViewModel>();
         services.AddTransient<RubikGuideViewModel>();
         services.AddTransient<DuelsViewModel>();
+        services.AddTransient<PracticeViewModel>();
         services.AddTransient<StroopViewModel>();
         services.AddTransient<ChainCalcViewModel>();
         services.AddTransient<NBackViewModel>();
@@ -107,6 +112,7 @@ public static class MauiProgram
         services.AddTransient<SpotDiffPage>();
         services.AddTransient<RubikGuidePage>();
         services.AddTransient<DuelsPage>();
+        services.AddTransient<PracticePage>();
         services.AddTransient<StroopPage>();
         services.AddTransient<ChainCalcPage>();
         services.AddTransient<NBackPage>();

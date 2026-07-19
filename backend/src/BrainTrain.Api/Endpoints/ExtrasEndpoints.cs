@@ -58,6 +58,26 @@ public static class ExtrasEndpoints
             Results.Ok(await minigames.SubmitAsync(http.User.UserId(), req, ct)))
             .RequireAuthorization();
 
+        // ---------- Práctica offline ----------
+        // Devuelve preguntas CON respuesta y explicación para practicar sin
+        // conexión. No otorga XP (por eso exponer la respuesta no rompe nada)
+        // y de regalo permite feedback instantáneo por pregunta.
+        app.MapGet("/api/v1/practice/pack", async (QuestionCatalog catalog, int? count, CancellationToken ct) =>
+        {
+            var snap = await catalog.GetAsync(ct);
+            var n = Math.Clamp(count ?? 40, 10, 80);
+            var questions = snap.AllQuestionIds
+                .OrderBy(_ => Random.Shared.Next())
+                .Take(n)
+                .Select(id => snap.QuestionsById[id])
+                .Select(q => new PracticeQuestionDto(
+                    q.Id, q.CategoryId, q.Type, q.Difficulty, q.Text, q.ImagePath,
+                    q.Choices.Select(c => new ChoiceDto(c.Id, c.Text)).ToList(),
+                    q.CorrectChoiceId, q.Explanation, q.FunFact))
+                .ToList();
+            return Results.Ok(new PracticePackDto(DateTime.UtcNow, questions));
+        }).RequireAuthorization();
+
         // ---------- Sesiones de enfoque (flow/respiración/NSDR) ----------
         // XP simbólico y capado: el incentivo es el hábito, no farmear el leaderboard.
         app.MapPost("/api/v1/focus/complete", async (FocusCompleteRequest req, HttpContext http,

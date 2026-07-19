@@ -245,6 +245,8 @@ public partial class SettingsViewModel(
         RemindersEnabled = prefs.Get(ReminderEnabledKey) == "1";
         if (TimeSpan.TryParse(prefs.Get(ReminderHourKey), out var t))
             ReminderTime = t;
+        var lang = prefs.Get(L.PrefKey, "es");
+        LanguageIndex = Array.FindIndex(L.Languages, l => l.Code == lang) is var i and >= 0 ? i : 0;
         try { Profile = await api.GetProfileAsync(); }
         catch (ApiException e) { Error = e.Message; }
         catch (HttpRequestException) { Error = "Sin conexión."; }
@@ -274,6 +276,21 @@ public partial class SettingsViewModel(
         }
         prefs.Set(ReminderEnabledKey, RemindersEnabled ? "1" : "0");
         prefs.Set(ReminderHourKey, ReminderTime.ToString());
+    }
+
+    // ----- Idioma (ES/EN/PT) -----
+    public IReadOnlyList<string> LanguageNames { get; } = L.Languages.Select(l => l.Name).ToList();
+
+    [ObservableProperty] private int _languageIndex;
+
+    /// <summary>El cambio del Picker aplica el idioma al instante (páginas nuevas).</summary>
+    partial void OnLanguageIndexChanged(int value)
+    {
+        var code = L.Languages[Math.Clamp(value, 0, L.Languages.Length - 1)].Code;
+        if (prefs.Get(L.PrefKey, "es") == code) return;
+        prefs.Set(L.PrefKey, code);
+        L.SetLanguage(code);
+        Message = L.Settings_LanguageNote;
     }
 
     [RelayCommand]

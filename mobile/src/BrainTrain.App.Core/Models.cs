@@ -22,7 +22,13 @@ public sealed record UpdateProfileRequest(string? DisplayName, string? AvatarCod
 
 public sealed record CategoryDto(int Id, string Slug, string Name, string Emoji, string Color, string Description);
 public sealed record ChoiceDto(int Id, string Text);
-public sealed record QuestionDto(int Id, int CategoryId, string Type, int Difficulty, string Text, List<ChoiceDto> Choices);
+public sealed record QuestionDto(int Id, int CategoryId, string Type, int Difficulty, string Text, string? ImageUrl, List<ChoiceDto> Choices);
+
+// ---------- Práctica offline ----------
+public sealed record PracticeQuestionDto(
+    int Id, int CategoryId, string Type, int Difficulty, string Text, string? ImageUrl,
+    List<ChoiceDto> Choices, int CorrectChoiceId, string Explanation, string? FunFact);
+public sealed record PracticePackDto(DateTime GeneratedAtUtc, List<PracticeQuestionDto> Questions);
 
 public sealed record StartGameRequest(string Mode, int? CategoryId);
 public sealed record StartGameResponse(Guid SessionId, List<QuestionDto> Questions, LivesDto Lives);

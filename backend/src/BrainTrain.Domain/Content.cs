@@ -33,6 +33,9 @@ public class Question
     public string Explanation { get; set; } = string.Empty;
     public string? FunFact { get; set; }
 
+    /// <summary>Ruta relativa de la imagen (servida desde wwwroot), ej. "img/q/p1.png".</summary>
+    public string? ImagePath { get; set; }
+
     public bool IsActive { get; set; } = true;
 
     public ICollection<Choice> Choices { get; set; } = [];

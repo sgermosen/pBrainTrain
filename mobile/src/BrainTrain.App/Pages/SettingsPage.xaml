@@ -2,40 +2,50 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:BrainTrain.App.Core.ViewModels;assembly=BrainTrain.App.Core"
+             xmlns:core="clr-namespace:BrainTrain.App.Core;assembly=BrainTrain.App.Core"
              x:Class="BrainTrain.App.Pages.SettingsPage"
              x:DataType="vm:SettingsViewModel"
              Style="{StaticResource PageStyle}">
 
     <ScrollView>
         <VerticalStackLayout Padding="20,36,20,24" Spacing="14">
-            <Label Text="⚙️ Ajustes" Style="{StaticResource TitleText}" />
+            <Label Text="{x:Static core:L.Settings_Title}" Style="{StaticResource TitleText}" />
 
             <!-- Recordatorio diario -->
             <Border Style="{StaticResource Card}">
                 <VerticalStackLayout Spacing="10">
                     <Grid ColumnDefinitions="*,Auto">
                         <VerticalStackLayout Spacing="2">
-                            <Label Text="Recordatorio del reto diario" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" />
-                            <Label Text="Una notificación al día para no perder tu racha." Style="{StaticResource SubtitleText}" FontSize="13" />
+                            <Label Text="{x:Static core:L.Settings_Reminder}" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" />
+                            <Label Text="{x:Static core:L.Settings_ReminderDesc}" Style="{StaticResource SubtitleText}" FontSize="13" />
                         </VerticalStackLayout>
                         <Switch Grid.Column="1" IsToggled="{Binding RemindersEnabled}" OnColor="{StaticResource Primary}" />
                     </Grid>
                     <Grid ColumnDefinitions="*,Auto" IsVisible="{Binding RemindersEnabled}">
-                        <Label Text="Hora" Style="{StaticResource BodyText}" VerticalOptions="Center" />
+                        <Label Text="{x:Static core:L.Settings_Hour}" Style="{StaticResource BodyText}" VerticalOptions="Center" />
                         <TimePicker Grid.Column="1" Time="{Binding ReminderTime}" />
                     </Grid>
-                    <Button Text="Guardar recordatorio" Style="{StaticResource SecondaryButton}" Command="{Binding ApplyRemindersCommand}" />
+                    <Button Text="{x:Static core:L.Settings_SaveReminder}" Style="{StaticResource SecondaryButton}" Command="{Binding ApplyRemindersCommand}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Idioma -->
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="{x:Static core:L.Settings_Language}" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" />
+                    <Picker ItemsSource="{Binding LanguageNames}" SelectedIndex="{Binding LanguageIndex}" />
+                    <Label Text="{x:Static core:L.Settings_LanguageNote}" Style="{StaticResource SubtitleText}" FontSize="11" />
                 </VerticalStackLayout>
             </Border>
 
             <!-- Cuenta -->
             <Border Style="{StaticResource Card}">
                 <VerticalStackLayout Spacing="10">
-                    <Label Text="Cuenta" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" />
+                    <Label Text="{x:Static core:L.Settings_Account}" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" />
                     <Label Text="{Binding Profile.Email, FallbackValue='Jugando como invitado'}" Style="{StaticResource SubtitleText}" />
-                    <Button Text="Guardar mi progreso (crear cuenta)" Style="{StaticResource PrimaryButton}"
+                    <Button Text="{x:Static core:L.Settings_SaveProgress}" Style="{StaticResource PrimaryButton}"
                             Command="{Binding GoUpgradeCommand}" IsVisible="{Binding Profile.IsGuest, FallbackValue=false}" />
-                    <Button Text="Cerrar sesión" Style="{StaticResource SecondaryButton}" Command="{Binding LogoutCommand}" />
+                    <Button Text="{x:Static core:L.Settings_Logout}" Style="{StaticResource SecondaryButton}" Command="{Binding LogoutCommand}" />
                 </VerticalStackLayout>
             </Border>
 

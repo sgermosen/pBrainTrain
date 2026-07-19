@@ -6,7 +6,7 @@ public class QuizEngineTests
 {
     private static List<QuestionDto> Questions(int n) =>
         Enumerable.Range(1, n).Select(i => new QuestionDto(
-            i, 1, "multipleChoice", 2, $"Pregunta {i}",
+            i, 1, "multipleChoice", 2, $"Pregunta {i}", null,
             [new ChoiceDto(i * 10, "A"), new ChoiceDto(i * 10 + 1, "B")])).ToList();
 
     [Fact]

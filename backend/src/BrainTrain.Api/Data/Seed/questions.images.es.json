@@ -1,0 +1,220 @@
+{
+  "questions": [
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "Observa la imagen: ¿cuántos triángulos hay?",
+      "imagePath": "img/q/p1.png",
+      "choices": [
+        {
+          "text": "7",
+          "isCorrect": false
+        },
+        {
+          "text": "10",
+          "isCorrect": false
+        },
+        {
+          "text": "9",
+          "isCorrect": false
+        },
+        {
+          "text": "8",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "Hay exactamente 8. Contar en grupos pequeños (de 2 o 3) y por zonas reduce los errores de conteo.",
+      "funFact": "El cerebro solo 'subitiza' (cuenta de un vistazo) hasta ~4 elementos; después necesita contar."
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "Observa la imagen: ¿cuántos estrellas hay?",
+      "imagePath": "img/q/p2.png",
+      "choices": [
+        {
+          "text": "7",
+          "isCorrect": true
+        },
+        {
+          "text": "8",
+          "isCorrect": false
+        },
+        {
+          "text": "6",
+          "isCorrect": false
+        },
+        {
+          "text": "9",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Hay exactamente 7. Contar en grupos pequeños (de 2 o 3) y por zonas reduce los errores de conteo.",
+      "funFact": "El cerebro solo 'subitiza' (cuenta de un vistazo) hasta ~4 elementos; después necesita contar."
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "Observa la imagen: ¿cuántos círculos hay?",
+      "imagePath": "img/q/p3.png",
+      "choices": [
+        {
+          "text": "7",
+          "isCorrect": false
+        },
+        {
+          "text": "9",
+          "isCorrect": false
+        },
+        {
+          "text": "8",
+          "isCorrect": true
+        },
+        {
+          "text": "10",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Hay exactamente 8. Contar en grupos pequeños (de 2 o 3) y por zonas reduce los errores de conteo.",
+      "funFact": "El cerebro solo 'subitiza' (cuenta de un vistazo) hasta ~4 elementos; después necesita contar."
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "Observa la imagen: ¿cuántos cuadrados hay?",
+      "imagePath": "img/q/p4.png",
+      "choices": [
+        {
+          "text": "9",
+          "isCorrect": true
+        },
+        {
+          "text": "11",
+          "isCorrect": false
+        },
+        {
+          "text": "10",
+          "isCorrect": false
+        },
+        {
+          "text": "8",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Hay exactamente 9. Contar en grupos pequeños (de 2 o 3) y por zonas reduce los errores de conteo.",
+      "funFact": "El cerebro solo 'subitiza' (cuenta de un vistazo) hasta ~4 elementos; después necesita contar."
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 2,
+      "text": "Observa la imagen: ¿cuántos triángulos hay?",
+      "imagePath": "img/q/p5.png",
+      "choices": [
+        {
+          "text": "8",
+          "isCorrect": false
+        },
+        {
+          "text": "6",
+          "isCorrect": true
+        },
+        {
+          "text": "7",
+          "isCorrect": false
+        },
+        {
+          "text": "5",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Hay exactamente 6. Contar en grupos pequeños (de 2 o 3) y por zonas reduce los errores de conteo.",
+      "funFact": "El cerebro solo 'subitiza' (cuenta de un vistazo) hasta ~4 elementos; después necesita contar."
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "Observa la imagen: ¿cuántos estrellas hay?",
+      "imagePath": "img/q/p6.png",
+      "choices": [
+        {
+          "text": "10",
+          "isCorrect": false
+        },
+        {
+          "text": "9",
+          "isCorrect": false
+        },
+        {
+          "text": "7",
+          "isCorrect": false
+        },
+        {
+          "text": "8",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "Hay exactamente 8. Contar en grupos pequeños (de 2 o 3) y por zonas reduce los errores de conteo.",
+      "funFact": "El cerebro solo 'subitiza' (cuenta de un vistazo) hasta ~4 elementos; después necesita contar."
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "Uno de los círculos tiene un tono ligeramente distinto. ¿En qué fila está?",
+      "imagePath": "img/q/p7.png",
+      "choices": [
+        {
+          "text": "En la primera fila",
+          "isCorrect": false
+        },
+        {
+          "text": "En la segunda fila",
+          "isCorrect": false
+        },
+        {
+          "text": "En la tercera fila",
+          "isCorrect": false
+        },
+        {
+          "text": "En la cuarta fila",
+          "isCorrect": true
+        }
+      ],
+      "explanation": "Está en la cuarta fila. Barrer la imagen por filas, sin fijar la vista, hace saltar la diferencia de tono.",
+      "funFact": "La visión periférica detecta diferencias de contraste mejor que la visión central enfocada."
+    },
+    {
+      "category": "percepcion",
+      "type": "multiple_choice",
+      "difficulty": 3,
+      "text": "Uno de los círculos tiene un tono ligeramente distinto. ¿En qué fila está?",
+      "imagePath": "img/q/p8.png",
+      "choices": [
+        {
+          "text": "En la primera fila",
+          "isCorrect": true
+        },
+        {
+          "text": "En la segunda fila",
+          "isCorrect": false
+        },
+        {
+          "text": "En la tercera fila",
+          "isCorrect": false
+        },
+        {
+          "text": "En la cuarta fila",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "Está en la primera fila. Barrer la imagen por filas, sin fijar la vista, hace saltar la diferencia de tono.",
+      "funFact": "La visión periférica detecta diferencias de contraste mejor que la visión central enfocada."
+    }
+  ]
+}

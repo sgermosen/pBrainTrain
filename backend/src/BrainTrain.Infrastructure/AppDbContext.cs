@@ -66,6 +66,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             e.Property(x => x.Text).HasMaxLength(600);
             e.Property(x => x.Explanation).HasMaxLength(800);
             e.Property(x => x.FunFact).HasMaxLength(500);
+            e.Property(x => x.ImagePath).HasMaxLength(200);
             // Cubre la selección de preguntas por categoría/dificultad activas
             e.HasIndex(x => new { x.CategoryId, x.IsActive, x.Difficulty });
             e.HasOne(x => x.Category).WithMany(c => c.Questions)

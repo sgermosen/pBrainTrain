@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BrainTrain.App.Core.ViewModels;assembly=BrainTrain.App.Core"
+             xmlns:core="clr-namespace:BrainTrain.App.Core;assembly=BrainTrain.App.Core"
+             x:Class="BrainTrain.App.Pages.PracticePage"
+             x:DataType="vm:PracticeViewModel"
+             Style="{StaticResource PageStyle}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,32,20,24" Spacing="12">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <Button Text="✕" FontSize="18" BackgroundColor="Transparent" Clicked="OnClose"
+                        TextColor="{AppThemeBinding Light={StaticResource MutedLight}, Dark={StaticResource MutedDark}}" />
+                <Label Grid.Column="1" Text="{x:Static core:L.Practice_Title}" Style="{StaticResource TitleText}" FontSize="22"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+                <Label Grid.Column="2" Style="{StaticResource BodyText}" FontFamily="OpenSansSemibold" VerticalOptions="Center">
+                    <Label.Text>
+                        <MultiBinding StringFormat="{}{0}/{1}">
+                            <Binding Path="CorrectCount" />
+                            <Binding Path="TotalCount" />
+                        </MultiBinding>
+                    </Label.Text>
+                </Label>
+            </Grid>
+
+            <Label Text="{x:Static core:L.Practice_Desc}" Style="{StaticResource SubtitleText}" FontSize="12" HorizontalTextAlignment="Center" />
+            <Label Text="{x:Static core:L.Practice_Offline}" TextColor="{StaticResource Amber}" FontSize="12"
+                   FontFamily="OpenSansSemibold" HorizontalOptions="Center" IsVisible="{Binding IsOffline}" />
+            <Label Text="{Binding Error}" TextColor="{StaticResource Danger}"
+                   IsVisible="{Binding Error, Converter={StaticResource NotNull}}" HorizontalTextAlignment="Center" />
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="8">
+                    <Image Source="{Binding ImageUrl}" HeightRequest="180" Aspect="AspectFit"
+                           IsVisible="{Binding ImageUrl, Converter={StaticResource NotNull}}" />
+                    <Label Text="{Binding QuestionText}" Style="{StaticResource BodyText}" FontSize="18"
+                           FontFamily="OpenSansSemibold" LineBreakMode="WordWrap" />
+                </VerticalStackLayout>
+            </Border>
+
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Choices}" Spacing="10">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="vm:PracticeChoice">
+                        <Border StrokeShape="RoundRectangle 16" StrokeThickness="0" Padding="16,14"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}">
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border" Binding="{Binding ShowCorrect}" Value="True">
+                                    <Setter Property="BackgroundColor" Value="#C9F2CB" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Border" Binding="{Binding ShowWrong}" Value="True">
+                                    <Setter Property="BackgroundColor" Value="#FBD3D2" />
+                                </DataTrigger>
+                            </Border.Triggers>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PracticeViewModel}}, Path=AnswerCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+                            <Label Text="{Binding Text}" Style="{StaticResource BodyText}" TextColor="#241F45" LineBreakMode="WordWrap" />
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+
+            <!-- Feedback instantáneo con la explicación (el corazón didáctico) -->
+            <Border Style="{StaticResource Card}" BackgroundColor="{StaticResource Secondary}" IsVisible="{Binding Answered}">
+                <VerticalStackLayout Spacing="6">
+                    <Label FontFamily="OpenSansSemibold" FontSize="16" TextColor="{StaticResource Tertiary}">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding WasCorrect}" Value="True">
+                                <Setter Property="Text" Value="{x:Static core:L.Practice_Correct}" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Label" Binding="{Binding WasCorrect}" Value="False">
+                                <Setter Property="Text" Value="{x:Static core:L.Practice_Wrong}" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                    <Label Text="{Binding Explanation}" TextColor="{StaticResource Tertiary}" FontSize="14" LineBreakMode="WordWrap" />
+                    <Label Text="{Binding FunFact, StringFormat='💡 {0}'}" TextColor="{StaticResource Amber}" FontSize="13"
+                           LineBreakMode="WordWrap" IsVisible="{Binding FunFact, Converter={StaticResource NotNull}}" />
+                    <Button Text="{x:Static core:L.Practice_Next}" Style="{StaticResource PrimaryButton}" Command="{Binding NextQuestionCommand}" />
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -55,7 +55,7 @@
             </VerticalStackLayout>
 
             <!-- Repaso didáctico: la lógica detrás de cada respuesta -->
-            <Label Text="Aprende de cada pregunta" Style="{StaticResource TitleText}" FontSize="20" Margin="0,10,0,0" />
+            <Label Text="{x:Static core:L.Results_Learn}" Style="{StaticResource TitleText}" FontSize="20" Margin="0,10,0,0" />
             <VerticalStackLayout BindableLayout.ItemsSource="{Binding Review}" Spacing="10">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="vm:ReviewItem">
@@ -78,8 +78,8 @@
                 </BindableLayout.ItemTemplate>
             </VerticalStackLayout>
 
-            <Button Text="📤 Compartir mi resultado" Style="{StaticResource AmberButton}" Command="{Binding ShareCommand}" Margin="0,10,0,0" />
-            <Button Text="Seguir jugando" Style="{StaticResource PrimaryButton}" Command="{Binding PlayAgainCommand}" />
+            <Button Text="{x:Static core:L.Results_Share}" Style="{StaticResource AmberButton}" Command="{Binding ShareCommand}" Margin="0,10,0,0" />
+            <Button Text="{x:Static core:L.Results_KeepPlaying}" Style="{StaticResource PrimaryButton}" Command="{Binding PlayAgainCommand}" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

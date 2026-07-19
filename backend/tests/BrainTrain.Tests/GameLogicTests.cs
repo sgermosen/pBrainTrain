@@ -12,7 +12,7 @@ public class GameLogicTests
         for (var i = 1; i <= questions; i++)
         {
             byId[i] = new CatalogQuestion(i, CategoryId: 1 + i % 3, QuestionType.MultipleChoice,
-                Difficulty: 1 + i % 5, $"P{i}", "expl", null,
+                Difficulty: 1 + i % 5, $"P{i}", "expl", null, null,
                 [new CatalogChoice(i * 10, "a", true), new CatalogChoice(i * 10 + 1, "b", false)]);
         }
         var byCat = byId.Values.GroupBy(q => q.CategoryId).ToDictionary(g => g.Key, g => g.Select(q => q.Id).ToArray());

@@ -9,7 +9,7 @@ namespace BrainTrain.App.Core.ViewModels;
 /// destacado, juego rápido y categorías.
 /// </summary>
 public partial class HomeViewModel(
-    ApiClient api, GameFlow flow, INavigationService nav) : ObservableObject
+    ApiClient api, GameFlow flow, INavigationService nav, ISfxPlayer? sfx = null) : ObservableObject
 {
     [ObservableProperty] private ProfileDto? _profile;
     [ObservableProperty] private DailyStatusDto? _daily;
@@ -84,6 +84,7 @@ public partial class HomeViewModel(
         {
             var result = await api.ClaimQuestAsync(quest.Code);
             Profile = result.Profile;
+            _ = sfx?.PlayAsync(Sfx.Coin);
             QuestMessage = $"🎁 +{result.CoinsGranted} 🪙 y +{result.XpGranted} XP";
             var i = Quests.IndexOf(quest);
             if (i >= 0) Quests[i] = quest with { Claimed = true };
@@ -121,6 +122,7 @@ public partial class HomeViewModel(
 
     [RelayCommand] private Task GoTrainingAsync() => nav.GoToAsync("training");
     [RelayCommand] private Task GoDuelsAsync() => nav.GoToAsync("duels");
+    [RelayCommand] private Task GoPracticeAsync() => nav.GoToAsync("practice");
     [RelayCommand] private Task GoFocusAsync() => nav.GoToAsync("focus");
     [RelayCommand] private Task GoProfileAsync() => nav.GoToAsync("profile");
     [RelayCommand] private Task GoStoreAsync() => nav.GoToAsync("store");

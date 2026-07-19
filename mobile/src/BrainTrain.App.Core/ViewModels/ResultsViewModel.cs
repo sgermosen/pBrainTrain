@@ -16,7 +16,8 @@ public sealed record ReviewItem(
 /// no dopamina vacía) y repaso didáctico con la lógica de cada respuesta —
 /// el momento de aprendizaje más importante de la app.
 /// </summary>
-public partial class ResultsViewModel(GameFlow flow, INavigationService nav, IShareService? share = null) : ObservableObject
+public partial class ResultsViewModel(
+    GameFlow flow, INavigationService nav, IShareService? share = null, ISfxPlayer? sfx = null) : ObservableObject
 {
     [ObservableProperty] private string _headline = "";
     [ObservableProperty] private string _scoreLabel = "";
@@ -40,6 +41,8 @@ public partial class ResultsViewModel(GameFlow flow, INavigationService nav, ISh
         LeveledUp = r.LevelUp;
         NewLevel = r.Level;
         var ratio = r.Total == 0 ? 0 : (double)r.Correct / r.Total;
+        // Celebración sonora proporcional al logro.
+        _ = sfx?.PlayAsync(r.IsPerfect ? Sfx.Perfect : ratio >= 0.4 ? Sfx.Success : Sfx.Soft);
         Headline = r.IsPerfect ? "¡PERFECTO! 🌟"
             : ratio >= 0.7 ? "¡Muy bien! 🎉"
             : ratio >= 0.4  ? "¡Buen intento! 💪"

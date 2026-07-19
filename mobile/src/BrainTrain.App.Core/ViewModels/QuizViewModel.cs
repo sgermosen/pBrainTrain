@@ -37,6 +37,7 @@ public partial class QuizViewModel : ObservableObject, IDisposable
     public ObservableCollection<ChoiceItem> Choices { get; } = [];
 
     [ObservableProperty] private string _questionText = string.Empty;
+    [ObservableProperty] private string? _imageUrl;
     [ObservableProperty] private string _categoryBadge = string.Empty;
     [ObservableProperty] private string _progressLabel = string.Empty;
     [ObservableProperty] private double _progress;
@@ -72,6 +73,7 @@ public partial class QuizViewModel : ObservableObject, IDisposable
             Choices.Add(new ChoiceItem(c));
 
         QuestionText = q.Text;
+        ImageUrl = q.ImageUrl is null ? null : _api.BaseUrl + q.ImageUrl;
         CategoryBadge = new string('★', q.Difficulty);
         ProgressLabel = $"{_engine.Index + 1} de {_engine.Total}";
         Progress = _engine.Progress;

@@ -162,6 +162,51 @@ public class SocialE2ETests : IClassFixture<BackendFixture>
     }
 
     [Fact]
+    public async Task Practica_DescargaPack_YFuncionaOfflineConCache()
+    {
+        var (api, _) = await LoggedGuestAsync();
+        var prefs = new InMemoryPreferences();
+
+        // Con conexión: descarga el pack y responde con feedback instantáneo.
+        var vm = new PracticeViewModel(api, prefs);
+        await vm.LoadAsync();
+        Assert.False(vm.IsOffline);
+        Assert.NotEmpty(vm.Choices);
+
+        var any = vm.Choices[0];
+        vm.AnswerCommand.Execute(any);
+        Assert.True(vm.Answered);
+        Assert.False(string.IsNullOrEmpty(vm.Explanation)); // la lógica, siempre
+        Assert.Equal(1, vm.TotalCount);
+        vm.NextQuestionCommand.Execute(null);
+        Assert.False(vm.Answered);
+
+        // "Sin conexión": un ApiClient roto usa el pack cacheado en preferencias.
+        var deadApi = new ApiClient(
+            new HttpClient { BaseAddress = new Uri("http://127.0.0.1:9") }, new InMemoryTokenStore());
+        var offline = new PracticeViewModel(deadApi, prefs);
+        await offline.LoadAsync();
+        Assert.True(offline.IsOffline);
+        Assert.NotEmpty(offline.Choices);
+    }
+
+    [Fact]
+    public async Task PackDePractica_IncluyeRespuestasYExplicaciones()
+    {
+        var (api, _) = await LoggedGuestAsync();
+        var pack = await api.GetPracticePackAsync(20);
+        Assert.Equal(20, pack.Questions.Count);
+        Assert.All(pack.Questions, q =>
+        {
+            Assert.Contains(q.Choices, c => c.Id == q.CorrectChoiceId);
+            Assert.False(string.IsNullOrEmpty(q.Explanation));
+        });
+        // Las preguntas con imagen del seed viajan con su URL relativa.
+        var all = await api.GetPracticePackAsync(80);
+        Assert.Contains(all.Questions, q => q.ImageUrl is not null);
+    }
+
+    [Fact]
     public async Task Liga_apareceEnElPerfil()
     {
         var (api, _) = await LoggedGuestAsync();
