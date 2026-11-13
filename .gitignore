@@ -393,3 +393,19 @@ Jmo.web/appsettings.Development.json
 # .NET MAUI / modern build outputs
 .idea/
 *.binlog
+
+# Secretos y credenciales: nunca se versionan
+*.keystore
+*.jks
+*.p12
+*.p8
+*.pem
+*.key
+google-services.json
+GoogleService-Info.plist
+.env
+.env.*
+appsettings.Production.json
+appsettings.*.local.json
+secrets.json
+!.env.example
